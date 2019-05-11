@@ -41,6 +41,8 @@ canvas {
 .title {
     font-size: 50px;
     text-align: center;
+    font-family: "Optima";
+    margin-top: 10px;
 }
 
 .subtitle {
