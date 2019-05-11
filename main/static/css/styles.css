@@ -16,6 +16,10 @@ footer {
     background: #6cf;
 }
 
+.footer-text {
+    text-align: center;
+}
+
 canvas {
     background: black; 
     display: block;
