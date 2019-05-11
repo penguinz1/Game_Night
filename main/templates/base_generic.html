@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}<title>Game Night</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1">
+
+    <!-- Add CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
+</head>
+<body>
+    <ul class="navbar">
+        <a href=""><li id="game-night-stamp">Game Night at UIUC</li></a>
+        <a href=""><li>Time & Location</li></a>
+        <a href=""><li>Games</li></a>
+        <a href=""><li>Email List</li></a>
+        <a href=""><li>Contact</li></a>
+        <a href=""><li>Email Structure (Officers only)</li></a>
+    </ul>
+    <div class="content">{% block content %}{% endblock %}</div>
+    <footer>
+        Generic Footer Here
+    </footer>
+</body>

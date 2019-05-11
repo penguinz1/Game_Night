@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div class="space-game-container">
+        <p class="code">> <span id="space-text">Click to start space game</span><blink>_</blink></p>
+        <canvas id="space-game" width="1400" height="250"></canvas>
+        <p class="code">Current Score: <span id="personal-score">0</span> | Site Score: 0</p>
+    </div>
+    <h1 class="title">Game Night</h1>
+    <p class="subtitle">at the University of Illinois, Urbana-Champaign (UIUC)</p>
+    <ul class="blocks">
+        <li>Block 1</li>
+        <li>Block 2</li>
+        <li>Block 3</li>
+    </ul>
+    <p class="center">Quote of the Day</p>
+    <p class="center">Video of the Day</p>
+    {% load static %}
+    <script src="{% static 'js/blink.js' %}"></script>
+    <script src="{% static 'js/space-game.js' %}"></script>
+{% endblock %}
