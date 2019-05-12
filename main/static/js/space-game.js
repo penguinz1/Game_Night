@@ -462,7 +462,7 @@ const check_collisions = () => {
         templates_pb.innerHTML = personal_best;
     }
 
-    if (score > templates_site_top) {
+    if (score > site_best) {
         site_best = score;
         templates_site_top.innerHTML = site_best;
     }
