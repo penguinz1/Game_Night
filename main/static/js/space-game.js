@@ -46,8 +46,10 @@ var difficulty_time;
 var drifter_time;
 var ship_x;
 var ship_y;
-var beam_charge = false;
-var beam_amount = 0;
+var beam_charge;
+var beam_amount;
+var medium_beam_message = false;
+var high_beam_message = false;
 var beam_loc;
 var ship_momentum_x;
 var ship_momentum_y;
@@ -73,10 +75,16 @@ const draw = () => {
         if (beam_charge) {
             beam_amount += TIME_DELAY;
             if (beam_amount > HIGH_POWER) {
-                templates_message.innerHTML = "High beam ready!";
+                if (high_beam_message) {
+                    templates_message.innerHTML = "High beam ready";
+                    high_beam_message = false;
+                }
                 ship_color = BEAM_COLORS[2];
             } else if (beam_amount > MEDIUM_POWER) {
-                templates_message.innerHTML = "Medium beam ready!";
+                if (medium_beam_message) {
+                    templates_message.innerHTML = "Medium beam ready";
+                    medium_beam_message = false;
+                }
                 ship_color = BEAM_COLORS[1];
             } else {
                 ship_color = BEAM_COLORS[0];
@@ -85,12 +93,12 @@ const draw = () => {
             let beam_power;
             if (beam_amount < MEDIUM_POWER) {
                 beam_power = 0;
-                templates_message.innerHTML = "Small beam fired!";
+                templates_message.innerHTML = "Small beam fired";
             } else if (beam_amount < HIGH_POWER) {
                 beam_power = 1;
-                templates_message.innerHTML = "Medium beam fired!";
+                templates_message.innerHTML = "Medium beam fired";
             } else {
-                templates_message.innerHTML = "High beam fired!";
+                templates_message.innerHTML = "High beam fired";
                 beam_power = 2;
             }
             beam_amount = 0;
@@ -197,6 +205,7 @@ const setupGame = () => {
     ship_momentum_y = 0;
     ship_color = BASE_SHIP_COLOR;
     beam_charge = false;
+    beam_amount = 0;
 }
 
 const gen_drifter = () => {
@@ -521,7 +530,9 @@ canvas.addEventListener('mousedown', (event) => {
     if (game_active) {
         beam_charge = true;
         beam_amount = 0;
-        templates_message.innerHTML = "Charging beam!";
+        templates_message.innerHTML = "Charging beam";
+        medium_beam_message = true;
+        high_beam_message = true;
     }
 });
 
