@@ -1,6 +1,9 @@
 const canvas = document.getElementById("space-game");
 const templates_score = document.getElementById("personal-score");
 const templates_message = document.getElementById("space-text");
+const templates_pb = document.getElementById("personal-best");
+const templates_site_top = document.getElementById("site-best");
+const templates_site_drifters = document.getElementById("drifters-destroyed");
 const canvas_rect = {
     left: 0,
     right: canvas.width,
@@ -31,9 +34,9 @@ const SIZE_MOMENTUM = 1.3;
 const SIZE_MULT = 3;
 const SHIP_MULT = 5;
 const MEDIUM_POWER = 500;
-const HIGH_POWER = 2000;
+const HIGH_POWER = 3000;
 const BEAM_PERSIST = [50, 200, 500];
-const BEAM_DAMAGE = [1, 2, 4];
+const BEAM_DAMAGE = [1, 2, 7];
 var game_active = false;
 var drifters;
 var beams;
@@ -453,6 +456,19 @@ const check_collisions = () => {
         }
     }
     drifters_destroyed += drifter_combo;
+
+    if (user && score > personal_best) {
+        personal_best = score;
+        templates_pb.innerHTML = personal_best;
+    }
+
+    if (score > templates_site_top) {
+        site_best = score;
+        templates_site_top.innerHTML = site_best;
+    }
+
+    site_drifters += drifter_combo;
+    templates_site_drifters.innerHTML = site_drifters;
 }
 
 const decay_beams = () => {
@@ -492,6 +508,7 @@ const crosses = (y1, y2, target1, target2) => {
 const gameover = (message) => {
     game_active = false;
     templates_message.innerHTML = message + ` You scored: ${score}. Game over! Click to play again`;
+
     if (score > 0) {
         $.ajax({
             url: '/',
