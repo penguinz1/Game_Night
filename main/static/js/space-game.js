@@ -1,9 +1,6 @@
 const canvas = document.getElementById("space-game");
 const templates_score = document.getElementById("personal-score");
 const templates_message = document.getElementById("space-text");
-const xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://127.0.0.1:8000/", true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
 const canvas_rect = {
     left: 0,
     right: canvas.width,
