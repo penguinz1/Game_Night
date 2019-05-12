@@ -12,14 +12,21 @@
     <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
 </head>
 <body>
-    <ul class="navbar">
-        <a href=""><li id="game-night-stamp">Game Night at UIUC</li></a>
-        <a href=""><li>Time & Location</li></a>
-        <a href=""><li>Games</li></a>
-        <a href=""><li>Email List</li></a>
-        <a href=""><li>Contact</li></a>
-        <a href=""><li>Email Structure (Officers only)</li></a>
-    </ul>
+    <div class="top-bars">
+        <ul class="navbar">
+            <a href="{% url 'index' %}"><li id="game-night-stamp">Game Night at UIUC</li></a>
+            <a href=""><li>Time & Location</li></a>
+            <a href=""><li>Games</li></a>
+            <a href=""><li>Email List</li></a>
+            <a href=""><li>Contact</li></a>
+            <a href=""><li>Email Structure (Officers only)</li></a>
+            <a href=""><li>Experimental</li></a>
+        </ul>
+        <ul class="login-bar">
+            <a href="{% url 'login' %}" class="login-bar-button"><li>Log In</li></a>
+            <a href="{% url 'signup' %}" class="login-bar-button"><li>Sign Up</li></a>
+        </ul>
+    </div>
     <div class="content">{% block content %}{% endblock %}</div>
     <footer>
         <p class="footer-text">Generic Footer Here</p>

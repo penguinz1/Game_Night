@@ -31,15 +31,44 @@ canvas {
     text-align: center;
 }
 
+.top-bars {
+    display: grid;
+    width: 100%;
+    grid-template-rows: 1fr;
+    grid-template-columns: 8fr 1fr;
+    padding-bottom: 10px;
+}
+
 .navbar {
     list-style: none;
     background-color: yellow;
+    grid-area: 1 / 1 / span 1 / span 1;
 }
 
 .navbar li {
     padding: 20px;
     display: inline-block;
     color: black;
+}
+
+.login-bar {
+    list-style: none;
+    background-color: orange;
+    grid-area: 1 / 2 / span 1 / span 1;
+}
+
+.login-bar li {
+    margin: 5px 10px 5px 10px;
+    padding: 2px 10px;
+    text-align: center;
+    color: black;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: green;
+}
+
+.login-bar a {
+    text-decoration: none;
 }
 
 .title {
