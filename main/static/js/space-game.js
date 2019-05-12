@@ -1,6 +1,9 @@
 const canvas = document.getElementById("space-game");
 const templates_score = document.getElementById("personal-score");
 const templates_message = document.getElementById("space-text");
+const xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://127.0.0.1:8000/", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
 const canvas_rect = {
     left: 0,
     right: canvas.width,
@@ -452,6 +455,7 @@ const check_collisions = () => {
             templates_message.innerHTML = `Scored ${score_combo} points: ${score_combo} points from destroying drifters!`;
         }
     }
+    drifters_destroyed += drifter_combo;
 }
 
 const decay_beams = () => {
@@ -491,6 +495,24 @@ const crosses = (y1, y2, target1, target2) => {
 const gameover = (message) => {
     game_active = false;
     templates_message.innerHTML = message + ` You scored: ${score}. Game over! Click to play again`;
+    if (score > 0) {
+        $.ajax({
+            url: '/',
+            cache: 'false',
+            dataType: 'json',
+            type: 'POST',
+            data:{
+                    'score': score,
+                    'drifters': drifters_destroyed,
+                }
+            ,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'))
+            },
+            success: function(data) {},
+            error: function(error) {}
+        });
+    }
 }
 
 // Draw function

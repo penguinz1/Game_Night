@@ -9,16 +9,17 @@ class User(AbstractUser):
 
 
 class GameScore(models.Model):
-    score  = models.PositiveIntegerField()
-    time   = models.DateTimeField(auto_now_add = True)
-    player = models.ForeignKey('User', on_delete = models.CASCADE, blank = True, null = True)
+    score    = models.PositiveIntegerField()
+    drifters = models.PositiveIntegerField()
+    time     = models.DateTimeField(auto_now_add = True)
+    player   = models.ForeignKey('User', on_delete = models.CASCADE, blank = True, null = True)
 
     def __str__(self):
         """String for representing the Model object."""
-        if (player):
-            return f'{player.username} - {score}'
+        if (self.player):
+            return f'{self.player.username} - {self.score}'
         else:
-            return f'anonymous - {score}'
+            return f'anonymous - {self.score}'
 
 
 class Alert(models.Model):
@@ -38,10 +39,10 @@ class GameBring(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        if (person):
-            return f'{person} - {game}'
+        if (self.person):
+            return f'{self.person} - {self.game}'
         else:
-            return f'anonymous - {game}'
+            return f'anonymous - {self.game}'
 
 
 class Meeting(models.Model):
@@ -51,8 +52,8 @@ class Meeting(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        if (name):
-            return f'{name} - {time}'
+        if (self.name):
+            return f'{self.name} - {self.time}'
         else:
             return time
 
@@ -93,4 +94,4 @@ class EmailRequest(models.Model):
     )
 
     def __str__(self):
-        return f'{choice} - {new_email}'
+        return f'{self.choice} - {self.new_email}'

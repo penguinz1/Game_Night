@@ -4,7 +4,15 @@
     <div class="space-game-container">
         <p class="code">> <span id="space-text">Click to start space game</span><blink>_</blink></p>
         <canvas id="space-game" width="1400" height="250"></canvas>
-        <p class="code">Current Score: <span id="personal-score">0</span> | Site Score: 0</p>
+        <p class="code small">
+        Current Score: <span id="personal-score">0</span> | 
+        {% if user.is_authenticated %}
+        Personal Best: <span id="personal-best">0</span> | 
+        {% endif %}
+        Site Best: <span id="site-best">0</span> | 
+        Drifters Destroyed Sitewite: <span id="drifters-destroyed">{{ drifters }}</span> | 
+        <span id="paperclip-game">Inspired by <a href="http://www.decisionproblem.com/paperclips" id="paperclip-link" target="blank">the paperclips game</a></span>
+        </p>
     </div>
     <h1 class="title">Game Night</h1>
     <p class="subtitle">at the University of Illinois, Urbana-Champaign (UIUC)</p>
