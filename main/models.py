@@ -12,7 +12,7 @@ class GameScore(models.Model):
     score    = models.PositiveIntegerField()
     drifters = models.PositiveIntegerField()
     time     = models.DateTimeField(auto_now_add = True)
-    player   = models.ForeignKey('User', on_delete = models.CASCADE, blank = True, null = True)
+    player   = models.ForeignKey('User', on_delete = models.SET_NULL, blank = True, null = True)
 
     def __str__(self):
         """String for representing the Model object."""

@@ -295,14 +295,10 @@ const draw_sprites = () => {
 const move_sprites = () => {
     for (let i = drifters.length - 1; i >= 0; i--) {
         size_slowdown = drifters[i].size * SIZE_MOMENTUM;
-        let moveX = Math.round(Math.cos(drifters[i].dir) * DRIFTER_SPEED / size_slowdown)
-        let moveY = Math.round(Math.sin(drifters[i].dir) * DRIFTER_SPEED / size_slowdown)
+        let moveX = Math.cos(drifters[i].dir) * DRIFTER_SPEED / size_slowdown
+        let moveY = Math.sin(drifters[i].dir) * DRIFTER_SPEED / size_slowdown
         drifters[i].x += moveX;
         drifters[i].y += moveY;
-        if (moveX === 0 && moveY === 0) {
-            drifters[i].x += 1;
-            drifters[i].y += 1;
-        }
         drifter_rect = {
             left: drifters[i].x,
             right: drifters[i].x + drifters[i].size * SIZE_MULT,
