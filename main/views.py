@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.db.models import Sum, Max
 
 from main.models import GameScore;
+from main.forms import CreateContactForm, MassEmailForm;
 
 # Create your views here.
 def index(request):
@@ -39,3 +40,21 @@ def index(request):
         context['personal_best'] = personal_best
 
     return render(request, 'index.html', context)
+
+def contact(request):
+    form = CreateContactForm();
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/create_contact.html', context)
+
+def mass_mail(request):
+    if request.method == 'POST':
+        form = MassEmailForm(request.POST)
+        if (form.is_valid()): print(form.cleaned_data['content'])
+
+    form = MassEmailForm(initial = {'content': '<b>yes<b>'});
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/create_contact.html', context)
