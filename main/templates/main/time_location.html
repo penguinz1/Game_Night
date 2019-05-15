@@ -1,0 +1,60 @@
+{% extends 'base_generic.html' %}
+
+{% block headlinks %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+   <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+{% endblock %}
+
+{% block content %}
+    <h1 class="header">Times and Locations</h1>
+    <div class="time-location">
+        <div class="time">
+            {% if meeting_list %}
+            <table>
+                <tr>
+                    <th>Next Meeting Dates (limit 10)</th>
+                    <th>Meeting Location</th>
+                </tr>
+                {% for meeting in meeting_list %}
+                <tr>
+                    <td>{{ meeting.time }}</td>
+                    <td>{{ meeting.location }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            {% else %}
+            <p class="empty">No Meetings Scheduled!</p>
+
+            {% endif %}
+        </div>
+
+        <div class="location">
+            {% if next_meeting %}
+                <p class="location-tag">Next Week's Location | <span class="location">{{ next_meeting.location }}</span></p>
+                <div id="mapid"></div>
+            {% else %}
+                <p class="location-tag"> No Location! </p>
+
+            {% endif %}
+        </div>
+    </div>
+
+    {% if next_meeting %}
+        <script>
+            var mymap = L.map('mapid').setView(["{{ next_meeting.location.latitude }}", "{{ next_meeting.location.longitude }}"], 16);
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox.streets',
+                accessToken: 'pk.eyJ1IjoiaGVzdG8yNSIsImEiOiJjanZvanllbW4waTA5NDVyaGM5NzY2dzBxIn0.oVwwP4mExZeHpMsH3hGNmw'
+            }).addTo(mymap);
+            var marker = L.marker(["{{ next_meeting.location.latitude }}", "{{ next_meeting.location.longitude }}"]).addTo(mymap);
+        </script>
+    {% endif %}
+{% endblock %}

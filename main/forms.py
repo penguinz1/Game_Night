@@ -5,6 +5,8 @@ from tinymce.widgets import TinyMCE
 from main.models import Contact
 
 class CreateContactForm(ModelForm):
+    message = forms.CharField(max_length = 500, 
+        widget = forms.Textarea(attrs={'cols': 80, 'rows': 20}))
     class Meta:
         model = Contact
         fields = {'message', 'email'}

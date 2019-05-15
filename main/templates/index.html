@@ -1,5 +1,12 @@
 {% extends "base_generic.html" %}
 
+{% block headlinks %}
+    {% load static %}
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery.cookie.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
     <div class="space-game-container">
         <p class="code">> <span id="space-text">Click to start space game</span><blink>_</blink></p>

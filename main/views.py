@@ -1,8 +1,11 @@
+import datetime
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Sum, Max
+from django.views import generic
 
-from main.models import GameScore;
+from main.models import GameScore, Meeting;
 from main.forms import CreateContactForm, MassEmailForm;
 
 # Create your views here.
@@ -57,4 +60,16 @@ def mass_mail(request):
     context = {
         'form': form,
     }
-    return render(request, 'main/create_contact.html', context)
+    return render(request, 'main/mass_mail.html', context)
+
+def email_list_index(request):
+    return render(request, 'main/email_list_index.html')
+
+def time_location(request):
+    active_meetings = Meeting.objects.filter(time__gt = datetime.datetime.now())[0:10]
+    context = {
+        'meeting_list': active_meetings,
+        'next_meeting': active_meetings[0],
+    }
+    return render(request, 'main/time_location.html', context)
+

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 class User(AbstractUser):
@@ -55,15 +56,17 @@ class Meeting(models.Model):
         if (self.name):
             return f'{self.name} - {self.time}'
         else:
-            return time
+            return f'{self.time}'
 
 
 class Location(models.Model):
     place = models.CharField(max_length = 200)
+    latitude = models.FloatField(validators=[MinValueValidator(-90), MaxValueValidator(90)])
+    longitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
 
     def __str__(self):
         """String fo representing the Model object."""
-        return place
+        return self.place
 
 
 class Contact(models.Model):
@@ -71,7 +74,7 @@ class Contact(models.Model):
     email   = models.EmailField(blank = True, null = True, max_length = 254, verbose_name='email address')
 
     def __str__(self):
-        return message
+        return self.message
 
 
 class EmailRequest(models.Model):

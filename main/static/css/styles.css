@@ -67,7 +67,7 @@ canvas {
     background-color: green;
 }
 
-.login-bar a {
+.unlink {
     text-decoration: none;
 }
 
@@ -112,7 +112,38 @@ canvas {
     font-size: 16px;
 }
 
+.vertical-buttons li {
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+    border: 2px solid black;
+    display: block;
+    clear: both;
+    border-radius: 15px;
+}
+
+.time-location {
+    display: grid;
+    width: 100%;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+
+.time {
+    grid-area: 1 / 1 / span 1 / span 1;
+}
+
+.location {
+    grid-area: 1 / 2 / span 1 / span 1;
+}
+
 #game-night-stamp {
     font-size: 20px;
     font-weight: bold;
+}
+
+#mapid { 
+    height: 500px; 
+
 }
