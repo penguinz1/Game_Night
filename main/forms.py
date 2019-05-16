@@ -15,3 +15,12 @@ class CreateContactForm(ModelForm):
 class MassEmailForm(forms.Form):
     content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
 
+class AddMailForm(forms.Form):
+    new_mail = forms.EmailField();
+
+class ModifyMailForm(forms.Form):
+    old_mail = forms.EmailField();
+    new_mail = forms.EmailField();
+
+class DeleteMailForm(forms.Form):
+    delete_mail = forms.EmailField();

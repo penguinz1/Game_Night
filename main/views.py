@@ -6,7 +6,7 @@ from django.db.models import Sum, Max
 from django.views import generic
 
 from main.models import GameScore, Meeting;
-from main.forms import CreateContactForm, MassEmailForm;
+from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm;
 
 # Create your views here.
 def index(request):
@@ -73,3 +73,32 @@ def time_location(request):
     }
     return render(request, 'main/time_location.html', context)
 
+def add_email(request):
+    form = AddMailForm();
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/email_list_add.html', context)
+
+def modify_email(request):
+    form = ModifyMailForm();
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/email_list_modify.html', context)
+
+def delete_email(request):
+    form = DeleteMailForm();
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/email_list_delete.html', context)
+
+def experimental(request):
+    return render(request, 'main/experimental.html')
+
+def games(request):
+    return render(request, 'main/games.html')
+
+def profile(request):
+    return render(request, 'main/profile.html')

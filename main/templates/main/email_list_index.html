@@ -4,9 +4,9 @@
     <h1>Mail List Index</h1>
 
     <ul class="vertical-buttons">
-        <a href="" class="unlink"><li>Add</li></a>
-        <a href="" class="unlink"><li>Modify</li></a>
-        <a href="" class="unlink"><li>Delete</li></a>
+        <a href="{% url 'add_email' %}" class="unlink"><li>Add</li></a>
+        <a href="{% url 'modify_email' %}" class="unlink"><li>Modify</li></a>
+        <a href="{% url 'delete_email' %}" class="unlink"><li>Delete</li></a>
     </ul>
 
 {% endblock %}

@@ -98,3 +98,26 @@ class EmailRequest(models.Model):
 
     def __str__(self):
         return f'{self.choice} - {self.new_email}'
+
+class QuoteOfDay(models.Model):
+    quote = models.CharField(max_length = 500)
+    speaker = models.CharField(max_length = 200)
+    time = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return f'{self.speaker} - {self.quote}'
+
+class VideoOfDay(models.Model):
+    link = models.CharField(max_length = 1000)
+    description = models.CharField(max_length = 1000)
+    visible_text = models.CharField(blank = True, null = True, max_length = 500)
+
+    def __str__(self):
+        return description
+
+class EmailAddress(models.Model):
+    email = models.EmailField();
+    name = models.CharField(max_length = 200);
+
+    def __str__(self):
+        return f'{email}'

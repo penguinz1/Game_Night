@@ -17,15 +17,15 @@
         <ul class="navbar">
             <a href="{% url 'index' %}"><li id="game-night-stamp">Game Night at UIUC</li></a>
             <a href="{% url 'time_location' %}"><li>Time & Location</li></a>
-            <a href=""><li>Games</li></a>
+            <a href="{% url 'games' %}"><li>Games</li></a>
             <a href="{% url 'email_list_index' %}"><li>Email List</li></a>
             <a href="{% url 'contact' %}"><li>Contact</li></a>
             <a href="{% url 'mass_mail' %}"><li>Email Structure (Officers only)</li></a>
-            <a href=""><li>Experimental</li></a>
+            <a href="{% url 'experimental' %}"><li>Experimental</li></a>
         </ul>
         <ul class="login-bar">
             {% if user.is_authenticated %}
-            <a href="" class="unlink"><li>Welcome, {{ user.get_username }}</li></a>
+            <a href="{% url 'profile' %}" class="unlink"><li>Welcome, {{ user.get_username }}</li></a>
             <a href="{% url 'logout' %}?next={{request.path}}" class="unlink"><li>Sign Out</li></a>
             {% else %}
             <a href="{% url 'login' %}" class="unlink"><li>Log In</li></a>
