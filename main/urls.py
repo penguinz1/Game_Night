@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.index, name = 'index'),
     path('contact', views.contact, name = 'contact'),
     path('mass-mail', views.mass_mail, name = 'mass_mail'),
+    path('mass-mail-submit', views.mass_mail_submit, name = 'mass_mail_submit'),
     path('email-list-index', views.email_list_index, name = 'email_list_index'),
     path('time-and-location', views.time_location, name = 'time_location'),
     path('email-list-add', views.add_email, name = 'add_email'),

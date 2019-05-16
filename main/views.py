@@ -4,6 +4,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Sum, Max
 from django.views import generic
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.core.mail import EmailMessage
 
 from main.models import GameScore, Meeting;
 from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm;
@@ -54,13 +57,24 @@ def contact(request):
 def mass_mail(request):
     if request.method == 'POST':
         form = MassEmailForm(request.POST)
-        if (form.is_valid()): print(form.cleaned_data['content'])
+        if (form.is_valid()): 
+            print(form.cleaned_data['content'])
+        if (request.POST.get('submit', False)):
+            return HttpResponseRedirect(reverse('mass_mail_submit'))
 
     form = MassEmailForm(initial = {'content': '<b>yes<b>'});
     context = {
         'form': form,
     }
     return render(request, 'main/mass_mail.html', context)
+
+def mass_mail_submit(request):
+    if request.method == 'POST':
+        email = EmailMessage('Meeting Next Saturday', 'Good Morning. This is just to inform you that there is a meeting next Saturday.', 
+            to=['kathy.ning7@gmail.com'])
+        email.send()
+
+    return render(request, 'main/mass_mail_submission.html')
 
 def email_list_index(request):
     return render(request, 'main/email_list_index.html')

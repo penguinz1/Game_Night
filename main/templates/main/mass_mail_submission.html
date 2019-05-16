@@ -1,0 +1,13 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1 class="header">Mail Submission</h1>
+    <p>Are you sure you want to send the mail? This action <strong>cannot</strong> be undone!</p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Yes, I'm sure">
+    </form>
+
+    <a href="{% url 'mass_mail' %}"><p>No, take me back!</p></a>
+{% endblock %}
