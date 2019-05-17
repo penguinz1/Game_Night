@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.mail import EmailMessage
 
-from main.models import GameScore, Meeting;
+from main.models import GameScore, Meeting, EmailAddress;
 from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm;
 
 # Create your views here.
@@ -48,7 +48,15 @@ def index(request):
     return render(request, 'index.html', context)
 
 def contact(request):
-    form = CreateContactForm();
+    if request.method == "POST":
+        form = CreateContactForm(request.POST)
+        if form.is_valid():
+            model_instance = form.save(commit = True)
+            return HttpResponseRedirect(reverse('index'))
+
+    else:
+        form = CreateContactForm();
+
     context = {
         'form': form,
     }
@@ -83,26 +91,63 @@ def time_location(request):
     active_meetings = Meeting.objects.filter(time__gt = datetime.datetime.now())[0:10]
     context = {
         'meeting_list': active_meetings,
-        'next_meeting': active_meetings[0],
     }
+
+    if (active_meetings):
+        context['next_meeting'] = active_meetings[0]
+
     return render(request, 'main/time_location.html', context)
 
 def add_email(request):
-    form = AddMailForm();
+    if request.method == 'POST':
+        form = AddMailForm(request.POST)
+
+        if form.is_valid():
+            email = form.cleaned_data['new_mail']
+            name  = form.cleaned_data['name']
+            EmailAddress.objects.create(email = email, name = name)
+            return HttpResponseRedirect(reverse('email_list_index'))
+
+    else:
+        form = AddMailForm();
+
     context = {
         'form': form,
     }
     return render(request, 'main/email_list_add.html', context)
 
 def modify_email(request):
-    form = ModifyMailForm();
+    if request.method == 'POST':
+        form = ModifyMailForm(request.POST)
+
+        if form.is_valid():
+            old_mail = form.cleaned_data['old_mail']
+            new_mail = form.cleaned_data['new_mail']
+            mail = EmailAddress.objects.filter(email = old_mail)[0]
+            mail.email = new_mail
+            mail.save()
+            return HttpResponseRedirect(reverse('email_list_index'))
+
+    else:
+        form = ModifyMailForm();
+
     context = {
         'form': form,
     }
     return render(request, 'main/email_list_modify.html', context)
 
 def delete_email(request):
-    form = DeleteMailForm();
+    if request.method == 'POST':
+        form = DeleteMailForm(request.POST)
+
+        if form.is_valid():
+            email = form.cleaned_data['delete_mail']
+            EmailAddress.objects.filter(email = email).delete()
+            return HttpResponseRedirect(reverse('email_list_index'))
+
+    else:
+        form = DeleteMailForm();
+
     context = {
         'form': form,
     }

@@ -116,8 +116,8 @@ class VideoOfDay(models.Model):
         return description
 
 class EmailAddress(models.Model):
-    email = models.EmailField();
+    email = models.EmailField(unique = True);
     name = models.CharField(max_length = 200);
 
     def __str__(self):
-        return f'{email}'
+        return f'{self.email}'
