@@ -1,5 +1,3 @@
-import datetime
-
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Sum, Max
@@ -7,8 +5,9 @@ from django.views import generic
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.mail import EmailMessage
+from django.utils import timezone
 
-from main.models import GameScore, Meeting, EmailAddress;
+from main.models import GameScore, Meeting, EmailAddress, MassEmail;
 from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm;
 
 # Create your views here.
@@ -66,11 +65,26 @@ def mass_mail(request):
     if request.method == 'POST':
         form = MassEmailForm(request.POST)
         if (form.is_valid()): 
-            print(form.cleaned_data['content'])
+            next_meeting = Meeting.objects.filter(time__gt = timezone.now())[0]
+            if (next_meeting and not next_meeting.email):
+                email = MassEmail.objects.create(
+                    subject = form.cleaned_data['subject'],
+                    content = form.cleaned_data['content']
+                )
+                next_meeting.email = email
+                next_meeting.save()
+            elif (next_meeting):
+                email = next_meeting.email
+                email.subject = form.cleaned_data['subject']
+                email.content = form.cleaned_data['content']
+                email.save()
+
+
         if (request.POST.get('submit', False)):
             return HttpResponseRedirect(reverse('mass_mail_submit'))
 
-    form = MassEmailForm(initial = {'content': '<b>yes<b>'});
+    else:
+        form = MassEmailForm(initial = {'content': '<b>yes<b>'});
     context = {
         'form': form,
     }
@@ -88,7 +102,7 @@ def email_list_index(request):
     return render(request, 'main/email_list_index.html')
 
 def time_location(request):
-    active_meetings = Meeting.objects.filter(time__gt = datetime.datetime.now())[0:10]
+    active_meetings = Meeting.objects.filter(time__gt = timezone.now())[0:10]
     context = {
         'meeting_list': active_meetings,
     }

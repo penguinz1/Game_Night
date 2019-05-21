@@ -50,6 +50,7 @@ class Meeting(models.Model):
     time     = models.DateTimeField()
     name     = models.CharField(max_length = 100, blank = True, null = True)
     location = models.ForeignKey('Location', on_delete = models.CASCADE)
+    email    = models.OneToOneField('MassEmail', on_delete = models.SET_NULL, blank = True, null = True)
 
     def __str__(self):
         """String for representing the Model object."""
@@ -57,6 +58,14 @@ class Meeting(models.Model):
             return f'{self.name} - {self.time}'
         else:
             return f'{self.time}'
+
+class MassEmail(models.Model):
+    subject = models.CharField(max_length = 200)
+    content = models.CharField(max_length = 1000)
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.subject;
 
 
 class Location(models.Model):
