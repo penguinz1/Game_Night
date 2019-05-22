@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'gamenightatuiuc@gmail.com'
-EMAIL_HOST_PASSWORD = 'int_mystery{return_42;}'
+EMAIL_HOST_PASSWORD = 'int_mystery(){return_42;}'
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = "Game Night"
 

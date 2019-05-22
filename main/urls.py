@@ -13,5 +13,4 @@ urlpatterns = [
     path('email-list-delete', views.delete_email, name = 'delete_email'),
     path('experimental', views.experimental, name = 'experimental'),
     path('games', views.games, name = 'games'),
-    path('profile', views.profile, name = 'profile'),
 ]

@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.core.mail import send_mail
 from django.utils import timezone
-from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth.decorators import permission_required
 
 from main.models import GameScore, Meeting, EmailAddress, MassEmail, ContactNotificant;
 from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm;
@@ -220,7 +220,3 @@ def experimental(request):
 
 def games(request):
     return render(request, 'main/games.html')
-
-@login_required
-def profile(request):
-    return render(request, 'main/profile.html')
