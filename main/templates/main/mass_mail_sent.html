@@ -1,0 +1,11 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1 class="header">Mail Form</h1>
+
+    <p>The email for the next meeting was sent at {{ time }}</p>
+
+    <p>Subject: {{ subject }}</p>
+    <p>Content:</p>
+    {% autoescape off %}{{ content }}{% endautoescape %}
+{% endblock %}

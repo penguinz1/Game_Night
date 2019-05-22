@@ -1,13 +1,16 @@
+import html2text
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Sum, Max
 from django.views import generic
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 from django.utils import timezone
+from django.contrib.auth.decorators import permission_required, login_required
 
-from main.models import GameScore, Meeting, EmailAddress, MassEmail;
+from main.models import GameScore, Meeting, EmailAddress, MassEmail, ContactNotificant;
 from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm;
 
 # Create your views here.
@@ -51,6 +54,18 @@ def contact(request):
         form = CreateContactForm(request.POST)
         if form.is_valid():
             model_instance = form.save(commit = True)
+            if (model_instance.email):
+                subject = f'New Contact Request Made by {model_instance.email}'
+            else:
+                subject = f'New Anonymous Contact Request'
+
+            recipients = ContactNotificant.objects.all().values_list('email', flat = True)
+            send_mail(
+                subject        = subject,
+                message        = model_instance.message,
+                from_email     = 'Game Night Notifications',
+                recipient_list = list(recipients)
+            )
             return HttpResponseRedirect(reverse('index'))
 
     else:
@@ -61,22 +76,35 @@ def contact(request):
     }
     return render(request, 'main/create_contact.html', context)
 
+@permission_required('main.can_send_emails')
 def mass_mail(request):
+    next_meeting = Meeting.objects.filter(time__gt = timezone.now())[0]
+    if (next_meeting and next_meeting.email and next_meeting.email.is_sent):
+        message = next_meeting.email
+        context = {
+            'time': message.last_edit,
+            'subject': message.subject,
+            'content': message.content
+        }
+        return render(request, 'main/mass_mail_sent.html', context)
+
     if request.method == 'POST':
         form = MassEmailForm(request.POST)
         if (form.is_valid()): 
-            next_meeting = Meeting.objects.filter(time__gt = timezone.now())[0]
             if (next_meeting and not next_meeting.email):
                 email = MassEmail.objects.create(
                     subject = form.cleaned_data['subject'],
-                    content = form.cleaned_data['content']
+                    content = form.cleaned_data['content'],
+                    editor  = request.user
                 )
                 next_meeting.email = email
                 next_meeting.save()
             elif (next_meeting):
                 email = next_meeting.email
-                email.subject = form.cleaned_data['subject']
-                email.content = form.cleaned_data['content']
+                email.subject   = form.cleaned_data['subject']
+                email.content   = form.cleaned_data['content']
+                email.editor    = request.user
+                email.last_edit = timezone.now()
                 email.save()
 
 
@@ -84,17 +112,37 @@ def mass_mail(request):
             return HttpResponseRedirect(reverse('mass_mail_submit'))
 
     else:
-        form = MassEmailForm(initial = {'content': '<b>yes<b>'});
+        if (next_meeting and next_meeting.email):
+            message = next_meeting.email
+            form    = MassEmailForm(initial = {'subject': message.subject, 'content': message.content})
+        else:
+            form = MassEmailForm()
+
     context = {
         'form': form,
     }
     return render(request, 'main/mass_mail.html', context)
 
+@permission_required('main.can_send_emails')
 def mass_mail_submit(request):
+    next_meeting = Meeting.objects.filter(time__gt = timezone.now())[0]
+
+    if (not next_meeting or not next_meeting.email or next_meeting.email.is_sent):
+        raise Http404("message does not exist")
+
+    message = next_meeting.email
     if request.method == 'POST':
-        email = EmailMessage('Meeting Next Saturday', 'Good Morning. This is just to inform you that there is a meeting next Saturday.', 
-            to=['kathy.ning7@gmail.com'])
-        email.send()
+        recipients = EmailAddress.objects.all().values_list('email', flat = True)
+        send_mail(
+           subject             = message.subject,
+           message             = html2text.html2text(message.content),
+           html_message        = message.content,
+           from_email          = 'Game Night',
+           recipient_list      = list(recipients)
+        )
+        message.is_sent = True
+        message.save()
+        return HttpResponseRedirect(reverse('mass_mail'))
 
     return render(request, 'main/mass_mail_submission.html')
 
@@ -173,5 +221,6 @@ def experimental(request):
 def games(request):
     return render(request, 'main/games.html')
 
+@login_required
 def profile(request):
     return render(request, 'main/profile.html')

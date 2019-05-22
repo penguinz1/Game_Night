@@ -60,8 +60,11 @@ class Meeting(models.Model):
             return f'{self.time}'
 
 class MassEmail(models.Model):
-    subject = models.CharField(max_length = 200)
-    content = models.CharField(max_length = 1000)
+    subject   = models.CharField(max_length = 200)
+    content   = models.CharField(max_length = 1000)
+    last_edit = models.DateTimeField(auto_now_add = True)
+    editor    = models.ForeignKey('User', on_delete = models.SET_NULL, blank = True, null = True)
+    is_sent   = models.BooleanField(default = False)
 
     def __str__(self):
         """String for representing the Model object."""
@@ -81,10 +84,16 @@ class Location(models.Model):
 class Contact(models.Model):
     message = models.CharField(max_length = 500)
     email   = models.EmailField(blank = True, null = True, max_length = 254, verbose_name='email address')
+    seen    = models.BooleanField(default = False)
 
     def __str__(self):
         return self.message
 
+class ContactNotificant(models.Model):
+    email = models.EmailField()
+
+    def __str__(self):
+        return f'{self.email}'
 
 class EmailRequest(models.Model):
     ADDITION     = 'a'
