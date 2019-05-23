@@ -21,5 +21,6 @@
         <p>Email: <em>not set</em></p>
     {% endif %}
 
+    <a href="{% url 'profile_change' %}"><p>Edit Profile</p></a>
     <a href="{% url 'password' %}"><p>Change Password</p></a>
 {% endblock %}

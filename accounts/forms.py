@@ -19,3 +19,9 @@ class RegistrationForm(UserCreationForm):
         return user
 
     UserCreationForm.Meta.model = User
+
+
+class ProfileChangeForm(forms.Form):
+    email = forms.EmailField(label = "Email", required = False)
+    first_name = forms.CharField(label = "First Name", required = False)
+    last_name = forms.CharField(label = "Last Name", required = False)
