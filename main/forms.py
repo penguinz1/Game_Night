@@ -20,6 +20,9 @@ class MassEmailForm(forms.Form):
     subject = forms.CharField(max_length = 200)
     content = forms.CharField(max_length = 1000, widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
 
+class TestEmailForm(forms.Form):
+    recipient = forms.EmailField()
+
 class AddMailForm(forms.Form):
     new_mail = forms.EmailField();
     name     = forms.CharField(max_length = 200);

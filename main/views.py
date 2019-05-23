@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import permission_required
 
 from main.models import GameScore, Meeting, EmailAddress, MassEmail, ContactNotificant;
-from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm;
+from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm, TestEmailForm;
 
 # Create your views here.
 def index(request):
@@ -111,6 +111,9 @@ def mass_mail(request):
         if (request.POST.get('submit', False)):
             return HttpResponseRedirect(reverse('mass_mail_submit'))
 
+        if (request.POST.get('test', False)):
+            return HttpResponseRedirect(reverse('mass_mail_test'))
+
     else:
         if (next_meeting and next_meeting.email):
             message = next_meeting.email
@@ -145,6 +148,34 @@ def mass_mail_submit(request):
         return HttpResponseRedirect(reverse('mass_mail'))
 
     return render(request, 'main/mass_mail_submission.html')
+
+@permission_required('main.can_send_emails')
+def mass_mail_test(request):
+    next_meeting = Meeting.objects.filter(time__gt = timezone.now())[0]
+
+    if (not next_meeting or not next_meeting.email):
+        raise Http404("message does not exist")
+
+    message = next_meeting.email
+    if request.method == 'POST':
+        form = TestEmailForm(request.POST)
+        if (form.is_valid()):
+            send_mail(
+                subject             = message.subject,
+                message             = html2text.html2text(message.content),
+                html_message        = message.content,
+                from_email          = 'Game Night',
+                recipient_list      = [form.cleaned_data['recipient']]
+            )
+            return HttpResponseRedirect(reverse('mass_mail'))
+
+    else:
+        form = TestEmailForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'main/mass_mail_test.html', context)
 
 def email_list_index(request):
     return render(request, 'main/email_list_index.html')

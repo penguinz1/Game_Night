@@ -13,7 +13,7 @@ html, body {
 
 
 body {
-    background-image: url('dice.jpg');
+ /*   background-image: url('dice.jpg');*/
     background-attachment: relative;
     background-repeat: no-repeat;
     background-size: cover;
