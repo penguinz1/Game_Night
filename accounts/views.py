@@ -16,9 +16,9 @@ class SignUp(generic.CreateView):
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
 
-
 def logout(request):
     auth.logout(request)
+    request.session['notify'] = "Successfully Logged Out!"
     return redirect(request.GET['next'])
 
 @login_required
@@ -37,6 +37,7 @@ def update_password(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
+            request.session['notify'] = "Successfully Changed Password!"
 
     context = {
         'form': form

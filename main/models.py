@@ -24,13 +24,26 @@ class GameScore(models.Model):
 
 
 class Alert(models.Model):
-    message = models.CharField(max_length = 250)
-    time    = models.DateTimeField()
-    seen    = models.ManyToManyField('User')
+    MESSAGE = '1m'
+    ALERT   = '2a'
+    WARNING = '3w'
+    SEVERITY_CHOICES = (
+        (MESSAGE, 'Message'),
+        (ALERT, 'Alert'),
+        (WARNING, 'Warning'),
+    )
+
+    message  = models.CharField(max_length = 250)
+    time     = models.DateTimeField()
+    seen     = models.ManyToManyField('User', blank = True)
+    severity = models.CharField(max_length = 2, choices = SEVERITY_CHOICES)
+
+    class Meta:
+        ordering = ['-severity', 'time']
 
     def __str__(self):
         """String for representing the Model object."""
-        return message
+        return self.message
 
 
 class GameBring(models.Model):
@@ -65,6 +78,9 @@ class MassEmail(models.Model):
     last_edit = models.DateTimeField(auto_now_add = True)
     editor    = models.ForeignKey('User', on_delete = models.SET_NULL, blank = True, null = True)
     is_sent   = models.BooleanField(default = False)
+
+    class Meta:
+        permissions = (('can_send_emails', 'Abilty to send club emails'),)
 
     def __str__(self):
         """String for representing the Model object."""

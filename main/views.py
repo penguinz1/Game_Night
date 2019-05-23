@@ -10,12 +10,27 @@ from django.core.mail import send_mail
 from django.utils import timezone
 from django.contrib.auth.decorators import permission_required
 
-from main.models import GameScore, Meeting, EmailAddress, MassEmail, ContactNotificant;
-from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm, TestEmailForm;
+from main.models import GameScore, Meeting, EmailAddress, MassEmail, ContactNotificant, Alert
+from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm, TestEmailForm
+
+def gen_alerts(request):
+    context = {}
+    if (request.session.get('notify')):
+        context['notify'] = request.session.get('notify')
+        try:
+            del request.session['notify']
+        except KeyError:
+            pass
+
+    messages = Alert.objects.filter(time__gt = timezone.now())[0:3]
+    context['messages'] = messages
+
+    return context
 
 # Create your views here.
 def index(request):
     """View function for home page of site."""
+    context = gen_alerts(request)
     if request.method == "POST":
         if request.POST['score']:
             if (request.user.is_authenticated):
@@ -36,10 +51,8 @@ def index(request):
     site_best = GameScore.objects.aggregate(Max('score'))['score__max']
     if (not site_best): site_best = 0
 
-    context = {
-        'drifters': drifters_destroyed,
-        'site_best': site_best,
-    }
+    context['drifters']  = drifters_destroyed
+    context['site_best'] = site_best
 
     if (request.user.is_authenticated):
         personal_scores = GameScore.objects.filter(player__username = request.user.username)
@@ -50,6 +63,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 def contact(request):
+    context = gen_alerts(request)
     if request.method == "POST":
         form = CreateContactForm(request.POST)
         if form.is_valid():
@@ -66,26 +80,24 @@ def contact(request):
                 from_email     = 'Game Night Notifications',
                 recipient_list = list(recipients)
             )
+            request.session['notify'] = "Contact Successfully Sent!"
             return HttpResponseRedirect(reverse('index'))
 
     else:
         form = CreateContactForm();
 
-    context = {
-        'form': form,
-    }
+    context['form'] = form
     return render(request, 'main/create_contact.html', context)
 
 @permission_required('main.can_send_emails')
 def mass_mail(request):
+    context = gen_alerts(request)
     next_meeting = Meeting.objects.filter(time__gt = timezone.now())[0]
     if (next_meeting and next_meeting.email and next_meeting.email.is_sent):
         message = next_meeting.email
-        context = {
-            'time': message.last_edit,
-            'subject': message.subject,
-            'content': message.content
-        }
+        context['time']    = message.last_edit
+        context['subject'] = message.subject
+        context['content'] = message.content
         return render(request, 'main/mass_mail_sent.html', context)
 
     if request.method == 'POST':
@@ -106,6 +118,7 @@ def mass_mail(request):
                 email.editor    = request.user
                 email.last_edit = timezone.now()
                 email.save()
+                request.session['notify'] = "Email Successfully Saved!"
 
 
         if (request.POST.get('submit', False)):
@@ -121,13 +134,12 @@ def mass_mail(request):
         else:
             form = MassEmailForm()
 
-    context = {
-        'form': form,
-    }
+    context['form'] = form
     return render(request, 'main/mass_mail.html', context)
 
 @permission_required('main.can_send_emails')
 def mass_mail_submit(request):
+    context = gen_alerts(request)
     next_meeting = Meeting.objects.filter(time__gt = timezone.now())[0]
 
     if (not next_meeting or not next_meeting.email or next_meeting.email.is_sent):
@@ -145,12 +157,14 @@ def mass_mail_submit(request):
         )
         message.is_sent = True
         message.save()
+        request.session['notify'] = "Email Successfully Sent!"
         return HttpResponseRedirect(reverse('mass_mail'))
 
-    return render(request, 'main/mass_mail_submission.html')
+    return render(request, 'main/mass_mail_submission.html', context)
 
 @permission_required('main.can_send_emails')
 def mass_mail_test(request):
+    context = gen_alerts(request)
     next_meeting = Meeting.objects.filter(time__gt = timezone.now())[0]
 
     if (not next_meeting or not next_meeting.email):
@@ -167,24 +181,23 @@ def mass_mail_test(request):
                 from_email          = 'Game Night',
                 recipient_list      = [form.cleaned_data['recipient']]
             )
+            request.session['notify'] = "Test Email Successfully Sent!"
             return HttpResponseRedirect(reverse('mass_mail'))
 
     else:
         form = TestEmailForm()
 
-    context = {
-        'form': form
-    }
+    context['form'] = form
     return render(request, 'main/mass_mail_test.html', context)
 
 def email_list_index(request):
-    return render(request, 'main/email_list_index.html')
+    context = gen_alerts(request)
+    return render(request, 'main/email_list_index.html', context)
 
 def time_location(request):
+    context = gen_alerts(request)
     active_meetings = Meeting.objects.filter(time__gt = timezone.now())[0:10]
-    context = {
-        'meeting_list': active_meetings,
-    }
+    context['meeting_list'] = active_meetings
 
     if (active_meetings):
         context['next_meeting'] = active_meetings[0]
@@ -192,6 +205,7 @@ def time_location(request):
     return render(request, 'main/time_location.html', context)
 
 def add_email(request):
+    context = gen_alerts(request)
     if request.method == 'POST':
         form = AddMailForm(request.POST)
 
@@ -199,17 +213,17 @@ def add_email(request):
             email = form.cleaned_data['new_mail']
             name  = form.cleaned_data['name']
             EmailAddress.objects.create(email = email, name = name)
+            request.session['notify'] = "Email Successfully Added!"
             return HttpResponseRedirect(reverse('email_list_index'))
 
     else:
         form = AddMailForm();
 
-    context = {
-        'form': form,
-    }
+    context['form'] = form
     return render(request, 'main/email_list_add.html', context)
 
 def modify_email(request):
+    context = gen_alerts(request)
     if request.method == 'POST':
         form = ModifyMailForm(request.POST)
 
@@ -219,35 +233,36 @@ def modify_email(request):
             mail = EmailAddress.objects.filter(email = old_mail)[0]
             mail.email = new_mail
             mail.save()
+            request.session['notify'] = "Email Successfully Modified!"
             return HttpResponseRedirect(reverse('email_list_index'))
 
     else:
         form = ModifyMailForm();
 
-    context = {
-        'form': form,
-    }
+    context['form'] = form
     return render(request, 'main/email_list_modify.html', context)
 
 def delete_email(request):
+    context = gen_alerts(request)
     if request.method == 'POST':
         form = DeleteMailForm(request.POST)
 
         if form.is_valid():
             email = form.cleaned_data['delete_mail']
             EmailAddress.objects.filter(email = email).delete()
+            request.session['notify'] = "Email Successfully Deleted!"
             return HttpResponseRedirect(reverse('email_list_index'))
 
     else:
         form = DeleteMailForm();
 
-    context = {
-        'form': form,
-    }
+    context['form'] = form
     return render(request, 'main/email_list_delete.html', context)
 
 def experimental(request):
-    return render(request, 'main/experimental.html')
+    context = gen_alerts(request)
+    return render(request, 'main/experimental.html', context)
 
 def games(request):
-    return render(request, 'main/games.html')
+    context = gen_alerts(request)
+    return render(request, 'main/games.html', context)
