@@ -1,0 +1,25 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1 class="header">{{ user.username }}'s Profile</h1>
+
+    {% if user.first_name %}
+        <p>First Name: {{ user.first_name }}</p>
+    {% else %}
+        <p>First Name: <em>not set</em></p>
+    {% endif %}
+
+    {% if user.last_name %}
+        <p>Last Name: {{ user.last_name }}</p>
+    {% else %}
+        <p>Last Name: <em>not set</em></p>
+    {% endif %}
+
+    {% if user.email %}
+        <p>Email: {{ user.email }}</p>
+    {% else %}
+        <p>Email: <em>not set</em></p>
+    {% endif %}
+
+    <a href=""><p>Change Password</p></a>
+{% endblock %}

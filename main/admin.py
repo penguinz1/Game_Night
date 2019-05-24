@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from main.models import GameScore, Meeting, Location, EmailAddress, Contact, MassEmail, ContactNotificant, Alert
+from main.models import GameScore, Meeting, Location, EmailAddress, Contact, MassEmail, ContactNotificant
+from main.models import Alert, GameBring, QuoteOfDay, VideoOfDay
 
 from .models import User
 # Register your models here.
@@ -15,3 +16,6 @@ admin.site.register(Contact)
 admin.site.register(MassEmail)
 admin.site.register(ContactNotificant)
 admin.site.register(Alert)
+admin.site.register(GameBring)
+admin.site.register(QuoteOfDay)
+admin.site.register(VideoOfDay)

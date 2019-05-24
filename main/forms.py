@@ -15,7 +15,6 @@ class CreateContactForm(ModelForm):
         model = Contact
         fields = ['message', 'email']
 
-
 class MassEmailForm(forms.Form):
     subject = forms.CharField(max_length = 200)
     content = forms.CharField(max_length = 1000, widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
@@ -57,3 +56,8 @@ class DeleteMailForm(forms.Form):
         if (not EmailAddress.objects.filter(email = delete_mail).exists()):
             raise ValidationError(_("Email doesn't exist"))
         return delete_mail
+
+class GameBringForm(forms.Form):
+    game   = forms.CharField(max_length = 100)
+    person = forms.CharField(max_length = 180, required = False)
+    

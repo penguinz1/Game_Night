@@ -1,6 +1,32 @@
 {% extends 'base_generic.html' %}
 
 {% block content %}
-    <h1 class="header">Games</h1>
+    <h1 class="header">Games for Next Meeting</h1>
+
+    {% if not no_meeting %}
+        <a href="{% url 'game_bring' %}"><p>Bring New Game</p></a>
+    {% endif %}
+
+    {% if games %}
+    <table>
+        <tr>
+            <th>Game Name</th>
+            <th>Carrier</th>
+        </tr>
+        {% for game in games %}
+        <tr>
+            <td>{{ game.game }}</td>
+            <td>{% if game.person %}{{ game.person }}{% else %}Anonymous{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% elif no_meeting %}
+    <p class="empty">No Meetings Scheduled!</p>
+
+    {% else %}
+    <p class="empty">No games to show. Be the first to bring one!</p>
+
+    {% endif %}
 
 {% endblock %}

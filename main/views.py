@@ -9,9 +9,11 @@ from django.urls import reverse
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.contrib.auth.decorators import permission_required
+from django.core.paginator import Paginator
 
-from main.models import GameScore, Meeting, EmailAddress, MassEmail, ContactNotificant, Alert
-from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm, TestEmailForm
+from main.models import GameScore, Meeting, EmailAddress, MassEmail, ContactNotificant, Alert, GameBring
+from main.models import QuoteOfDay, VideoOfDay
+from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm, TestEmailForm, GameBringForm
 
 def gen_alerts(request):
     context = {}
@@ -26,6 +28,13 @@ def gen_alerts(request):
     context['messages'] = messages
 
     return context
+
+def get_next_meeting():
+    meetings = Meeting.objects.filter(time__gt = timezone.now())
+    if meetings:
+        return(meetings[0])
+    else:
+        return None
 
 # Create your views here.
 def index(request):
@@ -60,6 +69,16 @@ def index(request):
         if (not personal_best): personal_best = 0
         context['personal_best'] = personal_best
 
+    quotes = QuoteOfDay.objects.filter(time__lt = timezone.now())
+    if quotes:
+        quote = quotes[0]
+        context['quote'] = quote
+
+    videos = VideoOfDay.objects.filter(time__lt = timezone.now())
+    if videos:
+        video = videos[0]
+        context['video'] = video
+
     return render(request, 'index.html', context)
 
 def contact(request):
@@ -92,7 +111,7 @@ def contact(request):
 @permission_required('main.can_send_emails')
 def mass_mail(request):
     context = gen_alerts(request)
-    next_meeting = Meeting.objects.filter(time__gt = timezone.now())[0]
+    next_meeting = get_next_meeting()
     if (next_meeting and next_meeting.email and next_meeting.email.is_sent):
         message = next_meeting.email
         context['time']    = message.last_edit
@@ -140,7 +159,7 @@ def mass_mail(request):
 @permission_required('main.can_send_emails')
 def mass_mail_submit(request):
     context = gen_alerts(request)
-    next_meeting = Meeting.objects.filter(time__gt = timezone.now())[0]
+    next_meeting = get_next_meeting()
 
     if (not next_meeting or not next_meeting.email or next_meeting.email.is_sent):
         raise Http404("message does not exist")
@@ -165,7 +184,7 @@ def mass_mail_submit(request):
 @permission_required('main.can_send_emails')
 def mass_mail_test(request):
     context = gen_alerts(request)
-    next_meeting = Meeting.objects.filter(time__gt = timezone.now())[0]
+    next_meeting = get_next_meeting()
 
     if (not next_meeting or not next_meeting.email):
         raise Http404("message does not exist")
@@ -200,7 +219,7 @@ def time_location(request):
     context['meeting_list'] = active_meetings
 
     if (active_meetings):
-        context['next_meeting'] = active_meetings[0]
+        context['next_meeting'] = get_next_meeting()
 
     return render(request, 'main/time_location.html', context)
 
@@ -265,4 +284,41 @@ def experimental(request):
 
 def games(request):
     context = gen_alerts(request)
+    next_meeting = get_next_meeting()
+
+    if next_meeting and next_meeting.gamebring_set.count() > 0:
+        game_set = next_meeting.gamebring_set.all()
+        paginator = Paginator(game_set, 20)
+        page = request.GET.get('page')
+        game_page = paginator.get_page(page)
+        context['games'] = game_page.object_list
+        context['page_obj']  = game_page
+    else:
+        context['no_meeting'] = True
+
     return render(request, 'main/games.html', context)
+
+def game_bring(request):
+    context = gen_alerts(request)
+    next_meeting = get_next_meeting()
+
+    if (not next_meeting):
+        raise Http404("next meeting not scheduled")
+
+    if request.method == 'POST':
+        form = GameBringForm(request.POST)
+
+        if form.is_valid():
+            GameBring.objects.create(
+                game = form.cleaned_data['game'],
+                person = form.cleaned_data['person'],
+                meeting = next_meeting,
+            )
+        request.session['notify'] = "Game Successfully Added!"
+        return HttpResponseRedirect(reverse('games'))
+
+    else:
+        form = GameBringForm()
+
+    context['form'] = form
+    return render(request, 'main/game_form.html', context)

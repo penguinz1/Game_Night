@@ -1,0 +1,14 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1 class="header">Game Bring Form</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        </table>
+        <ul>
+            <input type="submit" value="Submit">
+        </ul>
+    </form>
+{% endblock %}

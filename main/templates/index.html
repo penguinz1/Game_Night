@@ -14,7 +14,7 @@
         <p class="code small">
         Current Score: <span id="personal-score">0</span> | 
         {% if user.is_authenticated %}
-        Personal Best: <span id="personal-best">{{ personal_best }}</span> | 
+            Personal Best: <span id="personal-best">{{ personal_best }}</span> | 
         {% endif %}
         Site Best: <span id="site-best">{{ site_best }}</span> | 
         Drifters Destroyed Sitewide: <span id="drifters-destroyed">{{ drifters }}</span> | 
@@ -28,8 +28,12 @@
         <li>Block 2</li>
         <li>Block 3</li>
     </ul>
-    <p class="center">Quote of the Day</p>
-    <p class="center">Video of the Day</p>
+    {% if quote %}
+        <p class="center"><strong>{{ quote.quote }}</strong> - <em>{{ quote.speaker }}</em></p>
+    {% endif %}
+    {% if video %}
+        <p class="center">Video of the Day - <a href="{{ video.link }}" target="blank">{{ video.visible_text }}</a></p>
+    {% endif %}
     {% load static %}
     <script>
         var site_best = parseInt("{{ site_best }}");
