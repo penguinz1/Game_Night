@@ -288,6 +288,10 @@ def delete_email(request):
     context['form'] = form
     return render(request, 'main/email_list_delete.html', context)
 
+def random(request):
+    context = gen_alerts(request)
+    return render(request, 'main/random.html', context)
+
 def experimental(request):
     context = gen_alerts(request)
     return render(request, 'main/experimental.html', context)
