@@ -24,7 +24,10 @@ def gen_alerts(request):
         except KeyError:
             pass
 
-    messages = Alert.objects.filter(time__gt = timezone.now())[0:3]
+    if request.user.is_authenticated:
+        messages = Alert.objects.filter(time__gt = timezone.now()).exclude(seen__in = [request.user])[0:3]
+    else:
+        messages = Alert.objects.filter(time__gt = timezone.now())[0:3]
     context['messages'] = messages
 
     return context
@@ -40,8 +43,15 @@ def get_next_meeting():
 def index(request):
     """View function for home page of site."""
     context = gen_alerts(request)
+    if request.method == "GET":
+        if request.GET.get('id') and request.user.is_authenticated:
+            message = Alert.objects.get(pk = request.GET.get('id'))
+            if message:
+                message.seen.add(request.user)
+                message.save()
+
     if request.method == "POST":
-        if request.POST['score']:
+        if request.POST.get('score'):
             if (request.user.is_authenticated):
                 GameScore.objects.create(
                     score = request.POST.get('score', 0),

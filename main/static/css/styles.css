@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'Source Sans Pro';
+  font-family: 'Source Sans Pro';
   font-style: normal;
   font-weight: 400;
   src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v12/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7lujVj9w.woff2) format('woff2');
@@ -11,6 +11,26 @@ html, body {
     position: relative;
 }
 
+.b1m {
+    background-color: green;
+}
+
+.b2a {
+    background-color: yellow;
+}
+
+.b3w {
+    background-color: red;
+}
+
+.banner .message {
+    font-size: 20px;
+}
+
+.banner .confirm {
+    float: right;
+    margin-right: 2%;
+}
 
 body {
  /*   background-image: url('dice.jpg');*/
@@ -52,7 +72,7 @@ canvas {
     width: 100%;
     grid-template-rows: 1fr;
     grid-template-columns: 8fr 1fr;
-    padding-bottom: 10px;
+    /*padding-bottom: 10px;*/
 }
 
 .navbar {
