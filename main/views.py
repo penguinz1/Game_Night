@@ -1,6 +1,6 @@
 import html2text
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Sum, Max
 from django.views import generic
@@ -39,16 +39,19 @@ def get_next_meeting():
     else:
         return None
 
-# Create your views here.
-def index(request):
-    """View function for home page of site."""
-    context = gen_alerts(request)
+def alert_update(request):
     if request.method == "GET":
         if request.GET.get('id') and request.user.is_authenticated:
             message = Alert.objects.get(pk = request.GET.get('id'))
             if message:
                 message.seen.add(request.user)
                 message.save()
+    return redirect(request.GET['next'])
+
+# Create your views here.
+def index(request):
+    """View function for home page of site."""
+    context = gen_alerts(request)
 
     if request.method == "POST":
         if request.POST.get('score'):
@@ -63,6 +66,21 @@ def index(request):
                     score = request.POST.get('score', 0),
                     drifters = request.POST.get('drifters', 0),
                 )
+
+    quotes = QuoteOfDay.objects.filter(time__lt = timezone.now())
+    if quotes:
+        quote = quotes[0]
+        context['quote'] = quote
+
+    videos = VideoOfDay.objects.filter(time__lt = timezone.now())
+    if videos:
+        video = videos[0]
+        context['video'] = video
+
+    return render(request, 'index.html', context)
+
+def space_game(request):
+    context = gen_alerts(request)
 
     drifters_destroyed = GameScore.objects.aggregate(Sum('drifters'))['drifters__sum']
     if (not drifters_destroyed): drifters_destroyed = 0
@@ -79,17 +97,7 @@ def index(request):
         if (not personal_best): personal_best = 0
         context['personal_best'] = personal_best
 
-    quotes = QuoteOfDay.objects.filter(time__lt = timezone.now())
-    if quotes:
-        quote = quotes[0]
-        context['quote'] = quote
-
-    videos = VideoOfDay.objects.filter(time__lt = timezone.now())
-    if videos:
-        video = videos[0]
-        context['video'] = video
-
-    return render(request, 'index.html', context)
+    return render(request, 'main/space_game.html', context)
 
 def contact(request):
     context = gen_alerts(request)

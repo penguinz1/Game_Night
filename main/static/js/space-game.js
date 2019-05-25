@@ -10,6 +10,7 @@ const canvas_rect = {
     top: 0,
     bottom: canvas.height
 };
+const NUM_STAR = 400;
 const DRIFTER_COLOR = '#D3D3D3';
 const BEAM_COLORS = ['#FFFFFF', '#9B30FF', '#2a52be'];
 const BASE_SHIP_COLOR = '#7CFC00';
@@ -134,13 +135,13 @@ const draw = () => {
 // STAR DECORATION CODE
 const gen_star = () => {
     return {
-        x: Math.floor(Math.random() * 1400),
-        y: Math.floor(Math.random() * 250)
+        x: Math.floor(Math.random() * canvas.width),
+        y: Math.floor(Math.random() * canvas.height)
     };
 }
 const gen_star_coords = () => {
     let arr = []
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < NUM_STAR; i++) {
         let elem = gen_star();
         arr.push(elem);
     }

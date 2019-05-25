@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %}
+
+{% block headlinks %}
+    {% load static %}
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery.cookie.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <h1 class="header">Space Game</h1>
+    <div class="space-game-container">
+        <p class="code">> <span id="space-text">Click to start space game</span><blink>_</blink></p>
+        <canvas id="space-game" width="1400" height="400"></canvas>
+        <p class="code small">
+        Current Score: <span id="personal-score">0</span> | 
+        {% if user.is_authenticated %}
+            Personal Best: <span id="personal-best">{{ personal_best }}</span> | 
+        {% endif %}
+        Site Best: <span id="site-best">{{ site_best }}</span> | 
+        Drifters Destroyed Sitewide: <span id="drifters-destroyed">{{ drifters }}</span> | 
+        <span id="paperclip-game">Inspired by <a href="http://www.decisionproblem.com/paperclips" id="paperclip-link" target="blank">the paperclips game</a></span>
+        </p>
+    </div>
+    <script>
+        var site_best = parseInt("{{ site_best }}");
+        var site_drifters = parseInt("{{ drifters }}");
+        var personal_best = parseInt("{{ personal_best }}");
+        var user = false;
+    </script>
+    {% if user.is_authenticated %}
+    <script>
+        user = true;
+    </script>
+    {% endif %}
+    <script src="{% static 'js/blink.js' %}"></script>
+    <script src="{% static 'js/space-game.js' %}"></script>
+{% endblock %}

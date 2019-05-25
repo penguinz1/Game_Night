@@ -21,6 +21,7 @@
             <a href="{% url 'email_list_index' %}"><li>Email List</li></a>
             <a href="{% url 'contact' %}"><li>Contact</li></a>
             <a href="{% url 'random' %}"><li>Random</li></a>
+            <a href="{% url 'space_game' %}"><li>Space Game</li></a>
             <a href="{% url 'mass_mail' %}"><li>Email Structure (Officers only)</li></a>
             <a href="{% url 'experimental' %}"><li>Experimental</li></a>
         </ul>
@@ -40,7 +41,7 @@
     {% for message in messages %}
         <div class="b{{ message.severity }} banner">
             {% if user.is_authenticated %}
-                <a href="{% url 'index' %}?id={{ message.id }}"><p class="confirm">Got it!</p></a>
+                <a href="{% url 'alert' %}?id={{ message.id }}&next={{ request.path }}"><p class="confirm">Got it!</p></a>
             {% endif %}
             <p class="message">{{ message }}</p>
         </div>
