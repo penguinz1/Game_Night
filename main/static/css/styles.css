@@ -144,7 +144,7 @@ canvas {
     margin: 0 auto;
     border: 2px solid blue;
     font-size: 18px;
-    font-family: 'Space Mono';
+    font-family: 'Space Mono', monospace;
 }
 
 .small {
