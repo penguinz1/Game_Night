@@ -1,12 +1,44 @@
 {% extends 'base_generic.html' %}
 
+{% block headlinks %}
+	{% load static %}
+	<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery.cookie.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'css/coin.css' %}">
+{% endblock %}
+
 {% block content %}
     <h1 class="header">Random</h1>
 
     <p>Under construction!</p>
 
+    <label for="rand-ind">Randomizer Index:</label>
+    <input class="autofield" type="number" id="rand-ind" min="0" step="1" value="{{ initial_num }}">
+
+    <div class="rand">
+    	<p>Heads or Tails</p>
+    	<div id="coin">
+    		<div class="side-a"></div>
+    		<div class="side-b"></div>
+    	</div>
+    </div>
+
+    <div class="rand">
+    	<p>Pick number between...</p>
+    	<label for="start-num">Start:</label>
+    	<input class="autofield" type="number" id="start-num" min="0" step="1" value="1">
+    	<label for="end-num">End:</label>
+    	<input class="autofield" type="number" id="end-num" min="0" step="1" value="10">
+    	<p id="rand-output"></p>
+    	<p id="rand-warn"></p>
+    	<button id="pick-rand">Pick Random</button>
+    </div>
+
     {% load static %}
+    <script src="{% static 'js/autofield.js' %}"></script>
     <script src="{% static 'js/deltas.js' %}"></script>
     <script src="{% static 'js/random.js' %}"></script>
+    <script src="{% static 'js/coin.js' %}"></script>
+    <script src="{% static 'js/rand-num.js' %}"></script>
 
 {% endblock %}

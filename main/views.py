@@ -1,4 +1,6 @@
 import html2text
+import time
+import math
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -298,6 +300,7 @@ def delete_email(request):
 
 def random(request):
     context = gen_alerts(request)
+    context['initial_num'] = math.floor(time.time())
     return render(request, 'main/random.html', context)
 
 def experimental(request):
