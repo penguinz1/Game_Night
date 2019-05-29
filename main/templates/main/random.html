@@ -34,11 +34,39 @@
     	<button id="pick-rand">Pick Random</button>
     </div>
 
+    <div class="rand-groups">
+        <p>Create random groups</p>
+        <textarea id="groups" rows="6", cols="20"></textarea>
+        <label for="num-groups">Number Of Groups:</label>
+        <input class="autofield" type="number" id="num-groups" min="2" max="4" step="1" value="2">
+        <input type="radio" name="gen-type" value="even" checked="checked"> Even Group Generation <br>
+        <input type="radio" name="gen-type" value="rand"> True Random Generation <br>
+        <div class="group">
+            <p>Group 1</p>
+            <ul id="group1"></ul>
+        </div>
+        <div class="group">
+            <p>Group 2</p>
+            <ul id="group2"></ul>
+        </div>
+        <div class="group">
+            <p>Group 3</p>
+            <ul id="group3"></ul>
+        </div>
+        <div class="group">
+            <p>Group 4</p>
+            <ul id="group4"></ul>
+        </div>
+        <br>
+        <button id="pick-groups">Pick Groups</button>
+    </div>
+
     {% load static %}
     <script src="{% static 'js/autofield.js' %}"></script>
     <script src="{% static 'js/deltas.js' %}"></script>
     <script src="{% static 'js/random.js' %}"></script>
     <script src="{% static 'js/coin.js' %}"></script>
     <script src="{% static 'js/rand-num.js' %}"></script>
+    <script src="{% static 'js/rand-groups.js' %}"></script>
 
 {% endblock %}
