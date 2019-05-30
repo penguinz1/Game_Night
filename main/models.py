@@ -151,6 +151,16 @@ class GameOfWeek(models.Model):
     def __str__(self):
         return self.game
 
+    # source:
+    # https://stackoverflow.com/questions/42421366/delete-image-in-django
+    def delete(self, *args, **kwargs):
+        # You have to prepare what you need before delete the model
+        storage, path = self.image.storage, self.image.path
+        # Delete the model before the file
+        super(GameOfWeek, self).delete(*args, **kwargs)
+        # Delete the file after the model
+        storage.delete(path)
+
 class EmailAddress(models.Model):
     email = models.EmailField(unique = True);
     name = models.CharField(max_length = 200);
