@@ -114,6 +114,8 @@ EMAIL_HOST_PASSWORD = 'int_mystery(){return_42;}'
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = "Game Night"
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

@@ -1,11 +1,3 @@
-body {
-  padding-top: 50px;
-  background: #F7F7F7;
-  -webkit-perspective: 800px;
-}
-h1{
-  text-align: center;
-}
 #coin {
   position: relative;
   margin: 0 auto;
@@ -24,10 +16,18 @@ h1{
           box-shadow: inset 0 0 45px rgba(255,255,255,.3), 0 12px 20px -10px rgba(0,0,0,.4);
 }
 .side-a {
-  background-color: #bb0000;
+  transform: translateZ(1px);
+  border-radius: 50%;
+  background-image: url('../images/heads.png');
+  background-size: cover;
+  display: block;
 }
 .side-b {
-  background-color: #3e3e3e;
+  transform: translateZ(-1px) rotateY(180deg);
+  border-radius: 50%;
+  background-image: url('../images/tails.png');
+  background-size: cover;
+  display: block;
 }
 
 #coin {

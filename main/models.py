@@ -140,6 +140,17 @@ class VideoOfDay(models.Model):
     def __str__(self):
         return self.visible_text
 
+class GameOfWeek(models.Model):
+    game = models.CharField(max_length = 100)
+    image = models.ImageField()
+    time = models.DateTimeField()
+
+    class meta:
+        ordering = ['-time']
+
+    def __str__(self):
+        return self.game
+
 class EmailAddress(models.Model):
     email = models.EmailField(unique = True);
     name = models.CharField(max_length = 200);

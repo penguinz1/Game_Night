@@ -65,6 +65,9 @@
     {% endif %}
     {% endblock %}
     <footer>
-        <p class="footer-text">&copy 2019 Game Night at UIUC</p>
+        <p class="footer-text">&copy 2019 Game Night at UIUC | 
+            <a href="{% url 'admin:index' %}" target="blank">Admin Site</a> |
+            <a href="{% url 'changelog' %}">Changelog</a>
+        </p>
     </footer>
 </body>

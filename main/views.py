@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator
 
 from main.models import GameScore, Meeting, EmailAddress, MassEmail, ContactNotificant, Alert, GameBring
-from main.models import QuoteOfDay, VideoOfDay
+from main.models import QuoteOfDay, VideoOfDay, GameOfWeek
 from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMailForm, DeleteMailForm, TestEmailForm, GameBringForm
 
 def gen_alerts(request):
@@ -320,6 +320,11 @@ def games(request):
         context['page_obj']  = game_page
     else:
         context['no_meeting'] = True
+
+    game_of_week_collection = GameOfWeek.objects.filter(time__lt = timezone.now())
+    if game_of_week_collection:
+        game_of_week = game_of_week_collection[0]
+        context['game_of_week'] = game_of_week
 
     return render(request, 'main/games.html', context)
 

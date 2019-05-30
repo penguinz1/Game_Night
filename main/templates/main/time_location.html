@@ -12,8 +12,8 @@
 
 {% block content %}
     <h1 class="header">Times and Locations</h1>
-    <div class="time-location">
-        <div class="time">
+    <div class="split-grid">
+        <div class="grid-left">
             {% if meeting_list %}
             <table>
                 <tr>
@@ -34,7 +34,7 @@
             {% endif %}
         </div>
 
-        <div class="location">
+        <div class="grid-right">
             {% if next_meeting %}
                 <p class="location-tag">Next Week's Location | <span class="location">{{ next_meeting.location }}</span></p>
                 <div id="mapid"></div>

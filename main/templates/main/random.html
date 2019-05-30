@@ -61,6 +61,12 @@
         <button id="pick-groups">Pick Groups</button>
     </div>
 
+    <div class="stock-image">
+        <p>Random Generation based on changes in the Stock Market</p>
+        {% load static %}
+        <img src="{% static 'images/stock.jpeg' %}" alt="Stock market price changes graph">
+    </div>
+
     {% load static %}
     <script src="{% static 'js/autofield.js' %}"></script>
     <script src="{% static 'js/deltas.js' %}"></script>
