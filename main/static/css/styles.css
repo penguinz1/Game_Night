@@ -11,6 +11,10 @@ html, body {
     position: relative;
 }
 
+body{
+    background-image: url(GraingerLibrary.jpg);
+}
+
 .b1m {
     background-color: green;
 }
@@ -77,20 +81,20 @@ canvas {
 
 .navbar {
     list-style: none;
-    background-color: rgb(255, 255, 0);
+    background-color: rgba(0, 0, 102, .7);
     grid-area: 1 / 1 / span 1 / span 1;
 }
 
 .navbar li {
     padding: 20px;
     display: inline-block;
-    color: black;
+    color: white;
     font-family: 'Source Sans Pro';
 }
 
 .login-bar {
     list-style: none;
-    background-color: orange;
+    background-color: rgba(255, 128, 0, .7);
     grid-area: 1 / 2 / span 1 / span 1;
 }
 
@@ -99,9 +103,10 @@ canvas {
     padding: 2px 10px;
     text-align: center;
     color: black;
+    font-family: 'Source Sans Pro';
     border: 1px solid black;
     border-radius: 10px;
-    background-color: green;
+    background-color: rgb(0, 204, 0);
 }
 
 .unlink {
@@ -111,9 +116,12 @@ canvas {
 .title {
     font-size: 50px;
     text-align: center;
-    font-family: "Optima";
+    font-family: 'Source Sans Pro';
+    font-weight: bold;
     margin-top: 10px;
     color: white;
+    word-spacing: .2em;
+    letter-spacing: .05em;
 }
 
 .subtitle {
