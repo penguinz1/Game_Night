@@ -21,5 +21,5 @@ urlpatterns = [
     path('', include('main.urls')), # all-purpose urls for the main site
     path('accounts/', include('accounts.urls')), # urls for User interfaces (sign-up, profile, etc.)
     path('accounts/', include('django.contrib.auth.urls')), # official django urls for User interfaces
-    path('tinymce/', include('tinymce.urls')), # necessary for rich text input boxes
+    path('summernote/', include('django_summernote.urls')), # necessary for rich text input boxes
 ]

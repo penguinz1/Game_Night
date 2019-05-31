@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
-from tinymce.widgets import TinyMCE
+from django_summernote.widgets import SummernoteWidget
 
 from main.models import Contact, EmailAddress
 
@@ -19,7 +19,7 @@ class CreateContactForm(ModelForm):
 class MassEmailForm(forms.Form):
     """Form to create a mass email to send."""
     subject = forms.CharField(max_length = 200)
-    content = forms.CharField(max_length = 1000, widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
+    content = forms.CharField(max_length = 1000, widget = SummernoteWidget())
 
 class TestEmailForm(forms.Form):
     """Form to send a test email."""
