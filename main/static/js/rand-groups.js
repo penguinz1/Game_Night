@@ -1,11 +1,12 @@
-const MAX_GROUPS = 4;
+const MAX_GROUPS = 4; // max number of groups
 
-var raw_groups = document.getElementById("groups");
-var num_groups = document.getElementById("num-groups");
-var group_submit = document.getElementById("pick-groups");
+var raw_groups = document.getElementById("groups"); // group list in text form
+var num_groups = document.getElementById("num-groups"); // number of groups to generate
+var group_submit = document.getElementById("pick-groups"); // submit button
 
 // graciously provided by Stack Overflow:
 // https://stackoverflow.com/questions/11128700/create-a-ul-and-fill-it-based-on-a-passed-array
+// creates an unordered list html object from an arrays
 function makeUL(array) {
     // Create the list element:
     var list = document.createElement('ul');
@@ -25,6 +26,7 @@ function makeUL(array) {
     return list;
 }
 
+// gets the x that solves 2^x = num (gets the power of 2 of num)
 const get_two_power = (num) => {
     if (num <= 2) {
         return 1;
@@ -33,6 +35,7 @@ const get_two_power = (num) => {
     return 1 + get_two_power(num / 2);
 }
 
+// gets a random number in the interval [0, 2^power - 1]
 const get_rand = (power, rand_ind, total) => {
     if (power == 1) {
         return heads_tails(rand_ind) ? [total + 1, rand_ind + 1] : [total, rand_ind + 1]
@@ -45,10 +48,12 @@ const get_rand = (power, rand_ind, total) => {
     }
 }
 
+// converts the raw group list text into an array
 const convert_list = (raw) => {
     return raw.split(/[\W]+/);
 }
 
+// generates groups from the group_list
 const gen_groups = (group_list, rand_ind, n_groups, is_even) => {
     if (is_even) {
         return make_groups(group_list, rand_ind, n_groups)
@@ -69,6 +74,7 @@ const gen_groups = (group_list, rand_ind, n_groups, is_even) => {
     }
 }
 
+// cleans existing html lists
 const getAndCleanLists = (n_groups) => {
     let lists = []
 
@@ -85,6 +91,7 @@ const getAndCleanLists = (n_groups) => {
     return lists;
 }
 
+// updates the html lists to show the groups generated
 group_submit.addEventListener("click", () => {
     let n_groups = parseInt(num_groups.value);
     if (n_groups > MAX_GROUPS) {
@@ -97,15 +104,15 @@ group_submit.addEventListener("click", () => {
         n_groups = 2
     }
 
-    let num = parseInt(focus.value);
+    let r_ind = parseInt(focus.value);
     let lists = getAndCleanLists(n_groups);
-    let groups = gen_groups(convert_list(raw_groups.value), num, n_groups, is_even);
+    let groups = gen_groups(convert_list(raw_groups.value), r_ind, n_groups, is_even);
 
     for (let i = 0; i < n_groups; i++) {
         let list = makeUL(groups[0][i]);
         lists[i].appendChild(list);
     }
 
-    focus.value = groups[1];
-    num_groups.value = n_groups;
+    focus.value = groups[1]; // updates random index
+    num_groups.value = n_groups; // updates number of groups field
 });

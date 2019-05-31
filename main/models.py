@@ -10,6 +10,7 @@ class User(AbstractUser):
 
 
 class GameScore(models.Model):
+    """Model to store points for the space game."""
     score    = models.PositiveIntegerField()
     drifters = models.PositiveIntegerField()
     time     = models.DateTimeField(auto_now_add = True)
@@ -24,6 +25,7 @@ class GameScore(models.Model):
 
 
 class Alert(models.Model):
+    """Model for setting website banner alerts."""
     MESSAGE = '1m'
     ALERT   = '2a'
     WARNING = '3w'
@@ -39,6 +41,7 @@ class Alert(models.Model):
     severity = models.CharField(max_length = 2, choices = SEVERITY_CHOICES)
 
     class Meta:
+        """Ordering of the Model objects."""
         ordering = ['-severity', 'time']
 
     def __str__(self):
@@ -47,11 +50,13 @@ class Alert(models.Model):
 
 
 class GameBring(models.Model):
+    """Model to represent games that members will bring."""
     game    = models.CharField(max_length = 100)
     person  = models.CharField(max_length = 180, blank = True, null = True)
     meeting = models.ForeignKey('Meeting', on_delete = models.CASCADE)
 
     class Meta:
+        """Ordering of the Model objects."""
         ordering = ['game']
 
     def __str__(self):
@@ -63,12 +68,14 @@ class GameBring(models.Model):
 
 
 class Meeting(models.Model):
+    """Model to represent Game Night meetings."""
     time     = models.DateTimeField()
     name     = models.CharField(max_length = 100, blank = True, null = True)
     location = models.ForeignKey('Location', on_delete = models.CASCADE)
     email    = models.OneToOneField('MassEmail', on_delete = models.SET_NULL, blank = True, null = True)
 
     class Meta:
+        """Ordering of the Model objects."""
         ordering = ['time']
 
     def __str__(self):
@@ -79,6 +86,7 @@ class Meeting(models.Model):
             return f'{self.time}'
 
 class MassEmail(models.Model):
+    """Model to represent Game Night weekly emails."""
     subject   = models.CharField(max_length = 200)
     content   = models.CharField(max_length = 1000)
     last_edit = models.DateTimeField(auto_now_add = True)
@@ -86,6 +94,7 @@ class MassEmail(models.Model):
     is_sent   = models.BooleanField(default = False)
 
     class Meta:
+        """Permissions belonging to the Model objects."""
         permissions = (('can_send_emails', 'Abilty to send club emails'),)
 
     def __str__(self):
@@ -94,6 +103,7 @@ class MassEmail(models.Model):
 
 
 class Location(models.Model):
+    """Model to represent locations of Game Night meetings."""
     place = models.CharField(max_length = 200)
     latitude = models.FloatField(validators=[MinValueValidator(-90), MaxValueValidator(90)])
     longitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
@@ -104,6 +114,7 @@ class Location(models.Model):
 
 
 class Contact(models.Model):
+    """Model to store outside contact requests."""
     message = models.CharField(max_length = 500)
     email   = models.EmailField(blank = True, null = True, max_length = 254, verbose_name='email address')
     seen    = models.BooleanField(default = False)
@@ -112,23 +123,29 @@ class Contact(models.Model):
         return self.message
 
 class ContactNotificant(models.Model):
+    """Model to store emails of officers wanting to receive contact requests."""
     email = models.EmailField()
 
     def __str__(self):
+        """String for representing the Model object."""
         return f'{self.email}'
 
 class QuoteOfDay(models.Model):
+    """Model to store front page quotes"""
     quote = models.CharField(max_length = 500)
     speaker = models.CharField(max_length = 200)
     time = models.DateTimeField()
 
     class meta:
+        """Ordering of the Model objects."""
         ordering = ['-time']
 
     def __str__(self):
+        """String for representing the Model object."""
         return f'{self.speaker} - {self.quote}'
 
 class VideoOfDay(models.Model):
+    """Model to store front page video links."""
     link = models.CharField(max_length = 1000)
     visible_text = models.CharField(max_length = 500)
     description = models.CharField(blank = True, null = True, max_length = 1000)
@@ -138,17 +155,21 @@ class VideoOfDay(models.Model):
         ordering = ['-time']
 
     def __str__(self):
+        """String for representing the Model object."""
         return self.visible_text
 
 class GameOfWeek(models.Model):
+    """Model to display selected games under the `Games` tab."""
     game = models.CharField(max_length = 100)
     image = models.ImageField()
     time = models.DateTimeField()
 
     class meta:
+        """Ordering of the Model objects."""
         ordering = ['-time']
 
     def __str__(self):
+        """String for representing the Model object."""
         return self.game
 
     # source:
@@ -162,8 +183,10 @@ class GameOfWeek(models.Model):
         storage.delete(path)
 
 class EmailAddress(models.Model):
+    """Model to store email addresses of members."""
     email = models.EmailField(unique = True);
     name = models.CharField(max_length = 200);
 
     def __str__(self):
+        """String for representing the Model object."""
         return f'{self.email}'

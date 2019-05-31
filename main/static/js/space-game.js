@@ -1,71 +1,76 @@
-const canvas = document.getElementById("space-game");
-const templates_score = document.getElementById("personal-score");
-const templates_message = document.getElementById("space-text");
-const templates_pb = document.getElementById("personal-best");
-const templates_site_top = document.getElementById("site-best");
-const templates_site_drifters = document.getElementById("drifters-destroyed");
+const canvas = document.getElementById("space-game"); // canvas space for the space game
+const templates_score = document.getElementById("personal-score"); // displays current score
+const templates_message = document.getElementById("space-text"); // dissplays current message
+const templates_pb = document.getElementById("personal-best"); // displays personal best score
+const templates_site_top = document.getElementById("site-best"); // displays site top score
+const templates_site_drifters = document.getElementById("drifters-destroyed"); // displays total sitewide drifters destroyed
+// the dimensions of the canvas
 const canvas_rect = {
     left: 0,
     right: canvas.width,
     top: 0,
     bottom: canvas.height
 };
-const NUM_STAR = 400;
-const DRIFTER_COLOR = '#D3D3D3';
-const BEAM_COLORS = ['#FFFFFF', '#9B30FF', '#2a52be'];
-const BASE_SHIP_COLOR = '#7CFC00';
-const SHIP_OUTLINE = '#FFA500';
-const SHIP_STROKE_SIZE = 2;
-const rect = canvas.getBoundingClientRect();
-const ctx = canvas.getContext("2d")
-const SPEED = 2;
-const CIRCLE_SIZE = 2.5;
-const startX = canvas.width / 2;
-const startY = canvas.height / 2;
-const BASE_SHIP_SIZE = 5;
-const DRIFTER_MAX_SIZE = 5;
-const POINTS = [1, 1, 2, 3, 5];
-const TIME_DELAY = 25;
-const DIFFICULTY_INTERVAL = 5000;
-const BASE_DRIFTER_INTERVAL = 1000;
-const DIFFICULTY_STEP = 1.1;
-const DRIFTER_SPEED = 4.5;
-const SHIP_SPEED = 10;
-const SIZE_MOMENTUM = 1.3;
-const SIZE_MULT = 3;
-const SHIP_MULT = 5;
-const MEDIUM_POWER = 500;
-const HIGH_POWER = 3000;
-const BEAM_PERSIST = [50, 200, 500];
-const BEAM_DAMAGE = [1, 2, 7];
-var game_active = false;
-var drifters;
-var beams;
-var drifters_destroyed;
-var score;
-var ship_momentum;
-var ship_size;
-var drifter_interval;
-var difficulty_time;
-var drifter_time;
-var ship_x;
-var ship_y;
-var beam_charge;
-var beam_amount;
-var medium_beam_message = false;
-var high_beam_message = false;
-var beam_loc;
-var ship_momentum_x;
-var ship_momentum_y;
-var ship_color;
+const NUM_STAR = 400; // number of stars to generate
+const DRIFTER_COLOR = '#D3D3D3'; // color of the drifters
+const BEAM_COLORS = ['#FFFFFF', '#9B30FF', '#2a52be']; // colors of the beam: [low, medium, high]
+const BASE_SHIP_COLOR = '#7CFC00'; // color of the ship
+const SHIP_OUTLINE = '#FFA500'; // color of the ship outline
+const SHIP_STROKE_SIZE = 2; // thickness of the ship outline
+const rect = canvas.getBoundingClientRect(); // coordinates of the canvas bounds
+const ctx = canvas.getContext("2d") // 'pencil' of the canvas used to draw objects
+const SPEED = 2; // speed of the stars
+const CIRCLE_SIZE = 2.5; // size of the stars
+const startX = canvas.width / 2; // starting X position of the ship
+const startY = canvas.height / 2; // starting Y position of the ship
+const BASE_SHIP_SIZE = 5; // starting ship size
+const DRIFTER_MAX_SIZE = 5; // max size of drifters
+const POINTS = [1, 1, 2, 3, 5]; // points that drifters are worth: size = [1, 2, 3, 4, 5]
+const TIME_DELAY = 25; // tick delay of animations
+const DIFFICULTY_INTERVAL = 5000; // time before game difficulty increases
+const BASE_DRIFTER_INTERVAL = 1000; // base time for drifter generation
+const DIFFICULTY_STEP = 1.1; // difficulty step per each difficulty increase
+const DRIFTER_SPEED = 4.5; // base speed of drifters
+const SHIP_SPEED = 10; // base speed of the ship
+const SIZE_MOMENTUM = 1.3; // base ship resistance to changes in velocity
+const SIZE_MULT = 3; // display size augmentation of drifters
+const SHIP_MULT = 5; // display size augmentation of ship
+const MEDIUM_POWER = 500; // time to charge medium beam
+const HIGH_POWER = 3000; // time to charge high beam
+const BEAM_PERSIST = [50, 200, 500]; // time beam lasts after being fired: [low, medium, high]
+const BEAM_DAMAGE = [1, 2, 7]; // amount of damage the beam inflicts: [low, medium, high]
+var game_active = false; // flag indicating whether the game is in progress
+var drifters; // array of drifters
+var beams; // array of beams
+var drifters_destroyed; // number of drifters destroyed
+var score; // current score
+var ship_momentum; // current ship momentum (see above)
+var ship_size; // current ship size
+var drifter_interval; // current interval of drifter generation
+var difficulty_time; // stores time until next difficulty step
+var drifter_time; // stores time until next drifter generated
+var ship_x; // current X position of ship
+var ship_y; // current Y position of ship
+var beam_charge; // flag indicating whether beam is charging
+var beam_amount; // current charge amount of beam
+var medium_beam_message = false; // flag on whether to display medium beam ready message
+var high_beam_message = false; // flag on whether to display high beam ready message
+var beam_loc; // location of mouse when beam is fired
+var ship_momentum_x; // momentum of ship in the X direction
+var ship_momentum_y; // momentum of ship in the Y direction
+var ship_color; // current color of the ship
 
+// draws the canvas
 const draw = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // clears canvas
 
     if (!game_active) {
+        // draws stars
         draw_stars();
         move_stars();
     } else {
+        // draws the game
+        // check time counters
         if (difficulty_time >= DIFFICULTY_INTERVAL) {
             drifter_interval = Math.ceil(drifter_interval / DIFFICULTY_STEP);
             difficulty_time = 0;
@@ -76,6 +81,7 @@ const draw = () => {
             drifter_time = 0;
         }
 
+        // updating beam charge and fire
         if (beam_charge) {
             beam_amount += TIME_DELAY;
             if (beam_amount > HIGH_POWER) {
@@ -122,23 +128,29 @@ const draw = () => {
             propel_ship(beam);
         }
 
+        // draws and updates the game
         draw_sprites();
         move_sprites();
         check_collisions();
         decay_beams();
 
+        // updates time counters
         difficulty_time += TIME_DELAY;
         drifter_time += TIME_DELAY;
     }
 }
 
 // STAR DECORATION CODE
+
+// generates a position of a star
 const gen_star = () => {
     return {
         x: Math.floor(Math.random() * canvas.width),
         y: Math.floor(Math.random() * canvas.height)
     };
 }
+
+// generates NUM_STAR positions of stars
 const gen_star_coords = () => {
     let arr = []
     for (let i = 0; i < NUM_STAR; i++) {
@@ -147,8 +159,11 @@ const gen_star_coords = () => {
     }
     return arr;
 }
-var star_arr = gen_star_coords();
-var star_move = [];
+
+var star_arr = gen_star_coords(); // stores the star positons
+var star_move = []; // stores stars that are moving
+
+// finds if a star is moving
 const moving = (index) => {
     for (let i = 0; i < star_move.length; i++) {
         if (star_move[i].index == index) {
@@ -158,10 +173,12 @@ const moving = (index) => {
     return false;
 }
 
+// calculates distance between two points (x1, y1), (x2, y2)
 const dist = (x1, y1, x2, y2) => {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
+// calculates whether a star is outside the canvas boundaries
 const out_of_range = (star) => {
     return star.x < 0
         || star.y < 0
@@ -169,6 +186,7 @@ const out_of_range = (star) => {
         || star.y > canvas.height;
 }
 
+// draws the stars
 const draw_stars = () => {
     star_arr.forEach((elem) => {
         ctx.beginPath();
@@ -179,6 +197,7 @@ const draw_stars = () => {
     });
 }
 
+// moves the stars
 const move_stars = () => {
     for (let i = star_move.length - 1; i >= 0; i--) {
         let move_obj = star_move[i];
@@ -192,7 +211,10 @@ const move_stars = () => {
 }
 
 
+
 // GAME CODE
+
+// resets all game variables to set up the game
 const setupGame = () => {
     drifters = [];
     beams = [];
@@ -212,6 +234,7 @@ const setupGame = () => {
     beam_amount = 0;
 }
 
+// generates a coordinates and a size for a drifter
 const gen_drifter = () => {
     let startX;
     let startY;
@@ -245,7 +268,9 @@ const gen_drifter = () => {
     }
 }
 
+// draws the drifters, ship, and beams on the canvas
 const draw_sprites = () => {
+    // draws drifters
     drifters.forEach((elem) => {
         if (elem.size > 0 && elem.size <= DRIFTER_MAX_SIZE) {
             ctx.beginPath();
@@ -256,6 +281,7 @@ const draw_sprites = () => {
         }
     });
 
+    // draws beams
     beams.forEach((elem) => {
         ctx.beginPath();
 
@@ -281,6 +307,7 @@ const draw_sprites = () => {
         ctx.closePath();
     });
 
+    // draws the ship
     if (ship_size > 0){
         ctx.beginPath();
         ctx.rect(ship_x, ship_y, ship_size * SHIP_MULT, ship_size * SHIP_MULT);
@@ -293,7 +320,9 @@ const draw_sprites = () => {
     }
 }
 
+// moves the drifters and the ship
 const move_sprites = () => {
+    // moves each drifter
     for (let i = drifters.length - 1; i >= 0; i--) {
         size_slowdown = drifters[i].size * SIZE_MOMENTUM;
         let moveX = Math.cos(drifters[i].dir) * DRIFTER_SPEED / size_slowdown
@@ -306,12 +335,14 @@ const move_sprites = () => {
             top: drifters[i].y,
             bottom: drifters[i].y + drifters[i].size * SIZE_MULT
         };
+        // check if the drifter is outside the canvas
         if (!intersectRect(drifter_rect, canvas_rect) 
             || drifters[i].size <= 0 || drifters[i].size > DRIFTER_MAX_SIZE) {
             drifters.splice(i, 1);
         }
     }
 
+    // move the ship
     ship_x += ship_momentum_x / ship_size;
     ship_y += ship_momentum_y / ship_size;
     ship_rect = {
@@ -321,11 +352,13 @@ const move_sprites = () => {
         bottom: ship_y + ship_size * SHIP_MULT
     }
 
+    // check if ship is outside the canvas
     if (!intersectRect(ship_rect, canvas_rect)) {
         gameover("You drifted away!");
     }
 }
 
+// propels the ship in the opposite direction of the beam shot
 const propel_ship = (beam) => {
     deltaX = beam.x2 - beam.x1;
     deltaY = beam.y2 - beam.y1;
@@ -343,7 +376,9 @@ const propel_ship = (beam) => {
     ship_momentum_y -= deltaY;
 }
 
+// checks if a beam and a drifter intersect
 const intersectBeam = (beam, drifter) => {
+    // ~confusing geometry`
     drifter_rect = {
         left: drifter.x,
         right: drifter.x + drifter.size * SIZE_MULT,
@@ -396,7 +431,9 @@ const intersectBeam = (beam, drifter) => {
     return false;
 }
 
+// checks game collisions
 const check_collisions = () => {
+    // checks if a ship and a drifter intersect
     let ship_damaged = false;
     ship_rect = {
         left: ship_x,
@@ -424,6 +461,8 @@ const check_collisions = () => {
         }
     }
 
+    // check if a beam and a drifter intersect
+    // updates scores if drifters are destroyed
     let drifter_combo = 0;
     let score_combo = 0;
     beams.forEach((beam) => {
@@ -440,9 +479,11 @@ const check_collisions = () => {
         }
     });
 
+    // bonus points for combo'ing drifters
     let bonus = Math.pow(drifter_combo, 2) / 2 - drifter_combo / 2
 
     if (drifter_combo > 0) {
+        // updates score display
         score += score_combo + bonus;
         templates_score.innerHTML = score;
 
@@ -454,20 +495,24 @@ const check_collisions = () => {
     }
     drifters_destroyed += drifter_combo;
 
+    // updates personal best score
     if (user && score > personal_best) {
         personal_best = score;
         templates_pb.innerHTML = personal_best;
     }
 
+    // updates site best score
     if (score > site_best) {
         site_best = score;
         templates_site_top.innerHTML = site_best;
     }
 
+    // updates number of drifters destroyed sitewide
     site_drifters += drifter_combo;
     templates_site_drifters.innerHTML = site_drifters;
 }
 
+// destroys beams that have persisted for long enough
 const decay_beams = () => {
     for (let i = beams.length - 1; i >= 0; i--) {
         beams[i].life -= TIME_DELAY;
@@ -477,6 +522,7 @@ const decay_beams = () => {
     }
 }
 
+// simple function to determine whether two rectangles intersect
 const intersectRect = (r1, r2) => {
     return !(r2.left > r1.right || 
            r2.right < r1.left || 
@@ -484,6 +530,7 @@ const intersectRect = (r1, r2) => {
            r2.bottom < r1.top);
 }
 
+// helper function to determine whether a beam intersects a drifter
 const crosses = (y1, y2, target1, target2) => {
     if (y1 >= target1 && y1 <= target2) {
         return true;
@@ -502,13 +549,15 @@ const crosses = (y1, y2, target1, target2) => {
     return false;
 }
 
+// gameover resolving function
 const gameover = (message) => {
-    game_active = false;
+    game_active = false; // sets the game as inactive
     templates_message.innerHTML = message + ` You scored: ${score}. Game over! Click to play again`;
 
+    // posts the score to the database
     if (score > 0) {
         $.ajax({
-            url: '/',
+            url: base_url,
             cache: 'false',
             dataType: 'json',
             type: 'POST',

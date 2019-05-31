@@ -15,25 +15,30 @@ from main.views import gen_alerts
 
 
 class SignUp(generic.CreateView):
+    """View for signing up."""
     form_class = RegistrationForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
 
 def logout(request):
+    """View for logging out."""
     auth.logout(request)
     request.session['notify'] = "Successfully Logged Out!"
     return redirect(request.GET['next'])
 
 @login_required
 def profile(request):
+    """View for the User profile."""
     context = gen_alerts(request)
     context['user'] = request.user
     return render(request, 'profile.html', context)
 
 @login_required
 def update_password(request):
+    """View for updating User password."""
     form = PasswordChangeForm(user=request.user)
 
+    # updates the User password in the database.
     if request.method == 'POST':
         form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
@@ -49,8 +54,10 @@ def update_password(request):
 
 @login_required
 def update_profile(request):
+    """View for updating User profile."""
     form = ProfileChangeForm()
 
+    # updates the User profile in the database.
     if request.method == 'POST':
         form = ProfileChangeForm(request.POST)
         if form.is_valid():

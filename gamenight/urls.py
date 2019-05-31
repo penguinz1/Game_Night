@@ -17,9 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('main.urls')),
-    path('accounts/', include('accounts.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('tinymce/', include('tinymce.urls')),
+    path('admin/', admin.site.urls), # urls for the admin site
+    path('', include('main.urls')), # all-purpose urls for the main site
+    path('accounts/', include('accounts.urls')), # urls for User interfaces (sign-up, profile, etc.)
+    path('accounts/', include('django.contrib.auth.urls')), # official django urls for User interfaces
+    path('tinymce/', include('tinymce.urls')), # necessary for rich text input boxes
 ]

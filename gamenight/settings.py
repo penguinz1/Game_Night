@@ -107,6 +107,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Official email information
+
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'gamenightatuiuc@gmail.com'
@@ -114,6 +116,7 @@ EMAIL_HOST_PASSWORD = 'int_mystery(){return_42;}'
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = "Game Night"
 
+# Uploaded files location
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -122,7 +125,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = 'America/Chicago'
 
 USE_I18N = True
 
@@ -131,6 +134,7 @@ USE_L10N = True
 USE_TZ = True
 
 # Redirect to home URL after login (Default redirects to /accounts/profile)
+
 LOGIN_REDIRECT_URL = '/'
 
 
