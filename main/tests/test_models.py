@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.utils import timezone
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from main.models import User
+from accounts.models import User
 from main.models import Alert, Location, Contact, ContactNotificant, Meeting
 from main.models import QuoteOfDay, VideoOfDay, GameOfWeek
 from main.models import MassEmail, EmailAddress, GameScore, GameBring

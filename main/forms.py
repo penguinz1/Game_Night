@@ -71,7 +71,7 @@ class DeleteMailForm(forms.Form):
         help_text = "Enter an email address to be deleted from the mailing list.");
 
     # verify email is in the database
-    def clean_old_mail(self):
+    def clean_delete_mail(self):
         delete_mail = self.cleaned_data['delete_mail']
         if (not EmailAddress.objects.filter(email = delete_mail).exists()):
             raise ValidationError(_("Email doesn't exist"))

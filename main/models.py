@@ -1,14 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
+
+from accounts.models import User
 # Create your models here.
-
-class User(AbstractUser):
-    """User model for the application."""
-    pass
-
 
 class GameScore(models.Model):
     """Model to store points for a round of the space game."""
@@ -18,7 +14,7 @@ class GameScore(models.Model):
         help_text = "The number of drifters destroyed by the player after finishing a round of the space game.")
     time     = models.DateTimeField(auto_now_add = True,
         help_text = "The time the player finished a round of the space game.")
-    player   = models.ForeignKey('User', on_delete = models.SET_NULL, blank = True, null = True,
+    player   = models.ForeignKey(User, on_delete = models.SET_NULL, blank = True, null = True,
         help_text = "The player of the round of the space game")
 
     def __str__(self):
@@ -44,7 +40,7 @@ class Alert(models.Model):
         help_text = "Enter an alert message (max 250 characters).")
     time     = models.DateTimeField(
         help_text = "Enter the time and date when the alert should expire.")
-    seen     = models.ManyToManyField('User', blank = True,
+    seen     = models.ManyToManyField(User, blank = True,
         help_text = "List of users who have seen the alert. Leave blank if creating an alert.")
     severity = models.CharField(max_length = 2, choices = SEVERITY_CHOICES, default = ALERT, 
         help_text = "Determines the severity of the alert (which changes the banner appearance).")
@@ -109,7 +105,7 @@ class MassEmail(models.Model):
         help_text = "The HTML content for the mass email.")
     last_edit = models.DateTimeField(
         help_text = "The time of the last edit of the mass email.")
-    editor    = models.ForeignKey('User', on_delete = models.SET_NULL, blank = True, null = True,
+    editor    = models.ForeignKey(User, on_delete = models.SET_NULL, blank = True, null = True,
         help_text = "The user who last edited the mass email.")
     is_sent   = models.BooleanField(default = False,
         help_text = "A flag indicating whether the mass email was sent out.")
