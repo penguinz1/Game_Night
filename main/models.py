@@ -116,6 +116,7 @@ class MassEmail(models.Model):
     class Meta:
         """Permissions belonging to the Model objects."""
         permissions = (('can_send_emails', 'Abilty to send club emails'),)
+        ordering = ['last_edit']
 
     def __str__(self):
         """String for representing the Model object."""
@@ -126,9 +127,9 @@ class Location(models.Model):
     """Model to represent locations of Game Night meetings."""
     place = models.CharField(max_length = 200,
         help_text = "The name of the location.")
-    latitude = models.FloatField(validators=[MinValueValidator(-90), MaxValueValidator(90)],
+    latitude = models.FloatField(validators = [MinValueValidator(-90), MaxValueValidator(90)],
         help_text = "The latitude in degrees (must be between -90 and 90).")
-    longitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)],
+    longitude = models.FloatField(validators = [MinValueValidator(-180), MaxValueValidator(180)],
         help_text = "The longitude in degrees (must be between -180 and 180).")
 
     def __str__(self):
@@ -141,9 +142,15 @@ class Contact(models.Model):
     message = models.CharField(max_length = 500,
         help_text = "The message of the contact request.")
     email   = models.EmailField(blank = True, null = True, max_length = 254, verbose_name = 'email address',
-        help_text = "The email address of the contact request sender (optional)")
+        help_text = "The email address of the contact request sender (optional).")
+    time = models.DateTimeField(auto_now_add = True,
+        help_text = "Time and date when the contact request was created.")
     seen    = models.BooleanField(default = False,
         help_text = "A flag indicating whether the club officers have seen this contact request.")
+
+    class meta:
+        """Ordering of the Model objects."""
+        ordering = ['seen', 'time']
 
     def __str__(self):
         return self.message
