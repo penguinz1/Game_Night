@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils import timezone
 # Create your models here.
 
 class User(AbstractUser):
@@ -106,7 +107,7 @@ class MassEmail(models.Model):
         help_text = "The subject line for the mass email (max 200 characters).")
     content   = models.CharField(max_length = 2000,
         help_text = "The HTML content for the mass email.")
-    last_edit = models.DateTimeField(auto_now_add = True,
+    last_edit = models.DateTimeField(
         help_text = "The time of the last edit of the mass email.")
     editor    = models.ForeignKey('User', on_delete = models.SET_NULL, blank = True, null = True,
         help_text = "The user who last edited the mass email.")
@@ -121,6 +122,11 @@ class MassEmail(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.subject;
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        self.last_edit = timezone.now()
+        return super(MassEmail, self).save(*args, **kwargs)
 
 
 class Location(models.Model):
@@ -148,7 +154,7 @@ class Contact(models.Model):
     seen    = models.BooleanField(default = False,
         help_text = "A flag indicating whether the club officers have seen this contact request.")
 
-    class meta:
+    class Meta:
         """Ordering of the Model objects."""
         ordering = ['seen', 'time']
 
@@ -173,7 +179,7 @@ class QuoteOfDay(models.Model):
     time = models.DateTimeField(
         help_text = "The time and date the quote will be shown.")
 
-    class meta:
+    class Meta:
         """Ordering of the Model objects."""
         ordering = ['-time']
 
@@ -192,7 +198,7 @@ class VideoOfDay(models.Model):
     time = models.DateTimeField(
         help_text = "The time and date the video will be shown.")
 
-    class meta:
+    class Meta:
         ordering = ['-time']
 
     def __str__(self):
@@ -208,7 +214,7 @@ class GameOfWeek(models.Model):
     time = models.DateTimeField(
         help_text = "The time and date the game will be shown.")
 
-    class meta:
+    class Meta:
         """Ordering of the Model objects."""
         ordering = ['-time']
 
