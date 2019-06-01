@@ -6,9 +6,12 @@ User = get_user_model()
 
 class RegistrationForm(UserCreationForm):
     """Form to create a new account."""
-    email = forms.EmailField(label = "Email", required = False)
-    first_name = forms.CharField(label = "First Name", required = False)
-    last_name = forms.CharField(label = "Last Name", required = False)
+    email = forms.EmailField(label = "Email", required = False,
+        help_text = "Enter an email address (optional).")
+    first_name = forms.CharField(label = "First Name", required = False,
+        help_text = "Enter your first name (optional).")
+    last_name = forms.CharField(label = "Last Name", required = False,
+        help_text = "Enter your last name (optional).")
 
     # saves form information into a User model object
     def save(self, commit=True):
@@ -25,6 +28,9 @@ class RegistrationForm(UserCreationForm):
 
 class ProfileChangeForm(forms.Form):
     """Form to change User fields."""
-    email = forms.EmailField(label = "Email", required = False)
-    first_name = forms.CharField(label = "First Name", required = False)
-    last_name = forms.CharField(label = "Last Name", required = False)
+    email = forms.EmailField(label = "Email", required = False,
+        help_text = "Enter an email address (optional).")
+    first_name = forms.CharField(label = "First Name", required = False,
+        help_text = "Enter your first name (optional).")
+    last_name = forms.CharField(label = "Last Name", required = False,
+        help_text = "Enter your last name (optional).")
