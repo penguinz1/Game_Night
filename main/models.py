@@ -45,7 +45,7 @@ class Alert(models.Model):
         help_text = "Enter the time and date when the alert should expire.")
     seen     = models.ManyToManyField('User', blank = True,
         help_text = "List of users who have seen the alert. Leave blank if creating an alert.")
-    severity = models.CharField(max_length = 2, choices = SEVERITY_CHOICES,
+    severity = models.CharField(max_length = 2, choices = SEVERITY_CHOICES, default = ALERT, 
         help_text = "Determines the severity of the alert (which changes the banner appearance).")
 
     class Meta:
