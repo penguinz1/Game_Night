@@ -12,7 +12,9 @@ html, body {
 }
 
 body{
-    background-image: url(GraingerLibrary.jpg);
+    /* add white (rbg = (255, 255, 255), alpha = 0.3) overlay to image */
+    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),
+        url('../images/GraingerLibrary.jpg');
 }
 
 .b1m {
