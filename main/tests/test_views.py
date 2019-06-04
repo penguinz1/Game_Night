@@ -29,6 +29,42 @@ class IndexViewTest(TestCase):
         response = self.client.get(reverse('index'))
         self.assertContains(response, "This is a test")
 
+    def test_alert_expired(self):
+        Alert.objects.create(message = "This is a test", 
+            time = timezone.now() - datetime.timedelta(days = 1))
+        response = self.client.get(reverse('index'))
+        self.assertNotContains(response, "This is a test")
+
+    def test_alert_top_three_by_severity(self):
+        Alert.objects.create(message = "This is a test1", 
+            time = timezone.now() + datetime.timedelta(days = 1))
+        Alert.objects.create(message = "This is a test2", 
+            time = timezone.now() + datetime.timedelta(days = 1))
+        Alert.objects.create(message = "This is a test3", 
+            time = timezone.now() + datetime.timedelta(days = 1))
+        Alert.objects.create(message = "This is a test4", 
+            time = timezone.now() + datetime.timedelta(days = 1), severity = '1m') # low severity - lower priority
+        response = self.client.get(reverse('index'))
+        self.assertContains(response, "This is a test1")
+        self.assertContains(response, "This is a test2")
+        self.assertContains(response, "This is a test3")
+        self.assertNotContains(response, "This is a test4")
+
+    def test_alert_top_three_by_date(self):
+        Alert.objects.create(message = "This is a test1", 
+            time = timezone.now() + datetime.timedelta(days = 2)) # latest date - lower priority
+        Alert.objects.create(message = "This is a test2", 
+            time = timezone.now() + datetime.timedelta(days = 1))
+        Alert.objects.create(message = "This is a test3", 
+            time = timezone.now() + datetime.timedelta(days = 1))
+        Alert.objects.create(message = "This is a test4", 
+            time = timezone.now() + datetime.timedelta(days = 1))
+        response = self.client.get(reverse('index'))
+        self.assertNotContains(response, "This is a test1")
+        self.assertContains(response, "This is a test2")
+        self.assertContains(response, "This is a test3")
+        self.assertContains(response, "This is a test4")
+
     def test_alerts_can_be_dismissed(self):
         user = User.objects.create_user(username = 'user', password = 'generic123')
         alert = Alert.objects.create(message = "This is a test", 
@@ -86,12 +122,12 @@ class SpaceGameViewTest(TestCase):
         self.assertTemplateUsed(response, 'main/space_game.html')
 
     def test_site_best_and_drifters_works(self):
-        GameScore.objects.create(score = 50, drifters = 20)
+        GameScore.objects.create(score = 50, drifters = 21)
         GameScore.objects.create(score = 15, drifters = 10)
         response = self.client.get(reverse('space_game'))
-        self.assertContains(response, "50")
-        self.assertContains(response, "20")
-        self.assertNotContains(response, "15")
+        self.assertContains(response, "50") # display best score
+        self.assertContains(response, "31") # display total drifters destroyed (21 + 10)
+        self.assertNotContains(response, "Personal Best") # don't display a personal best score
 
     def test_personal_best_works(self):
         user = User.objects.create_user(username = 'user', password = 'generic123')
@@ -99,7 +135,8 @@ class SpaceGameViewTest(TestCase):
         GameScore.objects.create(score = 15, drifters = 10, player = user)
         self.client.login(username = 'user', password = 'generic123')
         response = self.client.get(reverse('space_game'))
-        self.assertContains(response, "15")
+        self.assertContains(response, "Personal Best") # display a personal best score
+        self.assertContains(response, "15") # display that score
 
     def test_score_post_no_user(self):
         response = self.client.post(reverse('space_game'),
