@@ -1,5 +1,10 @@
 {% extends "base_generic.html" %}
 
+{% block headlinks %}
+ {% load static %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
 {% block content %}
     <h1 class="title">Game Night</h1>
     <p class="subtitle">at the University of Illinois, Urbana-Champaign (UIUC)</p>
