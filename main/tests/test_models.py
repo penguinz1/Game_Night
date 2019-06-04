@@ -367,10 +367,16 @@ class GameOfWeekTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         # set up non-modified objects used by all test methods
-        image = SimpleUploadedFile(name='test_image.jpg', content=open('main/static/images/stock.jpeg', 'rb').read(), content_type='image/jpeg')
+        image = SimpleUploadedFile(name = 'test_image.jpg', content = open('main/static/images/stock.jpeg', 'rb').read(), content_type='image/jpeg')
         GameOfWeek.objects.create(game = "AGame", image = image, time = timezone.now())
         GameOfWeek.objects.create(game = "BGame", image = image, 
             time = timezone.now() + datetime.timedelta(days = 1))
+
+    @classmethod
+    def tearDownClass(cls):
+        # deletes all GameOfWeek objects in order to delete excess image files
+        # created by the setUpTestData() method
+        GameOfWeek.objects.all().delete()
 
     def test_game_label(self):
         game_of_week = GameOfWeek.objects.get(id = 1)
@@ -405,7 +411,7 @@ class GameScoreTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         # set up non-modified objects used by all test methods
-        player = User.objects.create(username = "user", password = "passsword123")
+        player = User.objects.create(username = "user", password = "password123")
         GameScore.objects.create(score = 10, drifters = 10)
         GameScore.objects.create(score = 10, drifters = 10, player = player)
 

@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 from accounts.models import User
 # Create your models here.
@@ -218,16 +220,6 @@ class GameOfWeek(models.Model):
         """String for representing the Model object."""
         return self.game
 
-    # source:
-    # https://stackoverflow.com/questions/42421366/delete-image-in-django
-    def delete(self, *args, **kwargs):
-        # You have to prepare what you need before delete the model
-        storage, path = self.image.storage, self.image.path
-        # Delete the model before the file
-        super(GameOfWeek, self).delete(*args, **kwargs)
-        # Delete the file after the model
-        storage.delete(path)
-
 class EmailAddress(models.Model):
     """Model to store email addresses of members."""
     email = models.EmailField(unique = True,
@@ -238,3 +230,13 @@ class EmailAddress(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.email}'
+
+# sources:
+# https://stackoverflow.com/questions/42421366/delete-image-in-django
+# https://stackoverflow.com/questions/13857007/using-pre-delete-signal-in-django
+@receiver(post_delete, sender = GameOfWeek, dispatch_uid=  'game_of_week_delete_signal')
+def delete_image_file(sender, instance, using, **kwargs):
+    # You have to prepare what you need before deleting the model
+    storage, path = instance.image.storage, instance.image.path
+    # Delete the file after the model
+    storage.delete(path)
