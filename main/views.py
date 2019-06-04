@@ -8,7 +8,7 @@ from django.db.models import Sum, Max
 from django.views import generic
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.utils import timezone
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator
@@ -159,6 +159,9 @@ def mass_mail(request):
         context['subject'] = message.subject
         context['content'] = message.content
         return render(request, 'main/mass_mail_sent.html', context)
+    # display nothing if the next meeting is not scheduled
+    elif not next_meeting:
+        context['no_meeting'] = True
 
     # creates/saves mass email into the database
     if request.method == 'POST':
@@ -202,6 +205,7 @@ def mass_mail(request):
 @permission_required('main.can_send_emails')
 def mass_mail_submit(request):
     """View function for confirming and sending mass emails."""
+    FRAGMENT_SIZE = 50 # number of recipients for each email batch: DO NOT SET HIGHER THAN 100
     context = gen_alerts(request)
     next_meeting = get_next_meeting()
 
@@ -211,14 +215,25 @@ def mass_mail_submit(request):
     message = next_meeting.email
     if request.method == 'POST':
         # sends the mass email to all email addresses in the database
-        recipients = EmailAddress.objects.all().values_list('email', flat = True)
-        send_mail(
-           subject             = message.subject,
-           message             = html2text.html2text(message.content),
-           html_message        = message.content,
-           from_email          = 'Game Night',
-           recipient_list      = list(recipients)
-        )
+        addresses = EmailAddress.objects.all()
+        num_recipients = addresses.count()
+        recipients = addresses.values_list('email', flat = True)
+        plain_text_content = html2text.html2text(message.content)
+        tracker = 0
+        # send emails by batch
+        while tracker < num_recipients:
+            recipient_batch = recipients[tracker:(tracker + FRAGMENT_SIZE)]
+            mail = EmailMultiAlternatives(
+               subject             = message.subject,
+               body                = plain_text_content,
+               from_email          = 'Game Night',
+               bcc                 = list(recipient_batch),
+               to                  = ['Game Night Members']
+            )
+            mail.attach_alternative(message.content, "text/html")
+            mail.send()
+            tracker += FRAGMENT_SIZE
+        # signal that the email was sent
         message.is_sent = True
         message.save()
         request.session['notify'] = "Email Successfully Sent!"
@@ -355,7 +370,7 @@ def games(request):
         game_page = paginator.get_page(page)
         context['games'] = game_page.object_list
         context['page_obj']  = game_page
-    else:
+    elif not next_meeting:
         context['no_meeting'] = True
 
     # displays the `game of the week`
