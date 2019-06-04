@@ -411,7 +411,7 @@ class GameScoreTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         # set up non-modified objects used by all test methods
-        player = User.objects.create(username = "user", password = "password123")
+        player = User.objects.create_user(username = "user", password = "generic123")
         GameScore.objects.create(score = 10, drifters = 10)
         GameScore.objects.create(score = 10, drifters = 10, player = player)
 
