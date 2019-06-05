@@ -13,8 +13,8 @@ class RegistrationForm(UserCreationForm):
         help_text = "Enter your last name (optional).")
 
     # saves form information into a User model object
-    def save(self, commit=True):
-        user = super(RegistrationForm, self).save(commit=False)
+    def save(self, commit = True):
+        user = super(RegistrationForm, self).save(commit = False)
         user.email = self.cleaned_data["email"]
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]

@@ -469,7 +469,7 @@ class MassMailTestViewTest(TestCase):
         Meeting.objects.create(time = timezone.now() + datetime.timedelta(days = 1), 
             location = location, email = email)
         self.client.login(username = 'user', password = 'generic123')
-        response = self.client.post(reverse('mass_mail_test'), follow = True)
+        response = self.client.post(reverse('mass_mail_test'))
         self.assertFormError(response, 'form', 'recipient', 'This field is required.')
 
 # Test for the email list index view
@@ -688,3 +688,13 @@ class GameBringViewTest(TestCase):
         Meeting.objects.create(time = timezone.now() + datetime.timedelta(days = 1), location = location)
         response = self.client.post(reverse('game_bring'))
         self.assertFormError(response, 'form', 'game', 'This field is required.')
+
+# Test for the changelog view
+class ChangelogViewTest(TestCase):
+    def test_view_url_accessible(self):
+        response = self.client.get(reverse('changelog'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_uses_correct_template(self):
+        response = self.client.get(reverse('changelog'))
+        self.assertTemplateUsed(response, 'changelog.html')

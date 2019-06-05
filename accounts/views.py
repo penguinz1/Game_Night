@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth import update_session_auth_hash
 
 from accounts.forms import RegistrationForm, ProfileChangeForm
 from main.views import gen_alerts
@@ -36,11 +37,11 @@ def profile(request):
 @login_required
 def update_password(request):
     """View for updating User password."""
-    form = PasswordChangeForm(user=request.user)
+    form = PasswordChangeForm(user = request.user)
 
     # updates the User password in the database.
     if request.method == 'POST':
-        form = PasswordChangeForm(user=request.user, data=request.POST)
+        form = PasswordChangeForm(user = request.user, data = request.POST)
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
