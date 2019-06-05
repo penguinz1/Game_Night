@@ -175,6 +175,7 @@ def mass_mail(request):
                 )
                 next_meeting.email = email
                 next_meeting.save()
+                context['notify'] = "Email Successfully Saved!"
             elif (next_meeting):
                 email = next_meeting.email
                 email.subject   = form.cleaned_data['subject']
@@ -182,7 +183,7 @@ def mass_mail(request):
                 email.editor    = request.user
                 email.last_edit = timezone.now()
                 email.save()
-                request.session['notify'] = "Email Successfully Saved!"
+                context['notify'] = "Email Successfully Saved!"
 
         # checks if mass email is to be saved and sent
         if (request.POST.get('submit', False)):
@@ -399,8 +400,8 @@ def game_bring(request):
                 person = form.cleaned_data['person'],
                 meeting = next_meeting,
             )
-        request.session['notify'] = "Game Successfully Added!"
-        return HttpResponseRedirect(reverse('games'))
+            request.session['notify'] = "Game Successfully Added!"
+            return HttpResponseRedirect(reverse('games'))
 
     else:
         form = GameBringForm()

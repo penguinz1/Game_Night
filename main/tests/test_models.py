@@ -367,7 +367,8 @@ class GameOfWeekTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         # set up non-modified objects used by all test methods
-        image = SimpleUploadedFile(name = 'test_image.jpg', content = open('main/static/images/stock.jpeg', 'rb').read(), content_type='image/jpeg')
+        image = SimpleUploadedFile(name = 'test_image.jpg', 
+            content = open('main/static/images/stock.jpeg', 'rb').read(), content_type='image/jpeg')
         GameOfWeek.objects.create(game = "AGame", image = image, time = timezone.now())
         GameOfWeek.objects.create(game = "BGame", image = image, 
             time = timezone.now() + datetime.timedelta(days = 1))
