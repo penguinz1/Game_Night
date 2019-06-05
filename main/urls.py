@@ -22,4 +22,5 @@ urlpatterns = [
     path('games', views.games, name = 'games'),
     path('games-form', views.game_bring, name = 'game_bring'),
     path('changelog', TemplateView.as_view(template_name = "changelog.html"), name = 'changelog'),
+    path('test', TemplateView.as_view(template_name = "test.html"), name = 'js_testing')
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) # allows saving and access for uploaded files
