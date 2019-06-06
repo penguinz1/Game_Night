@@ -93,7 +93,7 @@ canvas {
 
 .login-bar {
     list-style: none;
-    background-color: rgba(255, 128, 0, .7);
+    background-color: rgba(85, 85, 85, .7);
     grid-area: 1 / 2 / span 1 / span 1;
 }
 
@@ -104,8 +104,7 @@ canvas {
     color: black;
     font-family: 'Source Sans Pro';
     border: 1px solid black;
-    border-radius: 10px;
-    background-color: rgb(0, 204, 0);
+    background-color: #568CDC;
 }
 
 .unlink {
@@ -203,7 +202,8 @@ table {
 
 th {
     font-weight: bold;
-    background-color: rgb(0, 0, 102, .7);
+    background-color: #568CDC;
+    font-family: Geneva;
 }
 
 th, tr, td {
@@ -213,5 +213,22 @@ th, tr, td {
     border-bottom: 1px solid #ddd;
 }
 
+.grid-right {
+    position: relative;
+    top: 15px;
+    right: 15px;
+}
 
+.location-tag {
+    font-family: Geneva;
+    padding: 5px;
+    width: 50%;
+    margin: 5px;
+    background-color: #568CDC;
+    }
 
+h1 {
+    text-align: center;
+    line-height: 50px;
+    font-family: Geneva;
+}
