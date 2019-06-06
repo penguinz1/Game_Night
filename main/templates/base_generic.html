@@ -10,12 +10,13 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/utils.css' %}">
     {% block headlinks %}
     {% endblock headlinks %}
 </head>
 <body>
-    <div class="top-bars">
-        <ul class="navbar">
+    <div id="top-bars">
+        <ul id="navbar">
             <a href="{% url 'index' %}"><li id="game-night-stamp">Game Night at UIUC</li></a>
             <a href="{% url 'time_location' %}"><li>Time & Location</li></a>
             <a href="{% url 'games' %}"><li>Games</li></a>
@@ -26,7 +27,7 @@
             <a href="{% url 'mass_mail' %}"><li>Email Structure (Officers only)</li></a>
             <a href="{% url 'experimental' %}"><li>Experimental</li></a>
         </ul>
-        <ul class="login-bar">
+        <ul id="login-bar">
             {% if user.is_authenticated %}
             <a href="{% url 'profile' %}" class="unlink"><li>Welcome, {{ user.get_username }}</li></a>
             <a href="{% url 'logout' %}?next={{request.path}}" class="unlink"><li>Sign Out</li></a>
@@ -47,7 +48,7 @@
             <p class="message">{{ message }}</p>
         </div>
     {% endfor %}
-    <div class="content">{% block content %}{% endblock %}</div>
+    <div id="content">{% block content %}{% endblock %}</div>
     {% block pagination %}
     {% if page_obj %}
         <div class="pagination">
@@ -65,8 +66,8 @@
         </div>
     {% endif %}
     {% endblock %}
-    <footer>
-        <p class="footer-text">&copy 2019 Game Night at UIUC | 
+    <footer id="footer">
+        <p id="footer-text">&copy 2019 Game Night at UIUC | 
             <a href="{% url 'admin:index' %}" target="blank">Admin Site</a> |
             <a href="{% url 'changelog' %}">Changelog</a>
         </p>

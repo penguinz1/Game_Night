@@ -1,17 +1,7 @@
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v12/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7lujVj9w.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
 html, body {
     min-height: 100vh;
     position: relative;
-    }
-
-
+}
         
 .b1m {
     background-color: green;
@@ -34,18 +24,11 @@ html, body {
     margin-right: 2%;
 }
 
-body {
- /*   background-image: url('../images/dice.jpg');*/
-    background-attachment: relative;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.content {
+#content {
     padding-bottom: 1.5rem;
 }
 
-footer {
+#footer {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -54,50 +37,38 @@ footer {
     background: rgb(0, 0, 102);
 }
 
-.footer-text {
+#footer-text {
     text-align: center;
     color: white;
 }
 
-canvas {
-    background: black; 
-    display: block;
-    margin: 0 auto;
-    cursor: pointer;
-}
-
-.center {
-    text-align: center;
-}
-
-.top-bars {
+#top-bars {
     display: grid;
     width: 100%;
     grid-template-rows: 1fr;
     grid-template-columns: 8fr 1fr;
-    /*padding-bottom: 10px;*/
 }
 
-.navbar {
+#navbar {
     list-style: none;
     background-color: rgba(0, 0, 102, .7);
     grid-area: 1 / 1 / span 1 / span 1;
 }
 
-.navbar li {
+#navbar li {
     padding: 20px;
     display: inline-block;
     color: white;
     font-family: 'Source Sans Pro';
 }
 
-.login-bar {
+#login-bar {
     list-style: none;
     background-color: rgba(85, 85, 85, .7);
     grid-area: 1 / 2 / span 1 / span 1;
 }
 
-.login-bar li {
+#login-bar li {
     margin: 5px 10px 5px 10px;
     padding: 2px 10px;
     text-align: center;
@@ -107,128 +78,7 @@ canvas {
     background-color: #568CDC;
 }
 
-.unlink {
-    text-decoration: none;
-}
-
-.title {
-    font-size: 50px;
-    text-align: center;
-    font-family: 'Source Sans Pro';
-    font-weight: bold;
-    margin-top: 10px;
-    color: white;
-    letter-spacing: .05em;
-}
-
-.subtitle {
-    font-size: 30px;
-    text-align: center;
-    font-style: italic;
-    color: white;
-}
-
-.blocks {
-    padding: 10px;
-    list-style: none;
-    text-align: center;
-}
-
-.blocks li {
-    display: inline-block;
-    padding: 100px 150px;
-    margin: 20px;
-    background-color: black;
-    color: white;
-}
-
-.code {
-    background-color: black;
-    color: white;
-    width: 1400px;
-    margin: 0 auto;
-    border: 2px solid blue;
-    font-size: 18px;
-    font-family: 'Space Mono', monospace;
-}
-
-.small {
-    font-size: 16px;
-}
-
-.vertical-buttons li {
-    margin: 20px auto;
-    padding: 20px;
-    text-align: center;
-    width: 200px;
-    border: 2px solid black;
-    display: block;
-    clear: both;
-    border-radius: 15px;
-}
-
-.split-grid {
-    display: grid;
-    width: 100%;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr;
-}
-
-.grid-left {
-    grid-area: 1 / 1 / span 1 / span 1;
-}
-
-.grid-right {
-    grid-area: 1 / 2 / span 1 / span 1;
-}
-
 #game-night-stamp {
     font-size: 20px;
     font-weight: bold;
-}
-
-#mapid { 
-    height: 500px; 
-
-}
-
-table {
-    width: 75%;
-    position: relative;
-    left: 30px;
-    top: 20px;
-    border-collapse: collapse;
-}
-
-th {
-    font-weight: bold;
-    background-color: #568CDC;
-    font-family: Geneva;
-}
-
-th, tr, td {
-    text-align: center;
-    vertical-align: middle;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.grid-right {
-    position: relative;
-    top: 15px;
-    right: 15px;
-}
-
-.location-tag {
-    font-family: Geneva;
-    padding: 5px;
-    width: 50%;
-    margin: 5px;
-    background-color: #568CDC;
-    }
-
-h1 {
-    text-align: center;
-    line-height: 50px;
-    font-family: Geneva;
 }

@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block headlinks %}
+    <style>
+        #mapid { 
+            height: 500px;
+        }
+    </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
@@ -18,10 +23,10 @@
     <div class="split-grid">
         <div class="grid-left">
             {% if meeting_list %}
-            <table>
+            <table class="grid-table">
                 <tr>
-                    <th>Next Meeting Dates (limit 10)</th>
-                    <th>Meeting Location</th>
+                    <th class="blue-back">Next Meeting Dates (limit 10)</th>
+                    <th class="blue-back">Meeting Location</th>
                 </tr>
                 {% for meeting in meeting_list %}
                 <tr>
@@ -39,10 +44,10 @@
 
         <div class="grid-right">
             {% if next_meeting %}
-                <p class="location-tag">Next Week's Location | <span class="location">{{ next_meeting.location }}</span></p>
+                <p class="location-tag blue-back">Next Week's Location | <span class="location">{{ next_meeting.location }}</span></p>
                 <div id="mapid"></div>
             {% else %}
-                <p class="location-tag"> No Location! </p>
+                <p class="location-tag blue-back"> No Location! </p>
 
             {% endif %}
         </div>
