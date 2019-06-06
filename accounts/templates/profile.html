@@ -1,5 +1,9 @@
 {% extends 'base_generic.html' %}
 
+{% block meta %}
+    <meta name="description" content="Your Game Night user profile.">
+{% endblock %}
+
 {% block content %}
     <h1 class="header">{{ user.username }}'s Profile</h1>
 

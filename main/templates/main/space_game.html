@@ -1,5 +1,9 @@
 {% extends "base_generic.html" %}
 
+{% block meta %}
+    <meta name="description" content="A fun space game to play.">
+{% endblock %}
+
 {% block headlinks %}
     {% load static %}
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
