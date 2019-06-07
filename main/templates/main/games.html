@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="split-grid">
-        <div class="grid-left">
+        <div class="grid-left-game">
             {% if not no_meeting %}
             <a href="{% url 'game_bring' %}"><p>Bring New Game</p></a>
             {% endif %}
@@ -35,11 +35,11 @@
             {% endif %}
         </div>
 
-        <div class="grid-right">
-            <p>Game of the Week</p>
+        <div class="grid-right-game">
+            <p class="intro">Game of the Week</p>
             {% if game_of_week %}
             <p>{{ game_of_week.game }}</p>
-            <img height="500" width="500" src="{{ game_of_week.image.url }}">
+            <img height="400" width="400" src="{{ game_of_week.image.url }}">
 
             {% else %}
             <p>No game of the week</p>

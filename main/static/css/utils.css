@@ -146,9 +146,57 @@
     font-family: Geneva, sans-serif;
     padding: 5px;
     width: 50%;
-    margin: 5px;
+    margin: 5px 0px;
+
 }
 
 .blue-back {
     background-color: #568CDC;
+}
+
+.grid-left-game {
+    margin: 25px 100px;
+    width: 65%;
+}
+
+.grid-left-game th {
+    text-align: center;
+    padding: 5px;
+    background-color: #568CDC;
+    font-family: Geneva;
+}
+
+.grid-left-game table {
+    border: 1px solid black;
+    width: 75%;
+}
+
+.grid-left-game a {
+    padding: 5px;
+}
+
+.grid-right-game {
+    border: 2px solid black;
+    border-radius: 25px;
+    width: auto;
+    margin:30px 20px;
+}
+
+.grid-right-game p {
+    text-align: center;
+    padding-bottom: 20px;
+    font-family: Geneva;
+}
+
+.intro {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.grid-right-game img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    margin-bottom: 20px;
 }
