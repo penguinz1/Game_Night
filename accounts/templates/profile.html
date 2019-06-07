@@ -4,11 +4,9 @@
     <meta name="description" content="Your Game Night user profile.">
 {% endblock %}
 
-{% block header %}{% endblock %}
+{% block header %}{{ user.username }}'s Profile{% endblock %}
 
 {% block content %}
-    <h1 class="header">{{ user.username }}'s Profile</h1>
-
     {% if user.first_name %}
         <p>First Name: {{ user.first_name }}</p>
     {% else %}
