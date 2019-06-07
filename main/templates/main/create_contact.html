@@ -4,9 +4,9 @@
     <meta name="description" content="Make a contact request to Game Night club officers.">
 {% endblock %}
 
-{% block content %}
-    <h1 class="header">Contact Form</h1>
+{% block header %}Contact Form{% endblock %}
 
+{% block content %}
     <form action="" method="post">
         {% csrf_token %}
         <table>

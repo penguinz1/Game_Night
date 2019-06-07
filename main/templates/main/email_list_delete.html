@@ -4,9 +4,9 @@
     <meta name="description" content="Delete your email from the Game Night mailing list.">
 {% endblock %}
 
-{% block content %}
-    <h1 class="header">Delete Email</h1>
+{% block header %}Delete Email{% endblock %}
 
+{% block content %}
     <form action="" method="post">
         {% csrf_token %}
         <table>

@@ -10,9 +10,9 @@
 	<link rel="stylesheet" href="{% static 'css/coin.css' %}">
 {% endblock %}
 
-{% block content %}
-    <h1 class="header">Random</h1>
+{% block header %}Random{% endblock %}
 
+{% block content %}
     <label for="rand-ind">Randomizer Index:</label>
     <input class="autofield" type="number" id="rand-ind" min="0" step="1" value="{{ initial_num }}">
 

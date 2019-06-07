@@ -5,8 +5,9 @@
     <meta name="description" content="Sign up to be a Game Night user!">
 {% endblock %}
 
+{% block header %}Sign up{% endblock %}
+
 {% block content %}
-  <h2>Sign up</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

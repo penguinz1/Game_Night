@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
 
+{% block headercard %}
+{% endblock %}
+
 {% block content %}
     <h1 class="title">Game Night</h1>
     <p class="subtitle">at the University of Illinois, Urbana-Champaign (UIUC)</p>
@@ -23,4 +26,7 @@
     {% if video %}
         <p class="center">Video of the Day - <a href="{{ video.link }}" target="blank">{{ video.visible_text }}</a></p>
     {% endif %}
+{% endblock %}
+
+{% block particles %}
 {% endblock %}

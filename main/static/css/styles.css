@@ -82,3 +82,10 @@ html, body {
     font-size: 20px;
     font-weight: bold;
 }
+
+#particles-js {
+    background-color: red;
+    width: 100%;
+    height: 140px;
+    z-index: -10;
+}

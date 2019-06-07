@@ -4,9 +4,9 @@
     <meta name="description" content="Modify your email in the Game Night emailing list.">
 {% endblock %}
 
-{% block content %}
-    <h1 class="header">Modify Email</h1>
+{% block header %}Modify Email{% endblock %}
 
+{% block content %}
     <form action="" method="post">
         {% csrf_token %}
         <table>

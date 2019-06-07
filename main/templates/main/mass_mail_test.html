@@ -4,9 +4,9 @@
     <meta name="description" content="Place to test send a mass mail.">
 {% endblock %}
 
-{% block content %}
-    <h1 class="header">Test Mail</h1>
+{% block header %}Test Mail{% endblock %}
 
+{% block content %}
     <form action="" method="post">
         {% csrf_token %}
         <table>

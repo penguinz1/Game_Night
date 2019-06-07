@@ -4,9 +4,9 @@
     <meta name="description" content="Change your Game Night emailing list preferences.">
 {% endblock %}
 
-{% block content %}
-    <h1 class="header">Mail List Index</h1>
+{% block header %}Mail List Index{% endblock %}
 
+{% block content %}
     <ul class="vertical-buttons">
         <a href="{% url 'add_email' %}" class="unlink"><li>Add</li></a>
         <a href="{% url 'modify_email' %}" class="unlink"><li>Modify</li></a>

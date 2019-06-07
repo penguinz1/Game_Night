@@ -48,7 +48,16 @@
             <p class="message">{{ message }}</p>
         </div>
     {% endfor %}
-    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="content">
+        {% block headercard %}
+            <div class="header">
+                <div class="foreground">{% block header %}{% endblock %}</div>
+                <div class="background" id="particles-js"></div>
+            </div>  
+        {% endblock %}
+        {% block content %}{% endblock %}
+        }
+    </div>
     {% block pagination %}
     {% if page_obj %}
         <div class="pagination">
@@ -72,4 +81,14 @@
             <a href="{% url 'changelog' %}">Changelog</a>
         </p>
     </footer>
+
+    {% block particles %}
+        {% load static %}
+        <script src="{% static 'js/particles.js' %}"></script>
+        <script>
+        particlesJS.load('particles-js', "{% static 'assets/particles.json' %}", function(){
+            console.log('Successfully loaded Javascript particles!');
+        });
+        </script>
+    {% endblock %}
 </body>

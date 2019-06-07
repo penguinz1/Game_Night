@@ -4,12 +4,9 @@
     <meta name="description" content="Change your profile details.">
 {% endblock %}
 
-{% block meta %}
-    <meta name="description" content="The user profile.">
-{% endblock %}
+{% block header %}Profile Change Form{% endblock %}
 
 {% block content %}
-    <h1 class="header">Profile Change Form</h1>
     <form action="" method="post">
         {% csrf_token %}
         <table>
