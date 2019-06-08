@@ -125,8 +125,6 @@
 .grid-table {
     width: 75%;
     position: relative;
-    left: 30px;
-    top: 20px;
     border-collapse: collapse;
 }
 
@@ -154,38 +152,34 @@
     background-color: #568CDC;
 }
 
-.grid-left-game {
+.bordered {
+    border: 1px solid black;
+    border-collapse: separate;
+}
+
+.top-left-shift {
     margin: 25px 100px;
     width: 65%;
 }
 
-.grid-left-game th {
-    text-align: center;
-    padding: 5px;
-    background-color: #568CDC;
-    font-family: Geneva;
+.bottom-right-shift {
+    left: 30px;
+    top: 20px;
 }
 
-.grid-left-game table {
-    border: 1px solid black;
-    width: 75%;
-}
-
-.grid-left-game a {
-    padding: 5px;
-}
-
-.grid-right-game {
+.full-border {
     border: 2px solid black;
     border-radius: 25px;
     width: auto;
-    margin:30px 20px;
+    margin: 30px 20px;
 }
 
-.grid-right-game p {
+.centered {
     text-align: center;
-    padding-bottom: 20px;
-    font-family: Geneva;
+}
+
+.bottom-pad {
+    padding-bottom: 10px;
 }
 
 .intro {
@@ -193,7 +187,7 @@
     margin-top: 20px;
 }
 
-.grid-right-game img {
+.center-display {
     display: block;
     margin-left: auto;
     margin-right: auto;
