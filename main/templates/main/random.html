@@ -8,13 +8,37 @@
 	{% load static %}
 	<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
 	<link rel="stylesheet" href="{% static 'css/coin.css' %}">
+
+    <style>
+        #main-content {
+            width: 50%;
+            margin: 0 auto;
+            margin-top: 15px;
+            font-family: Geneva, sans-serif;
+            line-height: 150%;
+        }
+
+        #group-number {
+            display: block;
+        }
+
+        #rand-ind {
+            font-size: 20px;
+            width: 300px;
+        }
+    </style>
+
 {% endblock %}
 
 {% block header %}Random{% endblock %}
 
 {% block content %}
-    <label for="rand-ind">Randomizer Index:</label>
-    <input class="autofield" type="number" id="rand-ind" min="0" step="1" value="{{ initial_num }}">
+    <div class="big-text center">
+        <label for="rand-ind">Randomizer Index:</label>
+        <input class="autofield" type="number" id="rand-ind" min="0" step="1" value="{{ initial_num }}">
+    </div>
+
+    <hr/>
 
     <div class="rand">
     	<p>Heads or Tails</p>
@@ -24,6 +48,8 @@
     	</div>
     </div>
 
+    <hr/>
+
     <div class="rand">
     	<p>Pick number between...</p>
     	<label for="start-num">Start:</label>
@@ -32,14 +58,18 @@
     	<input class="autofield" type="number" id="end-num" min="0" step="1" value="10">
     	<p id="rand-output"></p>
     	<p id="rand-warn"></p>
-    	<button id="pick-rand">Pick Random</button>
+    	<button id="pick-rand" class="big-text top-margin">Pick Random</button>
     </div>
+
+    <hr/>
 
     <div class="rand-groups">
         <p>Create random groups</p>
         <textarea id="groups" rows="6", cols="20"></textarea>
-        <label for="num-groups">Number Of Groups:</label>
-        <input class="autofield" type="number" id="num-groups" min="2" max="4" step="1" value="2">
+        <div id="group-number">
+            <label for="num-groups">Number Of Groups:</label>
+            <input class="autofield" type="number" id="num-groups" min="2" max="4" step="1" value="2">
+        </div>
         <input type="radio" name="gen-type" value="even" checked="checked"> Even Group Generation <br>
         <input type="radio" name="gen-type" value="rand"> True Random Generation <br>
         <div class="group">
@@ -59,13 +89,15 @@
             <ul id="group4"></ul>
         </div>
         <br>
-        <button id="pick-groups">Pick Groups</button>
+        <button id="pick-groups" class="big-text top-margin">Pick Groups</button>
     </div>
 
-    <div class="stock-image">
+    <hr/>
+
+    <div>
         <p>Random Generation based on changes in the Stock Market</p>
         {% load static %}
-        <img src="{% static 'images/stock.jpeg' %}" alt="Stock market price changes graph">
+        <img src="{% static 'images/stock.jpeg' %}" alt="Stock market price changes graph" class="top-margin">
     </div>
 
     {% load static %}

@@ -4,6 +4,27 @@
     <meta name="description" content="The form for editing and sending mass emails for Game Night meetings.">
 {% endblock %}
 
+{% block headlinks %}
+
+    <style>
+        input[type="text"] {
+            font-size: 18px;
+            width: 600px;
+            margin-bottom: 10px;
+        }
+
+        body {
+            margin-top: 10px;
+        }
+
+        label {
+            position: relative;
+            top: 10px;
+        }
+    </style>
+
+{% endblock %}
+
 {% block header %}Mail Form{% endblock %}
 
 {% block content %}
@@ -16,11 +37,15 @@
         <table>
         {{ form.as_table }}
         </table>
-        <ul>
+        <br/>
+
+        <ul class="right">
             <input type="submit" name="save" value="Save">
             <input type="submit" name="test" value="Save and Send Test Mail">
             <input type="submit" name="submit" value="Save and Submit">
         </ul>
+
+        <br/>
     </form>
     {% endif %}
 {% endblock %}

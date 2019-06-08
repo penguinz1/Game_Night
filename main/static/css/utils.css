@@ -203,11 +203,35 @@
     margin-bottom: 20px;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     background-color: #0066CC; /* dark blue */
+    font-family: Geneva, sans-serif;
 }
 
 .button:hover {
     background-color: rgb(255, 128, 0); /* Green */
     color: white;
+}
+
+.right {
+    float: right;
+}
+
+.big-text {
+    font-size: 20px;
+}
+
+.top-margin {
+    margin-top: 15px;
+}
+
+.group {
+    display: inline-block;
+    vertical-align:top;
+    border: 1px solid black;
+    padding: 0px 10px;
+    margin-top: 5px;
+}
+
+.Geneva-font {
+    font-family: Geneva, sans-serif;
 }
