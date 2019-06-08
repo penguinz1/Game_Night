@@ -10,7 +10,7 @@
     <div class="split-grid">
         <div class="grid-left top-left-shift">
             {% if not no_meeting %}
-            <a href="{% url 'game_bring' %}"><p class="bottom-pad">Bring New Game</p></a>
+            <a href="{% url 'game_bring' %}" class="button"><p>Bring New Game</p></a>
             {% endif %}
             {% if games %}
             <table class="grid-table bordered">
