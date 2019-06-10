@@ -108,6 +108,18 @@ input[type="submit"] {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-
     font-size: 16px;
+}
+
+input[type="text"] {
+    margin-bottom: 10px;
+}
+
+input[type="email"] {
+    margin-bottom: 10px;
+}
+
+label {
+    position: relative;
+    top: 8px;
 }
