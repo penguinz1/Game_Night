@@ -7,11 +7,11 @@
 {% block header %}Test Mail{% endblock %}
 
 {% block content %}
-    <form action="" method="post">
+    <form class="width-size-35" action="" method="post">
         {% csrf_token %}
         <table>
         {{ form.as_table }}
         </table>
-        <input type="submit" value="Send Test Mail">
+        <input class="right top-margin" type="submit" value="Send Test Mail">
     </form>
 {% endblock %}

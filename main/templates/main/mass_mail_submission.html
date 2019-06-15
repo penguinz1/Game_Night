@@ -4,15 +4,28 @@
     <meta name="description" content="Confirmation page of mass mail submission.">
 {% endblock %}
 
+{% block headlinks %}
+	<style>
+		input[type="submit"] {
+			font-size: 20px;
+			margin: 5px;
+		}
+
+		input:hover {
+			border: 1px solid black;
+			background-color: white;
+		}
+	</style>
+{% endblock %}
+
 {% block header %}Mail Submission{% endblock %}
 
 {% block content %}
-    <p>Are you sure you want to send the mail? This action <strong>cannot</strong> be undone!</p>
+    <p class="center top-margin Geneva-font">Are you sure you want to send the mail? This action <strong>cannot</strong> be undone!</p>
 
-    <form action="" method="post">
+    <form class="center" action="" method="post">
         {% csrf_token %}
-        <input type="submit" value="Yes, I'm sure">
+        <input class="red-back" type="submit" name="back" value="No, take me back!">
+        <input class="green-back" type="submit" name="submit" value="Yes, I'm sure">
     </form>
-
-    <a href="{% url 'mass_mail' %}"><p>No, take me back!</p></a>
 {% endblock %}

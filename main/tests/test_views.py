@@ -414,7 +414,8 @@ class MassMailSubmitViewTest(TestCase):
         Meeting.objects.create(time = timezone.now() + datetime.timedelta(days = 1), 
             location = location, email = email)
         self.client.login(username = 'user', password = 'generic123')
-        response = self.client.post(reverse('mass_mail_submit'), follow = True)
+        response = self.client.post(reverse('mass_mail_submit'), 
+            data = {'submit': True}, follow = True)
         self.assertRedirects(response, reverse('mass_mail'))
         self.assertContains(response, 'Email Successfully Sent!')
         self.assertTemplateUsed(response, 'main/mass_mail_sent.html')

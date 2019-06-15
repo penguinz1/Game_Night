@@ -4,27 +4,54 @@
     <meta name="description" content="Your Game Night user profile.">
 {% endblock %}
 
+{% block headlinks %}
+    <style>
+        td {
+            border-bottom: none;
+            font-family: Geneva, sans-serif;
+        }
+
+        ul li {
+            display: inline-block;
+        }
+
+    </style>
+{% endblock %}
+
 {% block header %}{{ user.username }}'s Profile{% endblock %}
 
 {% block content %}
-    {% if user.first_name %}
-        <p>First Name: {{ user.first_name }}</p>
-    {% else %}
-        <p>First Name: <em>not set</em></p>
-    {% endif %}
+    <table class="top-margin center-margin">
+        <tr>
+            <td class="right-line">First Name</td>
+        {% if user.first_name %}
+            <td>{{ user.first_name }}</td>
+        {% else %}
+            <td><em>not set</em></td>
+        {% endif %}
+        </tr>
 
-    {% if user.last_name %}
-        <p>Last Name: {{ user.last_name }}</p>
-    {% else %}
-        <p>Last Name: <em>not set</em></p>
-    {% endif %}
+        <tr>
+            <td class="right-line">Last Name</td>
+        {% if user.last_name %}
+            <td>{{ user.last_name }}</td>
+        {% else %}
+            <td><em>not set</em></td>
+        {% endif %}
+        </tr>
 
-    {% if user.email %}
-        <p>Email: {{ user.email }}</p>
-    {% else %}
-        <p>Email: <em>not set</em></p>
-    {% endif %}
+        <tr>
+            <td class="right-line">Email</td>
+        {% if user.email %}
+            <td>{{ user.email }}</td>
+        {% else %}
+            <td><em>not set</em></td>
+        {% endif %}
+        </tr>
+    </table>
 
-    <a href="{% url 'profile_change' %}"><p>Edit Profile</p></a>
-    <a href="{% url 'password' %}"><p>Change Password</p></a>
+    <ul class="center-margin width-size-35">
+        <li><a class="button" href="{% url 'profile_change' %}"><p>Edit Profile</p></a></li>
+        <li><a class="button" href="{% url 'password' %}"><p>Change Password</p></a></li>
+    </ul>
 {% endblock %}

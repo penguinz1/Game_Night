@@ -152,6 +152,14 @@
     background-color: #568CDC;
 }
 
+.green-back {
+    background-color: #0C0;
+}
+
+.red-back {
+    background-color: #F62222;
+}
+
 .bordered {
     border: 1px solid black;
     border-collapse: separate;
@@ -234,6 +242,16 @@
 
 .Geneva-font {
     font-family: Geneva, sans-serif;
+}
+
+.right-line {
+    border-right: 1px solid grey;
+}
+
+.center-margin {
+    width: 40%;
+    margin: auto;
+    margin-top: 15px;
 }
 
 .width-size-45 {

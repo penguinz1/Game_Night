@@ -215,30 +215,33 @@ def mass_mail_submit(request):
 
     message = next_meeting.email
     if request.method == 'POST':
-        # sends the mass email to all email addresses in the database
-        addresses = EmailAddress.objects.all()
-        num_recipients = addresses.count()
-        recipients = addresses.values_list('email', flat = True)
-        plain_text_content = html2text.html2text(message.content)
-        tracker = 0
-        # send emails by batch
-        while tracker < num_recipients:
-            recipient_batch = recipients[tracker:(tracker + FRAGMENT_SIZE)]
-            mail = EmailMultiAlternatives(
-               subject             = message.subject,
-               body                = plain_text_content,
-               from_email          = 'Game Night',
-               bcc                 = list(recipient_batch),
-               to                  = ['Game Night Members']
-            )
-            mail.attach_alternative(message.content, "text/html")
-            mail.send()
-            tracker += FRAGMENT_SIZE
-        # signal that the email was sent
-        message.is_sent = True
-        message.save()
-        request.session['notify'] = "Email Successfully Sent!"
-        return HttpResponseRedirect(reverse('mass_mail'))
+        if (request.POST.get('submit', False)):
+            # sends the mass email to all email addresses in the database
+            addresses = EmailAddress.objects.all()
+            num_recipients = addresses.count()
+            recipients = addresses.values_list('email', flat = True)
+            plain_text_content = html2text.html2text(message.content)
+            tracker = 0
+            # send emails by batch
+            while tracker < num_recipients:
+                recipient_batch = recipients[tracker:(tracker + FRAGMENT_SIZE)]
+                mail = EmailMultiAlternatives(
+                   subject             = message.subject,
+                   body                = plain_text_content,
+                   from_email          = 'Game Night',
+                   bcc                 = list(recipient_batch),
+                   to                  = ['Game Night Members']
+                )
+                mail.attach_alternative(message.content, "text/html")
+                mail.send()
+                tracker += FRAGMENT_SIZE
+            # signal that the email was sent
+            message.is_sent = True
+            message.save()
+            request.session['notify'] = "Email Successfully Sent!"
+            return HttpResponseRedirect(reverse('mass_mail'))
+        elif (request.POST.get('back', False)):
+            return HttpResponseRedirect(reverse('mass_mail'))
 
     return render(request, 'main/mass_mail_submission.html', context)
 

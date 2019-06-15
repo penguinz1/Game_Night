@@ -9,9 +9,9 @@ var focus = document.getElementById("rand-ind");
 jQuery(document).ready(function($){
 
   $('#coin').on('click', function(){
+    let num = parseInt(focus.value);
     $('#coin').removeClass();
     setTimeout(function(){
-      let num = parseInt(focus.getAttribute("value"));
       if(heads_tails(num)){
         $('#coin').addClass('heads');
         console.log('it is head');
@@ -20,7 +20,7 @@ jQuery(document).ready(function($){
         $('#coin').addClass('tails');
         console.log('it is tails');
       }
-      focus.setAttribute("value", num + 1); // updates random index
+      focus.value++; // updates random index
     }, 100);
   });
   
