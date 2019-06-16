@@ -39,6 +39,13 @@ html, body {
 .banner .confirm {
     float: right;
     margin-right: 2%;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    color: purple;
+}
+
+.banner .confirm:hover {
+    color: blue;
 }
 
 #content {
