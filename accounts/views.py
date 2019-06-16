@@ -24,7 +24,6 @@ class SignUp(generic.CreateView):
 def logout(request):
     """View for logging out."""
     auth.logout(request)
-    request.session['notify'] = "Successfully Logged Out!"
     return redirect(request.GET['next'])
 
 @login_required
@@ -37,6 +36,7 @@ def profile(request):
 @login_required
 def update_password(request):
     """View for updating User password."""
+    context = gen_alerts(request)
     form = PasswordChangeForm(user = request.user)
 
     # updates the User password in the database.
@@ -48,14 +48,13 @@ def update_password(request):
             request.session['notify'] = "Successfully Changed Password!"
             return HttpResponseRedirect(reverse('profile'))
 
-    context = {
-        'form': form
-    }
+    context['form'] = form
     return render(request, 'password.html', context)
 
 @login_required
 def update_profile(request):
     """View for updating User profile."""
+    context = gen_alerts(request)
     form = ProfileChangeForm()
 
     # updates the User profile in the database.
@@ -70,7 +69,5 @@ def update_profile(request):
             request.session['notify'] = "Successfully Updated Profile!"
             return HttpResponseRedirect(reverse('profile'))
 
-    context = {
-        'form': form
-    }
+    context['form'] = form
     return render(request, 'profile_change.html', context)

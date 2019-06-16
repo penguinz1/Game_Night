@@ -19,7 +19,7 @@ from main.forms import CreateContactForm, MassEmailForm, AddMailForm, ModifyMail
 
 def gen_alerts(request):
     """Function for generating banner alerts."""
-    # NOTIFICATION MESSAGES (e.g. successfully signed up!)
+    # NOTIFICATION MESSAGES (e.g. email successfully added!)
     context = {}
     if (request.session.get('notify')):
         context['notify'] = request.session.get('notify')

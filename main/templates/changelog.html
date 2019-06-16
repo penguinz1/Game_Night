@@ -4,10 +4,31 @@
     <meta name="description" content="The history of change for the website.">
 {% endblock %}
 
+{% block headlinks %}
+    <style>
+        table th {
+            font-size: 18px;
+            text-align: center;
+            border-bottom: 1px solid gray;
+            font-family: Geneva, sans-serif;
+        }
+
+        table td {
+            font-style: italic;
+        }
+
+        table td:first-child {
+            font-size: 20px;
+            font-family: monospace;
+            font-style: normal;
+        }
+    </style>
+{% endblock %}
+
 {% block header %}Changelog{% endblock %}
 
 {% block content %}
-    <table>
+    <table class="top-margin center-margin">
         <tr>
             <th>Version</th>
             <th>Changes</th>
