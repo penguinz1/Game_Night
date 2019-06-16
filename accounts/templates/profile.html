@@ -11,10 +11,6 @@
             font-family: Geneva, sans-serif;
         }
 
-        ul li {
-            display: inline-block;
-        }
-
     </style>
 {% endblock %}
 
@@ -50,7 +46,7 @@
         </tr>
     </table>
 
-    <ul class="center-margin width-size-35">
+    <ul class="center-margin width-size-35 inline-block">
         <li><a class="button" href="{% url 'profile_change' %}"><p>Edit Profile</p></a></li>
         <li><a class="button" href="{% url 'password' %}"><p>Change Password</p></a></li>
     </ul>

@@ -2,17 +2,34 @@ html, body {
     min-height: 100vh;
     position: relative;
 }
+
+.b1m .message:before {
+    content: '☺';
+}
         
 .b1m {
     background-color: green;
+}
+
+.b2a .message:before {
+    content: '⚠';
 }
 
 .b2a {
     background-color: yellow;
 }
 
+.b3w .message:before {
+    content: '☢';
+    font-size: 16px;
+}
+
 .b3w {
     background-color: red;
+}
+
+.banner {
+    padding: 3px;
 }
 
 .banner .message {
@@ -25,7 +42,7 @@ html, body {
 }
 
 #content {
-    padding-bottom: 3rem;
+    padding-bottom: 6rem;
 }
 
 #footer {

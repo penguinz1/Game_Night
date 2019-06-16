@@ -10,13 +10,13 @@
 
 {% if next %}
     {% if user.is_authenticated %}
-        <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+        <p class="center top-margin Geneva-font big-text">Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
     {% else %}
-        <p>Please login to see this page.</p>
+        <p class="center top-margin Geneva-font big-text" >Please login to see this page.</p>
     {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'login' %}">
+<form class="center-margin width-size-25" method="post" action="{% url 'login' %}">
 {% csrf_token %}
 <table>
 
@@ -32,7 +32,7 @@
 
 </table>
 
-<input type="submit" value="login" />
+<input class="right top-margin" type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}"/>
 </form>
 
