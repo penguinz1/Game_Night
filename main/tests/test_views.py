@@ -420,6 +420,19 @@ class MassMailSubmitViewTest(TestCase):
         self.assertContains(response, 'Email Successfully Sent!')
         self.assertTemplateUsed(response, 'main/mass_mail_sent.html')
 
+    def test_redirect_after_going_back(self):
+        location = Location.objects.create(place = "APlace", latitude = 0, longitude = 0)
+        email = MassEmail.objects.create(subject = 'a very interesting subject', 
+            content = 'some content', is_sent = False)
+        Meeting.objects.create(time = timezone.now() + datetime.timedelta(days = 1), 
+            location = location, email = email)
+        self.client.login(username = 'user', password = 'generic123')
+        response = self.client.post(reverse('mass_mail_submit'), 
+            data = {'back': True}, follow = True)
+        self.assertRedirects(response, reverse('mass_mail'))
+        self.assertNotContains(response, 'Email Successfully Sent!')
+        self.assertTemplateUsed(response, 'main/mass_mail.html')
+
 # Test for the mass mail test view redirects
 class MassMailTestViewRedirectTest(TestCase):
     def test_redirect_if_not_logged_in(self):

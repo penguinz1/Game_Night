@@ -47,8 +47,32 @@ const make_groups_test = () => {
     }
 }
 
+const extensive_make_groups_test = () => {
+    for (let i = 0; i < 100; i++) {
+        let group_size = make_random(100, i)[0] + 5;
+        let n_splits = make_random(2, i + 1)[0] + 2;
+        let split_size = Math.floor(group_size / n_splits);
+
+        let group_list = [];
+        for (let j = 0; j < group_size; j++) {
+            group_list.push("test");
+        }
+
+        let splits = make_groups(group_list, i + 2, n_splits)[0];
+        for (let j = 0; j < splits.length; j++) {
+            let split = splits[j];
+            if (split.length !== split_size && split.length !== split_size + 1) {
+                console.log("FAIL: extensive_make_groups_test");
+                success = false;
+                return;
+            }
+        }
+    }
+}
+
 const run_random_test = () => {
     make_random_test();
     make_randoms_test();
     make_groups_test();
+    extensive_make_groups_test();
 }

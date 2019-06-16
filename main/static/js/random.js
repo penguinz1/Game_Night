@@ -1,5 +1,6 @@
 const length = deltas.length // number of observations
 const adj = 0.04683533 // adjusted 0-value to make heads-tails ratio about 50-50
+const update_ratio = 1.5;
 
 // generates either heads (true) or tails (false)
 const heads_tails = (rand_ind) => {
@@ -8,7 +9,7 @@ const heads_tails = (rand_ind) => {
 }
 
 // creates random numbers in the interval [0, n_random]
-const make_randoms = (n_random, rand_ind, n_pick) => {
+const make_randoms = (n_random, rand_ind, n_pick, make_updates_conditionally) => {
     var numbers = []
     // pushes numbers to an array
     for (let i = 0; i <= n_random; i++) {
@@ -36,13 +37,15 @@ const make_randoms = (n_random, rand_ind, n_pick) => {
         }
 
         // update remaining numbers
-        numbers = picks;
+        if (!make_updates_conditionally || picks.length > update_ratio * n_pick) {
+            numbers = picks;
+        }
     }
 }
 
 // creates a single random number in the interval [0, n_random]
 const make_random = (n_random, rand_ind) => {
-    let rand = make_randoms(n_random, rand_ind, 1);
+    let rand = make_randoms(n_random, rand_ind, 1, false);
     return [rand[0][0], rand[1]];
 }
 
@@ -53,7 +56,7 @@ const make_groups = (group_list, rand_ind, n_groups) => {
     }
 
     let n_split = Math.round(group_list.length / n_groups); // number of members in the group
-    let split   = make_randoms(group_list.length - 1, rand_ind, n_split); // index of members in the group
+    let split   = make_randoms(group_list.length - 1, rand_ind, n_split, true); // index of members in the group
     let in_group = []; // members in the group
     let out_group = []; // members outside of the group
     let pos = 0;
