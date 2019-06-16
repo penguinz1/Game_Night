@@ -1,5 +1,25 @@
 {% extends "base_generic.html" %}
 
+{% block headlinks %}
+
+    <style>
+        label {
+            top: 0;
+        }
+
+        input[type="text"] {
+            font-size: 16px;
+            width: 300px;
+        }
+
+        input[type="password"] {
+            font-size: 16px;
+            width: 300px;
+        }
+    </style>
+
+{% endblock %}
+
 {% block header %}Login Form{% endblock %}
 
 {% block content %}

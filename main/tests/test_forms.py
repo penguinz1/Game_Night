@@ -28,7 +28,7 @@ class CreateContactFormTest(TestCase):
     def test_email_help_text(self):
         form = CreateContactForm()
         self.assertEqual(form.fields['email'].help_text,
-            "Enter your email address (optional). This is best used when you want us to contact you back.")
+            "Enter your email address (optional). This is best used if you want us to contact you back.")
 
     def test_valid_form_no_email(self):
         form = CreateContactForm(data = {

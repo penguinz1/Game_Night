@@ -12,7 +12,7 @@ class CreateContactForm(ModelForm):
         widget = forms.Textarea(attrs={'cols': 80, 'rows': 20}),
         help_text = "Enter your message (max 500 characters).")
     email = forms.EmailField(required = False,
-        help_text = "Enter your email address (optional). This is best used when you want us to contact you back.")
+        help_text = "Enter your email address (optional). This is best used if you want us to contact you back.")
 
     class Meta:
         model = Contact

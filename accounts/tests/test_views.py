@@ -39,7 +39,6 @@ class LogoutViewTest(TestCase):
         response = self.client.get(reverse('logout') + "?next=" + reverse('index'), follow = True)
         self.assertNotIn('_auth_user_id', self.client.session)
         self.assertRedirects(response, reverse('index'))
-        self.assertContains(response, "Successfully Logged Out!")
 
 # Test for the profile view
 class ProfileViewTest(TestCase):

@@ -39,7 +39,7 @@ class AlertModelTest(TestCase):
     def test_message_max_length(self):
         alert = Alert.objects.get(id = 1)
         max_length = alert._meta.get_field('message').max_length
-        self.assertEquals(max_length, 250)
+        self.assertEquals(max_length, 500)
 
     def test_string_representation(self):
         alert = Alert.objects.get(id = 1)

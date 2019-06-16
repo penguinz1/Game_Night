@@ -59,6 +59,10 @@ html, body {
     color: white;
 }
 
+#version-text {
+    color: gray;
+}
+
 #top-bars {
     display: grid;
     width: 100%;

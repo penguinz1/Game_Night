@@ -45,7 +45,7 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'alert' %}?id={{ message.id }}&next={{ request.path }}"><p class="confirm">Got it!</p></a>
             {% endif %}
-            <p class="message">{{ message }}</p>
+            <p class="message">{{ message |safe }}</p>
         </div>
     {% endfor %}
     <div id="content">
@@ -78,6 +78,7 @@
         <p id="footer-text">&copy 2019 Game Night at UIUC | 
             <a class="unlink white-color blue-hover" href="{% url 'admin:index' %}" target="blank">Admin Site</a> |
             <a class="unlink white-color blue-hover" href="{% url 'changelog' %}">Changelog</a>
+            <span id="version-text">v0.10 alpha</span>
         </p>
     </footer>
 

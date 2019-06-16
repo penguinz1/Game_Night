@@ -16,3 +16,7 @@ admin.site.register(GameBring)
 admin.site.register(QuoteOfDay)
 admin.site.register(VideoOfDay)
 admin.site.register(GameOfWeek)
+
+admin.site.site_header = 'Game Night Website Administration'
+admin.site.site_title = 'Game Night'
+admin.site.index_title = "Website Admin"

@@ -4,10 +4,21 @@
     <meta name="description" content="Form for bringing games to the next Game Night meeting.">
 {% endblock %}
 
+{% block headlinks %}
+
+    <style>
+        input[type="text"] {
+            font-size: 16px;
+            width: 400px;
+        }
+    </style>
+
+{% endblock %}
+
 {% block header %}Game Bring Form{% endblock %}
 
 {% block content %}
-    <form class="width-size-45" action="" method="post">
+    <form class="width-size-40" action="" method="post">
         {% csrf_token %}
         <table>
         {{ form.as_table }}

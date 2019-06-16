@@ -5,10 +5,31 @@
     <meta name="description" content="Sign up to be a Game Night user!">
 {% endblock %}
 
+{% block headlinks %}
+
+    <style>
+        input[type="email"] {
+            font-size: 16px;
+            width: 300px;
+        }
+
+        input[type="text"] {
+            font-size: 16px;
+            width: 300px;
+        }
+
+        input[type="password"] {
+            font-size: 16px;
+            width: 300px;
+        }
+    </style>
+
+{% endblock %}
+
 {% block header %}Create an Account{% endblock %}
 
 {% block content %}
-  <form method="post">
+  <form class="width-size-45" method="post">
     {% csrf_token %}
     <table>
     {{ form.as_table }}

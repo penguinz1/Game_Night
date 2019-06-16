@@ -27,9 +27,9 @@ class RegistrationForm(UserCreationForm):
 
 class ProfileChangeForm(forms.Form):
     """Form to change User fields."""
-    email = forms.EmailField(label = "Email", required = False,
-        help_text = "Enter an email address (optional).")
     first_name = forms.CharField(label = "First Name", required = False,
         help_text = "Enter your first name (optional).")
     last_name = forms.CharField(label = "Last Name", required = False,
         help_text = "Enter your last name (optional).")
+    email = forms.EmailField(label = "Email", required = False,
+        help_text = "Enter an email address (optional).")
