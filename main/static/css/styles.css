@@ -77,6 +77,12 @@ html, body {
     display: inline-block;
     color: white;
     font-family: 'Source Sans Pro', sans-serif;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+#navbar li:hover {
+    color: blue;
 }
 
 #login-bar {
