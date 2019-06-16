@@ -99,6 +99,13 @@ html, body {
     font-family: 'Source Sans Pro', sans-serif;
     border: 1px solid black;
     background-color: #568CDC;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+#login-bar li:hover {
+    background-color: rgb(255, 128, 0); /* orange */
+    color: white;
 }
 
 #game-night-stamp {

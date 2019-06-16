@@ -218,8 +218,7 @@
 }
 
 .button:hover {
-    background-color: rgb(255, 128, 0); /* Green */
-    color: white;
+    background-color: rgb(255, 128, 0); /* orange */
 }
 
 .right {
@@ -274,4 +273,21 @@
 
 .inline-block li {
     display: inline-block;
+}
+
+.white-color {
+    color: white;
+}
+
+.lblue-color {
+    color: #42b9f4;
+}
+
+.blue-hover {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.blue-hover:hover {
+    color: blue;
 }
