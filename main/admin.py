@@ -4,18 +4,62 @@ from main.models import GameScore, Meeting, Location, EmailAddress, Contact, Mas
 from main.models import Alert, GameBring, QuoteOfDay, VideoOfDay, GameOfWeek
 
 # Register your models here.
-admin.site.register(GameScore)
-admin.site.register(Meeting)
-admin.site.register(Location)
-admin.site.register(EmailAddress)
-admin.site.register(Contact)
-admin.site.register(MassEmail)
-admin.site.register(ContactNotificant)
-admin.site.register(Alert)
-admin.site.register(GameBring)
-admin.site.register(QuoteOfDay)
-admin.site.register(VideoOfDay)
-admin.site.register(GameOfWeek)
+
+@admin.register(GameScore)
+class GameScoreAdmin(admin.ModelAdmin):
+    list_display = ('score', 'drifters', 'time', 'player')
+    list_filter = ('time',)
+
+@admin.register(Meeting)
+class MeetingAdmin(admin.ModelAdmin):
+    list_display = ('time', 'name', 'location')
+    list_filter = ('location',)
+
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ('place', 'latitude', 'longitude')
+
+@admin.register(EmailAddress)
+class EmailAddressAdmin(admin.ModelAdmin):
+    list_display = ('email', 'name')
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('message', 'email', 'time', 'seen')
+    list_filter = ('seen', 'time')
+
+@admin.register(MassEmail)
+class MassEmailAdmin(admin.ModelAdmin):
+    list_display = ('subject', 'last_edit', 'editor', 'is_sent')
+    list_filter = ('is_sent',)
+
+@admin.register(ContactNotificant)
+class ContactNotificantAdmin(admin.ModelAdmin):
+    list_display = ('email',)
+
+@admin.register(Alert)
+class AlertAdmin(admin.ModelAdmin):
+    list_display = ('message', 'time', 'severity')
+    list_filter = ('severity', 'time')
+
+@admin.register(GameBring)
+class GameBringAdmin(admin.ModelAdmin):
+    list_display = ('game', 'person', 'meeting')
+    list_filter = ('game',)
+
+@admin.register(QuoteOfDay)
+class QuoteOfDayAdmin(admin.ModelAdmin):
+    list_display = ('quote', 'speaker', 'time')
+    list_filter = ('time',)
+
+@admin.register(VideoOfDay)
+class VideoOfDayAdmin(admin.ModelAdmin):
+    list_display = ('visible_text', 'description', 'time')
+    list_filter = ('time',)
+
+@admin.register(GameOfWeek)
+class GameOfWeekAdmin(admin.ModelAdmin):
+    list_display = ('game', 'time')
 
 admin.site.site_header = 'Game Night Website Administration'
 admin.site.site_title = 'Game Night'

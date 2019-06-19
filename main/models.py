@@ -132,9 +132,11 @@ class Location(models.Model):
     place = models.CharField(max_length = 200,
         help_text = "The name of the location.")
     latitude = models.FloatField(validators = [MinValueValidator(-90), MaxValueValidator(90)],
-        help_text = "The latitude in degrees (must be between -90 and 90).")
+        help_text = "The latitude in degrees (must be between -90 and 90). " +
+            "For help on finding the latitude and longitude, see [https://support.google.com/maps/answer/18539].")
     longitude = models.FloatField(validators = [MinValueValidator(-180), MaxValueValidator(180)],
-        help_text = "The longitude in degrees (must be between -180 and 180).")
+        help_text = "The longitude in degrees (must be between -180 and 180)." +
+            "For help on finding the latitude and longitude, see [https://support.google.com/maps/answer/18539].")
 
     def __str__(self):
         """String fo representing the Model object."""
