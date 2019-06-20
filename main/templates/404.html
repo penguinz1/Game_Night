@@ -1,0 +1,25 @@
+{% extends 'base_generic.html' %}
+
+{% block headercard %}
+{% endblock %}
+
+{% block headlinks %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/404.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">404 Error: Page not found!</h1>
+
+    <div id="error-messages">
+        <p class="top-margin big-text Geneva-font center">
+            Oh no! It seems like the page you are looking for doesn't exist!
+        </p>
+
+        <p class="top-margin big-text Geneva-font center">
+            If you believe this is in error, please report this issue using the 
+            <a class="unlink blue-hover" href="{% url 'contact' %}">contact form</a>.
+        </p>
+    </div>
+
+{% endblock %}

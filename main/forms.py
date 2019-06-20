@@ -9,7 +9,7 @@ from main.models import Contact, EmailAddress
 class CreateContactForm(ModelForm):
     """Form to create a Contact model object."""
     message = forms.CharField(max_length = 500, 
-        widget = forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+        widget = forms.Textarea(attrs = {'cols': 80, 'rows': 20}),
         help_text = "Enter your message (max 500 characters).")
     email = forms.EmailField(required = False,
         help_text = "Enter your email address (optional). This is best used if you want us to contact you back.")

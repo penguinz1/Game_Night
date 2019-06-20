@@ -1,5 +1,5 @@
 body {
-   /* add white (rbg = (255, 255, 255), alpha = 0.3) overlay to image */
+   /* add orange (rbg = (255, 140, 0), alpha = 0.25) overlay to image */
    background: linear-gradient(rgba(255, 140, 0, 0.25), rgba(255, 140, 0, 0.25)),
         url('../images/GraingerLibrary.jpg');
     background-size: cover;

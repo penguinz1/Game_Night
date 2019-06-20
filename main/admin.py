@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django import forms
+from django.db import models
+from django_summernote.widgets import SummernoteWidget
 
 from main.models import GameScore, Meeting, Location, EmailAddress, Contact, MassEmail, ContactNotificant
 from main.models import Alert, GameBring, QuoteOfDay, VideoOfDay, GameOfWeek
@@ -27,9 +30,22 @@ class EmailAddressAdmin(admin.ModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('message', 'email', 'time', 'seen')
     list_filter = ('seen', 'time')
+    formfield_overrides = {
+        models.CharField: {'widget': forms.Textarea(attrs = {'cols': 80, 'rows': 20})}
+    }
+
+class MassEmailAdminForm(forms.ModelForm):
+    class Meta:
+        model = MassEmail
+        fields = '__all__'
+        widgets = {
+            'subject': forms.TextInput(attrs = {'size': 80}),
+            'content': SummernoteWidget()
+        }
 
 @admin.register(MassEmail)
 class MassEmailAdmin(admin.ModelAdmin):
+    form = MassEmailAdminForm
     list_display = ('subject', 'last_edit', 'editor', 'is_sent')
     list_filter = ('is_sent',)
 
@@ -41,14 +57,27 @@ class ContactNotificantAdmin(admin.ModelAdmin):
 class AlertAdmin(admin.ModelAdmin):
     list_display = ('message', 'time', 'severity')
     list_filter = ('severity', 'time')
+    formfield_overrides = {
+        models.CharField: {'widget': SummernoteWidget()}
+    }
 
 @admin.register(GameBring)
 class GameBringAdmin(admin.ModelAdmin):
     list_display = ('game', 'person', 'meeting')
     list_filter = ('game',)
 
+
+class QuoteOfDayForm(forms.ModelForm):
+    class Meta:
+        model = QuoteOfDay
+        fields = '__all__'
+        widgets = {
+            'quote': forms.Textarea(attrs = {'cols': 100, 'rows': 5})
+        }
+
 @admin.register(QuoteOfDay)
 class QuoteOfDayAdmin(admin.ModelAdmin):
+    form = QuoteOfDayForm
     list_display = ('quote', 'speaker', 'time')
     list_filter = ('time',)
 

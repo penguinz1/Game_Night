@@ -2,7 +2,7 @@ import html2text
 import time
 import math
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.http import HttpResponse
 from django.db.models import Sum, Max
 from django.views import generic
@@ -411,3 +411,8 @@ def game_bring(request):
 
     context['form'] = form
     return render(request, 'main/game_form.html', context)
+
+def handler404(request, exception, template_name = "404.html"):
+    response = render_to_response("404.html")
+    response.status_code = 404
+    return response

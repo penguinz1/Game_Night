@@ -1,0 +1,17 @@
+body {
+   /* add white (rbg = (255, 255, 255), alpha = 0.25) overlay to image */
+   background: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)),
+        url('../images/fatyoshi.jpg');
+    background-size: cover;
+}
+
+#error-messages {
+    background: rgba(0, 0, 255, 0.3);
+    border: 1px solid black;
+    padding: 10px;
+    margin: 6px;
+}
+
+.title {
+    color: red;
+}

@@ -24,3 +24,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')), # official django urls for User interfaces
     path('summernote/', include('django_summernote.urls')), # necessary for rich text input boxes
 ]
+
+handler404 = 'main.views.handler404'

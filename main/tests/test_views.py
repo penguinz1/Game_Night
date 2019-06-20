@@ -712,3 +712,10 @@ class ChangelogViewTest(TestCase):
     def test_view_uses_correct_template(self):
         response = self.client.get(reverse('changelog'))
         self.assertTemplateUsed(response, 'changelog.html')
+
+# Test for 404 error page
+class Error404Test(TestCase):
+    def test_view_uses_correct_template(self):
+        response = self.client.get('bogus/')
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, '404.html')
