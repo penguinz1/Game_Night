@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'accounts.apps.AccountsConfig',
     'django_summernote',
+    'admin_reorder',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'admin_reorder.middleware.ModelAdminReorder',
 ]
 
 ROOT_URLCONF = 'gamenight.urls'
@@ -142,3 +144,29 @@ LOGIN_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+ADMIN_REORDER = (
+    # Keep original label and models
+    'sites',
+
+
+    # Rename app
+    {'app': 'auth', 'label': 'Authorisation'},
+    {'app': 'accounts', 'label': 'Account Management'},
+
+    # models with custom name
+    {'app': 'main', 'label': 'Sitewide Models', 'models': (
+        'main.Alert',
+        'main.Meeting',
+        {'model': 'main.Contact', 'label': 'Contact Forms'},
+        {'model': 'main.EmailAddress', 'label': 'Mailing List'},
+        {'model': 'main.QuoteOfDay', 'label': 'Quotes of the Day'},
+        {'model': 'main.VideoOfDay', 'label': 'Videos of the Day'},
+        {'model': 'main.GameOfWeek', 'label': 'Games of the Week'},
+        {'model': 'main.ContactNotificant', 'label': 'Contact Notificants'},
+        'main.Location',
+        {'model': 'main.MassEmail', 'label': 'Mass Emails'},
+        {'model': 'main.GameBring', 'label': 'Games Brought'},
+        {'model': 'main.GameScore', 'label': 'Space Game Scores'},
+    )},
+)

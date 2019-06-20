@@ -164,7 +164,7 @@ class Contact(models.Model):
 class ContactNotificant(models.Model):
     """Model to store emails of officers wanting to receive contact requests."""
     email = models.EmailField(
-        help_text = "An email address of an officer wating to receive contact requests.")
+        help_text = "An email address of an officer wanting to receive contact requests.")
 
     def __str__(self):
         """String for representing the Model object."""
