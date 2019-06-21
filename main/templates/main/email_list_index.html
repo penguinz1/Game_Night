@@ -7,6 +7,14 @@
 {% block header %}Mail List Index{% endblock %}
 
 {% block content %}
+    <p class="gray-color top-margin big-text Geneva-font center">
+        This is the hub for mailing list interactions.
+    </p>
+
+    <p class="gray-color top-margin big-text Geneva-font center">
+        This is where you can add, move, or delete your email for the mailing list!
+    </p>
+
     <ul class="vertical-buttons">
         <a href="{% url 'add_email' %}" class="unlink"><li class="button">Add</li></a>
         <a href="{% url 'modify_email' %}" class="unlink"><li class="button">Modify</li></a>

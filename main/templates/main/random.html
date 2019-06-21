@@ -37,11 +37,14 @@
         <label for="rand-ind">Randomizer Index:</label>
         <input class="autofield" type="number" id="rand-ind" min="0" step="1" value="{{ initial_num }}">
     </div>
+    <p class="gray-color top-margin Geneva-font center">
+        The <em>randomizer index</em> determines what random outcomes are generated.
+    </p>
 
     <hr/>
 
     <div class="rand">
-    	<p>Heads or Tails</p>
+    	<p>Heads or Tails <span class="gray-color">(click the coin!)</span></p>
     	<div id="coin">
     		<div class="side-a"></div>
     		<div class="side-b"></div>
@@ -65,13 +68,24 @@
 
     <div class="rand-groups">
         <p>Create random groups</p>
-        <textarea id="groups" rows="6", cols="20"></textarea>
+        <p class="gray-color Geneva-font">
+            *Separate names using any (non-alphanumeric) character, such as spaces, linebreaks, commas, etc.
+        </p>
+
+        <p class="gray-color Geneva-font">
+            *Names themselves must be alphanumeric (no spaces, special characters, etc.).
+        </p>
+
+        <p class="gray-color Geneva-font">
+            *Names MAY include underscores (_), however.
+        </p>
+        <textarea id="groups" rows="8", cols="30"></textarea>
         <div id="group-number">
             <label for="num-groups">Number Of Groups:</label>
             <input class="autofield" type="number" id="num-groups" min="2" max="4" step="1" value="2">
         </div>
-        <input type="radio" name="gen-type" value="even" checked="checked"> Even Group Generation <br>
-        <input type="radio" name="gen-type" value="rand"> True Random Generation <br>
+        <input type="radio" name="gen-type" value="even" checked="checked"> Even Group Generation <span class="gray-color">(Recommended - This creates groups that are as even as possible)</span><br>
+        <input type="radio" name="gen-type" value="rand"> True Random Generation <span class="gray-color">(Only for 2 or 4 groups - This places people into groups without regard for creating even groups)</span><br>
         <div class="group">
             <p>Group 1</p>
             <ul id="group1"></ul>
@@ -90,6 +104,9 @@
         </div>
         <br>
         <button id="pick-groups" class="big-text top-margin">Pick Groups</button>
+        <p class="gray-color top-margin Geneva-font">
+            Note: Even though even group generation is what is desired most of the time, the true random group generation algorithm is significantly faster (though this speed doesn't rea<em>llll</em>y matter unless you're creating groups of thousands of people). In technical terms, true random generation runs in O(n) time while even group generation runs in O(∞) time.
+        </p>
     </div>
 
     <hr/>
