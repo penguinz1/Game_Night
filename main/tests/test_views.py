@@ -209,7 +209,7 @@ class ContactViewTest(TestCase):
     def test_form_filled_correctly_redirect(self):
         response = self.client.post(reverse('contact'),
             data = {'message': 'my message'}, follow = True)
-        self.assertRedirects(response, reverse('index'))
+        self.assertRedirects(response, reverse('contact_submit'))
         self.assertContains(response, 'Contact Successfully Sent!')
 
     def test_form_filled_incorrectly_blank(self):
@@ -712,6 +712,16 @@ class ChangelogViewTest(TestCase):
     def test_view_uses_correct_template(self):
         response = self.client.get(reverse('changelog'))
         self.assertTemplateUsed(response, 'changelog.html')
+
+# Test for the privacy view
+class PrivacyViewTest(TestCase):
+    def test_view_url_accessible(self):
+        response = self.client.get(reverse('privacy'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_uses_correct_template(self):
+        response = self.client.get(reverse('privacy'))
+        self.assertTemplateUsed(response, 'privacy.html')
 
 # Test for 404 error page
 class Error404Test(TestCase):

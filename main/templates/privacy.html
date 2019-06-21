@@ -1,0 +1,58 @@
+{% extends 'base_generic.html' %}
+
+{% block meta %}
+    <meta name="description" content="A description of this site's Privacy Policy.">
+{% endblock %}
+
+{% block headlinks %}
+    <style>
+        p {
+            padding: 3px;
+        }
+    </style>
+{% endblock %}
+
+{% block header %}Privacy Policy{% endblock %}
+
+{% block content %}
+    <p class="top-margin big-text Geneva-font center">
+        We aim to be completely transparent - <strong>ABSOLUTELY NO</strong> data stored on this site will be shown or transmitted to anyone outside of the site administrative group (a.k.a. the club officers) without your explicit consent.
+    </p>
+
+    <br/>
+    <br/>
+
+    <p class="top-margin big-text Geneva-font center">
+        <strong>There are <em>three</em> ways data is stored on this site:</strong>
+    </p>
+
+    <br/>
+
+    <p class="top-margin big-text Geneva-font center">
+        1. Completing and submitting a form, such as a sign up form or a contact form. <em>(This should make sense: if we didn't store this data, your account wouldn't exist and we wouldn't be able to access any contact message you send us!)</em>
+    </p>
+
+    <p class="Geneva-font center">
+        p.s. in case you're wondering, we don't store passwords in plaintext because that's just a stupid thing to do (also because Django automatically hashes and salts passwords, but that's beyond the point..). also, somewhat surprisingly, I cannot see your account password. I can, however, do a password reset if you end up losing your password.
+    </p>
+
+    <br/>
+
+    <p class="top-margin big-text Geneva-font center">
+        2. Playing a site game, such as the Space Game. <em>(Here, we store score data as it is necessary in order to keep track of sitewide scores, such as the best score. Scores will be linked to your account if you are logged in, otherwise they are completely anonymous.)</em>
+    </p>
+
+    <br/>
+
+    <p class="top-margin big-text Geneva-font center">
+        3. Temporary session data. <em>(Data is stored on the client session when doing actions such as submitting a form. This allows us to display a message (e.g. "Contact Successfully Sent!") after the user makes an action. The data is deleted immediately after being shown.)</em>
+    </p>
+
+    <p class="Geneva-font center">
+        p.s. you may not see these messages if you use session blockers, like UBlock Origin, so you can disregard this entire point if that's so.
+    </p>
+
+    <p class="Geneva-font center">
+        p.p.s. admittedly this was a bit of a hack to get those messages to show, but blame <a href="https://stackoverflow.com/questions/26197545/django-cant-pass-parameter-in-httpresponseredirect" target="blank">Stack Overflow</a>, not me! all jokes aside, session and cookie data is not stored and is not used for any purpose other than what was stated above.
+    </p>
+{% endblock %}

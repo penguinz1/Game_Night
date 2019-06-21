@@ -4,7 +4,7 @@ html, body {
 }
 
 .b1m .message:before {
-    content: '☺';
+    content: '☺ ';
 }
         
 .b1m {
@@ -12,7 +12,7 @@ html, body {
 }
 
 .b2a .message:before {
-    content: '⚠';
+    content: '⚠ ';
 }
 
 .b2a {
@@ -20,12 +20,22 @@ html, body {
 }
 
 .b3w .message:before {
-    content: '☢';
+    content: '☢' ;
     font-size: 16px;
 }
 
 .b3w {
     background-color: red;
+}
+
+.notify:before {
+    content: '✔ ';
+}
+
+.notify {
+    background-color: green;
+    font-size: 20px;
+    padding: 3px;
 }
 
 .banner {

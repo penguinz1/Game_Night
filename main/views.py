@@ -138,13 +138,18 @@ def contact(request):
                 recipient_list = list(recipients)
             )
             request.session['notify'] = "Contact Successfully Sent!"
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('contact_submit'))
 
     else:
         form = CreateContactForm();
 
     context['form'] = form
     return render(request, 'main/create_contact.html', context)
+
+def contact_submit(request):
+    """View function for a successful contact form submission."""
+    context = gen_alerts(request)
+    return render(request, 'main/contact_submitted.html', context)
 
 @permission_required('main.can_send_emails')
 def mass_mail(request):
