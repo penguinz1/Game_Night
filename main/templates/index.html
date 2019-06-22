@@ -7,6 +7,11 @@
 {% block headlinks %}
 {% load static %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style type="text/css">
+        #hideoverflow { overflow: hidden; }
+        #outer { position: relative; left: 50%; float: left; }
+        #inner { position: relative; left: -50%; float: left; }
+    </style>
 {% endblock %}
 
 {% block headercard %}
@@ -15,11 +20,20 @@
 {% block content %}
     <h1 class="title">Game Night</h1>
     <p class="subtitle">at the University of Illinois, Urbana-Champaign (UIUC)</p>
-    <ul class="blocks">
-        <li>Block 1</li>
-        <li>Block 2</li>
-        <li>Block 3</li>
-    </ul>
+    <div class="center top-margin"><a class="button" href=""><p>let's play</p></a></div>
+    <div id="hideoverflow">
+        <div id="outer">
+            <div id="inner">
+                <ul class="box top-margin">
+                    <li><p>next meeting</p></li>
+                    <li><p>time</p></li>
+                    <li><p>location</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <p class="center">quote of the day</p>
+    <p class="center">video of the day</p>
     {% if quote %}
         <p class="center"><strong>{{ quote.quote }}</strong> - <em>{{ quote.speaker }}</em></p>
     {% endif %}

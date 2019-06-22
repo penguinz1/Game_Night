@@ -4,3 +4,23 @@ body {
         url('../images/GraingerLibrary.jpg');
     background-size: cover;
 }
+
+.button {
+	margin: 0;
+}
+
+#main-content p {
+	margin-top: 10px;
+	font-family: Geneva, sans-serif;
+	font-size: 20px;
+	color: white;
+	text-shadow: -1px -1px 1px #000, 1px 1px 1px #000;
+}
+
+#main-content .subtitle {
+	font-size: 30px;
+}
+
+#main-content .button p {
+	margin-top: 0;
+}
