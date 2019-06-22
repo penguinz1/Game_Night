@@ -190,7 +190,7 @@ class QuoteOfDay(models.Model):
 class VideoOfDay(models.Model):
     """Model to store front page video links."""
     link = models.CharField(max_length = 1000,
-        help_text = "The link to the video of the day.")
+        help_text = "The link to the video of the day. Please enter the full link (e.g. 'https://www.google.com' instead of 'google.com').")
     visible_text = models.CharField(max_length = 500,
         help_text = "The front page text that will contain the video link.")
     description = models.CharField(blank = True, null = True, max_length = 1000,

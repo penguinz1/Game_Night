@@ -61,6 +61,8 @@ def index(request):
     """View function for home page of site."""
     context = gen_alerts(request)
 
+    next_meeting = get_next_meeting()
+    context['meeting'] = next_meeting
 
     # finds quote to display
     quotes = QuoteOfDay.objects.filter(time__lt = timezone.now())
