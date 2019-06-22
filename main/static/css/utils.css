@@ -232,6 +232,39 @@
     background-color: rgb(255, 128, 0); /* orange */
 }
 
+.button-arrow {
+    -webkit-transition-duration: 0.8s; /* Safari */
+    transition-duration: 0.8s;
+}
+
+.button-arrow p {
+    display: inline-block;
+    position: relative;
+    right: 0;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button-arrow p:after {
+    position: absolute;
+    content: '\00bb';
+    font-size: 24px;
+    opacity: 0;
+    top: -4px;
+    right: -25px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button-arrow:hover p {
+    right: 10px;
+}
+
+.button-arrow:hover p:after {
+    opacity: 1;
+    right: -20px;
+}
+
 .right {
     float: right;
 }
@@ -326,4 +359,20 @@
 
 .box li {
     display: block;
+}
+
+.text-shadow {
+    text-shadow: -1px -1px 1px #000, 1px 1px 1px #000;
+}
+
+.top-margin-50 {
+    margin-top: 50px;
+}
+
+.top-margin-100 {
+    margin-top: 100px;
+}
+
+.curved-box {
+    border-radius: 12px;
 }

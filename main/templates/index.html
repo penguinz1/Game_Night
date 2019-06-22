@@ -24,17 +24,17 @@
 {% block content %}
     <h1 class="title">Game Night</h1>
     <p class="subtitle">at the University of Illinois, Urbana-Champaign (UIUC)</p>
-    <div class="center top-margin"><a class="button" href="{% url 'space_game' %}"><p class="main-text">let's play</p></a></div>
+    <div class="center top-margin"><a class="button button-arrow curved-box" href="{% url 'space_game' %}"><p class="main-text">Let's Play!</p></a></div>
     <div id="hideoverflow">
         <div id="outer">
             <div id="inner">
-                <ul class="box top-margin">
+                <ul class="box top-margin-50">
                     <li><p class="main-text white-color">Next Meeting:</p></li>
                     {% if meeting %}
-                        <li><p class="main-text white-color">{{ meeting.time }}</p></li>
-                        <li><p class="main-text white-color">@ {{ meeting.location }}</p></li>
+                        <li><p class="main-text white-color top-margin">{{ meeting.time }}</p></li>
+                        <li><p class="main-text white-color top-margin">@ {{ meeting.location }}</p></li>
                     {% else %}
-                        <li><p class="main-text white-color">Next meeting is not yet scheduled!</p></li>
+                        <li><p class="main-text white-color top-margin">Next meeting is not yet scheduled!</p></li>
                     {% endif %}
                         <li class="top-margin">
                             <a class="unlink blue-hover" href="{% url 'time_location' %}">See future meetings</a>
@@ -43,13 +43,15 @@
             </div>
         </div>
     </div>
-    {% if quote %}
-        <br><p class="center lblue-color main-text">Quote of the Day:</p>
-        <p class="center lpurple-color main-text"><strong>{{ quote.quote }}</strong> - <em>{{ quote.speaker }}</em></p>
-    {% endif %}
+
     {% if video %}
-        <br><p class="center lblue-color main-text">Video of the Day:</p>
-        <p class="center main-text"><a class="lpurple-color blue-hover" href="{{ video.link }}" target="blank">{{ video.visible_text }}</a></p>
+        <br><p class="center lblue-color main-text text-shadow top-margin">Video of the Day:</p>
+        <p class="center main-text text-shadow top-margin"><a class="lpurple-color blue-hover" href="{{ video.link }}" target="blank">{{ video.visible_text }}</a></p>
+    {% endif %}
+
+    {% if quote %}
+        <br>
+        <p class="center lblue-color main-text text-shadow top-margin-50"><strong>{{ quote.quote }}</strong> - <em>{{ quote.speaker }}</em></p>
     {% endif %}
 {% endblock %}
 

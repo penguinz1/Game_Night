@@ -10,10 +10,8 @@ body {
 }
 
 .main-text {
-	margin-top: 10px;
 	font-family: Geneva, sans-serif;
 	font-size: 20px;
-	text-shadow: -1px -1px 1px #000, 1px 1px 1px #000;
 }
 
 .button p {
