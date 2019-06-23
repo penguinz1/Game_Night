@@ -145,12 +145,6 @@ form .helptext {
     color: grey;
 }
 
-form {
-    width: 53%;
-    margin: auto;
-    margin-top: 15px;
-}
-
 form label {
     font-family: Geneva, sans-serif;
 }
@@ -173,4 +167,12 @@ input[type="email"] {
 label {
     position: relative;
     top: 8px;
+}
+
+@media (min-width: 1000px) {
+    form {
+        width: 53%;
+        margin: auto;
+        margin-top: 15px;
+    }
 }

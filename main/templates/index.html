@@ -15,6 +15,12 @@
         #hideoverflow { overflow: hidden; }
         #outer { position: relative; left: 50%; float: left; }
         #inner { position: relative; left: -50%; float: left; }
+
+        @media (max-width: 1450px) {
+            #play {
+                display: none;
+            }
+        }
     </style>
 {% endblock %}
 
@@ -24,7 +30,7 @@
 {% block content %}
     <h1 class="title">Game Night</h1>
     <p class="subtitle">at the University of Illinois, Urbana-Champaign (UIUC)</p>
-    <div class="center top-margin"><a class="button button-arrow curved-box" href="{% url 'space_game' %}"><p class="main-text">Let's Play!</p></a></div>
+    <div class="center top-margin" id="play"><a class="button button-arrow curved-box" href="{% url 'space_game' %}"><p class="main-text">Let's Play!</p></a></div>
     <div id="hideoverflow">
         <div id="outer">
             <div id="inner">

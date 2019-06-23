@@ -9,12 +9,38 @@
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'js/jquery.cookie.js' %}"></script>
     <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
+
+    <style>
+        #bad {
+            display: none;
+        }
+
+        @media (max-width: 1400px) {
+            #bad {
+                display: block;
+                line-height: 1.5em
+            }
+
+            #good {
+                display: none;
+            }
+
+            #help {
+                display: none;
+            }
+        }
+    </style>
 {% endblock %}
 
 {% block header %}Space Game{% endblock %}
 
 {% block content %}
-    <div class="top-margin">
+
+    <p class="top-margin big-text Geneva-font center" id="bad">
+        Sorry, the space game is only available on desktop due to its size. If you ARE on desktop, try increasing the window size and if that doesn't work, buy a bigger computer I guess ¯\_(ツ)_/¯ (It seems to work on 13-inch laptops).
+    </p>
+
+    <div class="top-margin" id="good">
         <p class="code">> <span id="space-text">Click to start space game</span><blink>_</blink></p>
         <canvas id="space-game" class="game-canvas" width="1400" height="400"></canvas>
         <p class="code small">
@@ -27,6 +53,11 @@
         <span id="paperclip-game">Inspired by <a class="unlink lblue-color blue-hover" href="http://www.decisionproblem.com/paperclips" id="paperclip-link" target="blank">the paperclips game</a></span>
         </p>
     </div>
+
+    <p class="gray-color top-margin big-text Geneva-font center" id="help">
+        Using a mouse is recommended. If the controls seem off, try refreshing the page!
+    </p>
+
     <script>
         var site_best = parseInt("{{ site_best }}");
         var site_drifters = parseInt("{{ drifters }}");

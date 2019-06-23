@@ -265,10 +265,6 @@
     right: -20px;
 }
 
-.right {
-    float: right;
-}
-
 .big-text {
     font-size: 20px;
 }
@@ -291,28 +287,6 @@
 
 .right-line {
     border-right: 1px solid grey;
-}
-
-.center-margin {
-    width: 40%;
-    margin: auto;
-    margin-top: 15px;
-}
-
-.width-size-45 {
-    width: 45%;
-}
-
-.width-size-35 {
-    width: 35%;
-}
-
-.width-size-40 {
-    width: 40%;
-}
-
-.width-size-25 {
-    width: 25%;
 }
 
 .inline-block li {
@@ -375,4 +349,45 @@
 
 .curved-box {
     border-radius: 12px;
+}
+
+@media (max-width: 1000px) {
+    .split-grid {
+        display: block;
+    }
+
+    .grid-right {
+        position: static;
+        top: 0;
+        right: 0;
+        margin-top: 50px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .center-margin {
+        width: 40%;
+        margin: auto;
+        margin-top: 15px;
+    }
+
+    .width-size-45 {
+        width: 45%;
+    }
+
+    .width-size-35 {
+        width: 35%;
+    }
+
+    .width-size-40 {
+        width: 40%;
+    }
+
+    .width-size-25 {
+        width: 25%;
+    }
+
+    .right {
+        float: right;
+    }
 }
