@@ -6,6 +6,30 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width-device-width, initial-scale=1">
 
+    <!-- ****** faviconit.com favicons ****** -->
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}">
+    <link rel="icon" sizes="16x16 32x32 64x64" href="{% static 'favicon/favicon.ico' %}">
+    <link rel="icon" type="image/png" sizes="196x196" href="/{% static 'faviconfavicon-192.png' %}">
+    <link rel="icon" type="image/png" sizes="160x160" href="{% static 'favicon/favicon-160.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon/favicon-96.png' %}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{% static 'favicon/favicon-64.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'favicon/favicon-57.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'favicon/favicon-114.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'favicon/favicon-72.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'favicon/favicon-144.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'favicon/favicon-60.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'favicon/favicon-120.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'favicon/favicon-76.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'favicon/favicon-152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/favicon-180.png' %}">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="{% static 'favicon/favicon-144.png' %}">
+    <meta name="msapplication-config" content="{% static 'favicon/browserconfig.xml' %}">
+    <!-- ****** faviconit.com favicons ****** -->
+
     <!-- Add CSS -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
@@ -17,7 +41,9 @@
 <body>
     <div id="top-bars">
         <ul id="navbar">
-            <a href="{% url 'index' %}"><li id="game-night-stamp">Game Night at UIUC</li></a>
+            <a href="{% url 'index' %}"><li id="game-night-stamp">
+                <img width="22" height="22" src="{% static 'images/logo.png' %}" id="logo"> Game Night at UIUC
+            </li></a>
             <a href="{% url 'time_location' %}"><li>Time & Location</li></a>
             <a href="{% url 'games' %}"><li>Games</li></a>
             <a href="{% url 'email_list_index' %}"><li>Email List</li></a>
