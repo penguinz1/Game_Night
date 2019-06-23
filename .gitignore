@@ -108,3 +108,9 @@ venv.bak/
 
 # media files
 media/
+
+# Text backup files
+*.bak
+
+# Database
+*.sqlite3
