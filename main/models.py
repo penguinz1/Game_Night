@@ -39,7 +39,7 @@ class Alert(models.Model):
     )
 
     message  = models.CharField(max_length = 500,
-        help_text = "Enter an alert message (max 500 characters).")
+        help_text = "Enter an alert message (max 500 characters). You may use HTML elements in this message.")
     time     = models.DateTimeField(
         help_text = "Enter the time and date when the alert should expire.")
     seen     = models.ManyToManyField(User, blank = True,

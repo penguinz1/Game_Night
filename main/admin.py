@@ -58,7 +58,7 @@ class AlertAdmin(admin.ModelAdmin):
     list_display = ('message', 'time', 'severity')
     list_filter = ('severity', 'time')
     formfield_overrides = {
-        models.CharField: {'widget': SummernoteWidget()}
+        models.CharField: {'widget': forms.Textarea(attrs = {'cols': 80, 'rows': 20})}
     }
 
 @admin.register(GameBring)
