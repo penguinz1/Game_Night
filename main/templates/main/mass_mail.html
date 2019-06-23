@@ -15,6 +15,20 @@
         label {
             top: 10px;
         }
+
+        #warning {
+            display: none;
+        }
+
+        @media (max-width: 800px) {
+            th, td {
+                display: block;
+            }
+
+            #warning {
+                display: block;
+            }
+        }
     </style>
 
 {% endblock %}
@@ -23,9 +37,14 @@
 
 {% block content %}
     {% if no_meeting %}
-    <p>The next meeting is not scheduled!</p>
+    <p class="top-margin big-text Geneva-font center">
+        The next meeting is not scheduled!
+    </p>
 
     {% else %}
+    <p class="red-color top-margin big-text Geneva-font center" id="warning">
+        It is highly recommended that mail editing be done on desktop.
+    </p>
     <form action="" method="post">
         {% csrf_token %}
         <table>

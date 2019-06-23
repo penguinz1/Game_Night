@@ -314,6 +314,10 @@
     transition-duration: 0.4s;
 }
 
+.red-color {
+    color: red;
+}
+
 .make-inline {
     display: inline-block;
 }
