@@ -191,3 +191,7 @@ SECURE_SSL_REDIRECT = os.environ.get('DJANGO_DEBUG', '') == 'False'
 SESSION_COOKIE_SECURE = os.environ.get('DJANGO_DEBUG', '') == 'False'
 CSRF_COOKIE_SECURE = os.environ.get('DJANGO_DEBUG', '') == 'False'
 X_FRAME_OPTIONS = 'DENY'
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
