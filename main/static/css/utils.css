@@ -178,11 +178,6 @@
     border-collapse: separate;
 }
 
-.top-left-shift {
-    margin: 25px 100px;
-    width: 65%;
-}
-
 .bottom-right-shift {
     left: 30px;
     top: 20px;
@@ -371,6 +366,10 @@
         font-size: 24px;
         line-height: 30px;
     }
+
+    .top-left-shift {
+        margin: 25px 5px;
+    }
 }
 
 @media (min-width: 1000px) {
@@ -398,5 +397,10 @@
 
     .right {
         float: right;
+    }
+
+    .top-left-shift {
+        margin: 25px 100px;
+        width: 65%;
     }
 }
