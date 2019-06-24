@@ -209,7 +209,7 @@ class GameOfWeek(models.Model):
     """Model to display selected games under the `Games` tab."""
     game = models.CharField(max_length = 100,
         help_text = "The name of the game of the week (max 100 characters).")
-    image_url = models.CharField(max_length = 1000,
+    image_url = models.CharField(max_length = 1000, default = "google.com",
         help_text = "The link to the image of the game of the week. Please enter the full link (e.g. 'https://www.google.com' instead of 'google.com').")
     time = models.DateTimeField(
         help_text = "The time and date the game will be shown.")
