@@ -114,3 +114,6 @@ media/
 
 # Database
 *.sqlite3
+
+# static file collection
+staticfiles/

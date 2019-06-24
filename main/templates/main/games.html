@@ -39,7 +39,7 @@
             <p class="intro">Game of the Week</p>
             {% if game_of_week %}
             <p>{{ game_of_week.game }}</p>
-            <img height="400" width="400" class="center-display" src="{{ game_of_week.image.url }}">
+            <img height="400" width="400" class="center-display" src="{{ game_of_week.image.url }}" alt="Image of the featured game of the week">
 
             {% else %}
             <p>No game of the week</p>
