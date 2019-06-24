@@ -95,7 +95,7 @@ html, body {
 }
 
 #navbar li {
-    padding: 20px;
+    padding: 12px;
     display: inline-block;
     color: white;
     font-family: 'Source Sans Pro', sans-serif;
@@ -192,6 +192,10 @@ label {
 
     #navbar {
         font-size: 16px;
+    }
+
+    #navbar li {
+        padding: 20px;
     }
 
     #game-night-stamp {
