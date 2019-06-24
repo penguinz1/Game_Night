@@ -4,6 +4,24 @@
     <meta name="description" content="Place to test send a mass mail.">
 {% endblock %}
 
+{% block headlinks %}
+
+    <style>
+        input[type="email"] {
+            font-size: 18px;
+            width: 400px;
+        }
+
+        @media (max-width: 650px) {
+            input[type="email"] {
+                font-size: 16px;
+                width: 200px;
+            }
+        }
+    </style>
+
+{% endblock %}
+
 {% block header %}Test Mail{% endblock %}
 
 {% block content %}
