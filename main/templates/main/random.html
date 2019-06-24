@@ -35,6 +35,10 @@
             #stock {
                 width: 400px;
             }
+
+            #rand-ind {
+                margin-top: 10px;
+            }
         }
     </style>
 
@@ -44,7 +48,7 @@
 
 {% block content %}
     <div class="big-text center">
-        <label for="rand-ind">Randomizer Index:</label>
+        <label for="rand-ind" id="margin">Randomizer Index:</label>
         <input class="autofield" type="number" id="rand-ind" min="0" step="1" value="{{ initial_num }}">
     </div>
     <p class="gray-color top-margin Geneva-font center">
