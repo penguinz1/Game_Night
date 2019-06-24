@@ -190,7 +190,7 @@ SECURE_BROWSER_XSS_FILTER = os.environ.get('DJANGO_DEBUG', '') == 'False'
 SECURE_SSL_REDIRECT = os.environ.get('DJANGO_DEBUG', '') == 'False'
 SESSION_COOKIE_SECURE = os.environ.get('DJANGO_DEBUG', '') == 'False'
 CSRF_COOKIE_SECURE = os.environ.get('DJANGO_DEBUG', '') == 'False'
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
