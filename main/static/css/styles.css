@@ -147,6 +147,10 @@ html, body {
     top: 5px;
 }
 
+#git-link {
+    background-color: white;
+}
+
 form .helptext {
     color: grey;
 }
