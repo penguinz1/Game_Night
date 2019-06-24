@@ -28,20 +28,22 @@ https://codepen.io/le0864/pen/pbmoVQ
   display: block;
 }
 .side-b {
-  transform: translateZ(-1px) rotateY(180deg);
   border-radius: 50%;
   background-image: url('../images/tails.png');
   background-size: cover;
   display: block;
 }
 
-#coin {
-  -webkit-transform-style: preserve-3d;
-}
-
+/* safety for mobile */
 @media (min-width: 650px) {
   #coin {
     transition: -webkit-transform 1s ease-in;
+    -webkit-transform-style: preserve-3d;
+  }
+
+  .side-b {
+    transform: translateZ(-1px) rotateY(180deg);
+    -webkit-transform: rotateY(-180deg);
   }
 }
 
@@ -51,9 +53,6 @@ https://codepen.io/le0864/pen/pbmoVQ
 }
 .side-a {
   z-index: 100;
-}
-.side-b {
-  -webkit-transform: rotateY(-180deg);
 }
 
 #coin.heads {

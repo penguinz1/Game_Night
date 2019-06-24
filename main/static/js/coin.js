@@ -4,6 +4,8 @@ https://codepen.io/le0864/pen/pbmoVQ
 */
 
 var focus = document.getElementById("rand-ind");
+var heads = document.getElementById("heads");
+var tails = document.getElementById("tails");
 
 /* 
 check for mobile: animation doesn't work well on mobile
@@ -23,10 +25,12 @@ jQuery(document).ready(function($){
     $('#coin').removeClass();
 
     if (window.mobilecheck()) {
+      heads.style.display = 'none';
+      tails.style.display = 'none';
       if (heads_tails(num)) {
-        $('#coin').addClass('side-a');
+        heads.style.display = 'inline';
       } else {
-        $('#coin').addClass('side-b');
+        tails.style.display = 'inline';
       }
 
       focus.value++;
