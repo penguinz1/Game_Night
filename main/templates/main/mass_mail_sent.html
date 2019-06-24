@@ -7,9 +7,9 @@
 {% block header %}Mail Form{% endblock %}
 
 {% block content %}
-    <p>The email for the next meeting was sent at {{ time }}</p>
+    <p class="top-margin big-text Geneva-font center">The email for the next meeting was sent at {{ time }}</p><br/>
 
-    <p>Subject: {{ subject }}</p>
-    <p>Content:</p>
+    <p class="top-margin big-text Geneva-font center">Subject: {{ subject }}</p><br/>
+    <p class="top-margin big-text Geneva-font center">Content:</p>
     {% autoescape off %}{{ content }}{% endautoescape %}
 {% endblock %}
