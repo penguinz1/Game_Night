@@ -36,9 +36,15 @@ https://codepen.io/le0864/pen/pbmoVQ
 }
 
 #coin {
-  transition: -webkit-transform 1s ease-in;
   -webkit-transform-style: preserve-3d;
 }
+
+@media (min-width: 650px) {
+  #coin {
+    transition: -webkit-transform 1s ease-in;
+  }
+}
+
 #coin div {
   position: absolute;
   -webkit-backface-visibility: hidden;
@@ -48,7 +54,6 @@ https://codepen.io/le0864/pen/pbmoVQ
 }
 .side-b {
   -webkit-transform: rotateY(-180deg);
-
 }
 
 #coin.heads {
