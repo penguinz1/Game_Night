@@ -182,13 +182,12 @@ db_from_env = dj_database_url.config(conn_max_age = 500)
 DATABASES['default'].update(db_from_env)
 
 # security fixes
-# SECURE_HSTS_SECONDS = 31536000 
-SECURE_HSTS_SECONDS = 10
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 31536000 if (os.environ.get('DJANGO_DEBUG', '') == 'False') else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = os.environ.get('DJANGO_DEBUG', '') == 'False'
+SECURE_HSTS_PRELOAD = os.environ.get('DJANGO_DEBUG', '') == 'False'
+SECURE_CONTENT_TYPE_NOSNIFF = os.environ.get('DJANGO_DEBUG', '') == 'False'
+SECURE_BROWSER_XSS_FILTER = os.environ.get('DJANGO_DEBUG', '') == 'False'
+SECURE_SSL_REDIRECT = os.environ.get('DJANGO_DEBUG', '') == 'False'
+SESSION_COOKIE_SECURE = os.environ.get('DJANGO_DEBUG', '') == 'False'
+CSRF_COOKIE_SECURE = os.environ.get('DJANGO_DEBUG', '') == 'False'
 X_FRAME_OPTIONS = 'DENY'
