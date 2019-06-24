@@ -88,6 +88,7 @@ html, body {
 }
 
 #navbar {
+    font-size: 12px;
     list-style: none;
     background-color: rgba(0, 0, 102, .7);
     grid-area: 1 / 1 / span 1 / span 1;
@@ -130,7 +131,7 @@ html, body {
 }
 
 #game-night-stamp {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -183,5 +184,13 @@ label {
 
     #footer {
         height: 1.5rem;
+    }
+
+    #navbar {
+        font-size: 16px;
+    }
+
+    #game-night-stamp {
+        font-size: 20px;
     }
 }
