@@ -25,5 +25,6 @@ urlpatterns = [
     path('changelog', TemplateView.as_view(template_name = "changelog.html"), name = 'changelog'),
     path('privacy', TemplateView.as_view(template_name = "privacy.html"), name = 'privacy'),
     path('test', TemplateView.as_view(template_name = "test.html"), name = 'js_testing'),
-    path('test404', TemplateView.as_view(template_name = "404.html"), name = '404_testing')
+    path('test404', TemplateView.as_view(template_name = "404.html"), name = '404_testing'),
+    path('test500', TemplateView.as_view(template_name = "500.html"), name = '500_testing')
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) # allows saving and access for uploaded files

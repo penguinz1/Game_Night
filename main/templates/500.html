@@ -1,0 +1,25 @@
+{% extends 'base_generic.html' %}
+
+{% block headercard %}
+{% endblock %}
+
+{% block headlinks %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/404.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">500 Error: Server Error!</h1>
+
+    <div id="error-messages">
+        <p class="top-margin big-text Geneva-font center">
+            Oh no! Something went wrong with our servers while loading this page.
+        </p>
+
+        <p class="top-margin big-text Geneva-font center">
+            This is a serious error. I would be grateful if you would report this error using the 
+            <a class="unlink blue-hover" href="{% url 'contact' %}">contact form</a>.
+        </p>
+    </div>
+
+{% endblock %}

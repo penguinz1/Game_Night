@@ -21,7 +21,7 @@ html, body {
 
 .b3w .message:before {
     content: '☢' ;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .b3w {
@@ -43,7 +43,7 @@ html, body {
 }
 
 .banner .message {
-    font-size: 20px;
+    font-size: 12px;
 }
 
 .banner .confirm {
@@ -200,5 +200,14 @@ label {
 
     #game-night-stamp {
         font-size: 20px;
+    }
+
+    .banner .message {
+        font-size: 20px;
+    }
+
+    .b3w .message:before {
+        content: '☢' ;
+        font-size: 16px;
     }
 }
