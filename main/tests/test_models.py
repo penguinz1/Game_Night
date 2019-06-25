@@ -367,17 +367,10 @@ class GameOfWeekTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         # set up non-modified objects used by all test methods
-        image = SimpleUploadedFile(name = 'test_image.jpg', 
-            content = open('main/static/images/stock.jpeg', 'rb').read(), content_type='image/jpeg')
-        GameOfWeek.objects.create(game = "AGame", image = image, time = timezone.now())
-        GameOfWeek.objects.create(game = "BGame", image = image, 
+        image_url = "https://asimplelink.com"
+        GameOfWeek.objects.create(game = "AGame", image_url = image_url, time = timezone.now())
+        GameOfWeek.objects.create(game = "BGame", image_url = image_url, 
             time = timezone.now() + datetime.timedelta(days = 1))
-
-    @classmethod
-    def tearDownClass(cls):
-        # deletes all GameOfWeek objects in order to delete excess image files
-        # created by the setUpTestData() method
-        GameOfWeek.objects.all().delete()
 
     def test_game_label(self):
         game_of_week = GameOfWeek.objects.get(id = 1)
@@ -386,8 +379,8 @@ class GameOfWeekTest(TestCase):
 
     def test_image_label(self):
         game_of_week = GameOfWeek.objects.get(id = 1)
-        field_label = game_of_week._meta.get_field('image').verbose_name
-        self.assertEquals(field_label, 'image')
+        field_label = game_of_week._meta.get_field('image_url').verbose_name
+        self.assertEquals(field_label, 'image url')
 
     def test_time_label(self):
         game_of_week = GameOfWeek.objects.get(id = 1)

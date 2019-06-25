@@ -647,14 +647,12 @@ class GamesViewTest(TestCase):
         self.assertContains(response, "Settlers of Catan")
 
     def test_view_with_game_of_week(self):
-        image = SimpleUploadedFile(name = 'test_image.jpg', 
-            content = open('main/static/images/stock.jpeg', 'rb').read(), content_type='image/jpeg')
-        game_of_week = GameOfWeek.objects.create(game = "Settlers of Catan", image = image,
+        image_url = "https://testlink.com"
+        game_of_week = GameOfWeek.objects.create(game = "Settlers of Catan", image_url = image_url,
             time = timezone.now() - datetime.timedelta(days = 1))
         response = self.client.get(reverse('games'))
         self.assertContains(response, "Settlers of Catan")
         self.assertContains(response, "<img")
-        game_of_week.delete()
 
     def test_pagination(self):
         # meeting in the future
