@@ -3,6 +3,10 @@ from django.forms import ModelForm
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django_summernote.widgets import SummernoteWidget
+from django.conf import settings
+
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 from main.models import Contact, EmailAddress
 
@@ -13,6 +17,8 @@ class CreateContactForm(ModelForm):
         help_text = "Enter your message (max 500 characters).")
     email = forms.EmailField(required = False,
         help_text = "Enter your email address (optional). This is best used if you want us to contact you back.")
+    if not settings.TEST_MODE:
+        captcha = ReCaptchaField(widget = ReCaptchaV2Checkbox, label = "Verification")
 
     class Meta:
         model = Contact
@@ -33,9 +39,11 @@ class TestEmailForm(forms.Form):
 class AddMailForm(forms.Form):
     """Form to add an email address to the database."""
     new_mail = forms.EmailField(
-        help_text = "Enter a new email address to add to the mailing list.");
+        help_text = "Enter a new email address to add to the mailing list.")
     name     = forms.CharField(max_length = 200,
-        help_text = "Enter your name (first and last please).");
+        help_text = "Enter your name (first and last please).")
+    if not settings.TEST_MODE:
+        captcha = ReCaptchaField(widget = ReCaptchaV2Checkbox, label = "Verification")
 
     # verify email is not already inside the database
     def clean_new_mail(self):
@@ -47,9 +55,11 @@ class AddMailForm(forms.Form):
 class ModifyMailForm(forms.Form):
     """Form to move an email address within the database."""
     old_mail = forms.EmailField(
-        help_text = "Enter an email address already on the mailing list where you no longer want to receive emails.");
+        help_text = "Enter an email address already on the mailing list where you no longer want to receive emails.")
     new_mail = forms.EmailField(
-        help_text = "Enter a new email address that will replace the old email address on the mailing list.");
+        help_text = "Enter a new email address that will replace the old email address on the mailing list.")
+    if not settings.TEST_MODE:
+        captcha = ReCaptchaField(widget = ReCaptchaV2Checkbox, label = "Verification")
 
     # verify old email is in the database
     def clean_old_mail(self):
@@ -68,7 +78,9 @@ class ModifyMailForm(forms.Form):
 class DeleteMailForm(forms.Form):
     """Form to delete an email address from the database."""
     delete_mail = forms.EmailField(
-        help_text = "Enter an email address to be deleted from the mailing list.");
+        help_text = "Enter an email address to be deleted from the mailing list.")
+    if not settings.TEST_MODE:
+        captcha = ReCaptchaField(widget = ReCaptchaV2Checkbox, label = "Verification")
 
     # verify email is in the database
     def clean_delete_mail(self):
@@ -83,4 +95,6 @@ class GameBringForm(forms.Form):
         help_text = "Enter a game that you will bring to the next meeting (max 100 characters).")
     person = forms.CharField(max_length = 180, required = False,
         help_text = "Enter your name (optional).")
+    if not settings.TEST_MODE:
+        captcha = ReCaptchaField(widget = ReCaptchaV2Checkbox, label = "Verification")
     

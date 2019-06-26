@@ -1,5 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.conf import settings
+
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 from accounts.models import User
 
@@ -11,6 +15,8 @@ class RegistrationForm(UserCreationForm):
         help_text = "Enter your first name (optional).")
     last_name = forms.CharField(label = "Last Name", required = False,
         help_text = "Enter your last name (optional).")
+    if not settings.TEST_MODE:
+        captcha = ReCaptchaField(widget = ReCaptchaV2Checkbox, label = "Verification")
 
     # saves form information into a User model object
     def save(self, commit = True):

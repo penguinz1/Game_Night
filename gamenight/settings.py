@@ -25,6 +25,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '1idru$+60$1+!j2+)if#zi4gcwo*a9
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+TEST_MODE = False
 
 ALLOWED_HOSTS = ['game-night-uiuc.herokuapp.com', '127.0.0.1', '.gamenightuiuc.com']
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'django_summernote',
     'admin_reorder',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -191,6 +193,11 @@ SECURE_SSL_REDIRECT = os.environ.get('DJANGO_DEBUG', '') == 'False'
 SESSION_COOKIE_SECURE = os.environ.get('DJANGO_DEBUG', '') == 'False'
 CSRF_COOKIE_SECURE = os.environ.get('DJANGO_DEBUG', '') == 'False'
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# recaptcha keys
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '')
+RECAPTCHA_DOMAIN = 'www.recaptcha.net'
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/

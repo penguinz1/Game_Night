@@ -58,6 +58,10 @@ html, body {
     color: blue;
 }
 
+.errorlist {
+    color: red;
+}
+
 #content {
     padding-bottom: 6rem;
 }
